@@ -1,0 +1,23 @@
+WINLAB - CHECKLIST DE HARDENING (HOST REMOTO)
+
+Cuenta y acceso
+[ ] Usuario dedicado para WinLab (no usar cuenta personal)
+[ ] Contrasena larga y unica
+[ ] Bloqueo automatico de pantalla
+[ ] Doble factor en la cuenta de Tailscale
+
+Red y VPN
+[ ] Tailscale activo en host y celular
+[ ] Sin puertos RDP expuestos a Internet
+[ ] Firewall activo
+
+Windows
+[ ] Windows Update al dia
+[ ] Microsoft Defender activo
+[ ] BitLocker activo si esta disponible
+[ ] Windows Sandbox habilitado
+
+Operacion
+[ ] Solo abrir archivos sospechosos dentro del Sandbox
+[ ] Revisar reportes antes de tomar decision
+[ ] Logs en C:\WinLab\logs
