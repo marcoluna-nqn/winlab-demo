@@ -1,109 +1,182 @@
 ﻿{
-  "schemaVersion": "1.0",
-  "sample": true,
-  "sampleNotice": "Ejemplo simulado para mostrar formato. No proviene de un escaneo real.",
-  "meta": {
-    "runId": "run_20260119_124201_Networked",
-    "timestamp": "2026-01-19T12:45:01Z",
-    "preset": "Networked",
-    "firewallMode": "AllowMost",
-    "enableOutbox": true,
-    "sandbox": "Windows Sandbox",
-    "openedUrl": true
-  },
-  "target": {
-    "fileName": "invoice.exe",
-    "sourcePath": "C:\\WinLabInboxRO\\invoice.exe",
-    "sandboxCopyPath": "C:\\WinLabWork\\input\\20260119_124201__invoice.exe",
-    "sha256": "0f1e2d3c4b5a69788796a5b4c3d2e1f0aa55bb66cc77dd88ee99ff0011223344",
-    "motwSummary": "ZoneId=3",
-    "signatureSummary": "NotSigned"
-  },
-  "urlAnalysis": {
-    "ok": true,
-    "url": "https://example.bad/login",
-    "scheme": "https",
-    "host": "example.bad",
-    "port": 443,
-    "path": "/login",
-    "ips": ["203.0.113.5"],
-    "headStatus": 302,
-    "headError": null,
-    "redirects": [
-      { "url": "https://example.bad/login", "status": 302, "location": "https://redir.bad/step1" },
-      { "url": "https://redir.bad/step1", "status": 302, "location": "https://redir.bad/step2" },
-      { "url": "https://redir.bad/step2", "status": 302, "location": "https://final.bad/landing" }
-    ],
-    "tls": { "ok": true, "subject": "CN=final.bad", "issuer": "CN=Bad CA", "notAfter": "2026-01-20T00:00:00Z" },
-    "whois": { "ok": false, "error": "WHOIS timeout" }
-  },
-  "defender": {
-    "antivirusSignatureVersion": "1.410.1111.0",
-    "antivirusSignatureLastUpdated": "2026-01-12T12:00:00Z",
-    "signatureAgeDays": 7,
-    "engineVersion": "1.1.23000.5",
-    "serviceVersion": "4.18.23100.3",
-    "update": {
-      "Ok": false,
-      "Method": "Update-MpSignature",
-      "Error": "Networking blocked",
-      "DurationMs": 6400
-    }
-  },
-  "timing": {
-    "startedAt": "2026-01-19T12:42:01Z",
-    "endedAt": "2026-01-19T12:45:01Z",
-    "updateDurationMs": 6400,
-    "totalScanDurationMs": 0,
-    "minutes": 15
-  },
-  "artifacts": {
-    "files": [
-      {
-        "source": "host_mapped",
-        "fileName": "invoice.exe",
-        "extension": ".exe",
-        "fullPath": "C:\\WinLabWork\\input\\20260119_124201__invoice.exe",
-        "sha256": "0f1e2d3c4b5a69788796a5b4c3d2e1f0aa55bb66cc77dd88ee99ff0011223344",
-        "motw": { "Present": true, "ZoneId": 3, "ReferrerUrl": null, "Raw": "ZoneId=3" },
-        "authenticode": { "Status": "NotSigned", "StatusMessage": "", "IsOSBinary": false }
-      }
-    ],
-    "scans": []
-  },
-  "evidence": {
-    "detections": []
-  },
-  "telemetry": {
-    "processBaseline": [],
-    "processFinal": [],
-    "netBaseline": [],
-    "netFinal": []
-  },
-  "autoDecision": {
-    "enabled": true,
-    "score": 78,
-    "level": "MEDIO",
-    "decision": "CAUTELA",
-    "reasons": [
-      "No se pudo actualizar firmas de Defender (posible falta de red o bloqueo).",
-      "La URL usa multiples redirecciones.",
-      "Archivos con MOTW y sin firma valida (senal combinada).",
-      "Se observaron conexiones/procesos inusuales en la sesion."
-    ],
-    "strongSignals": true,
-    "forceInconclusive": true,
-    "behaviorSummary": {
-      "newProcessCount": 12,
-      "newConnectionCount": 7,
-      "suspiciousPorts": [8080, 4444],
-      "suspicious": true
-    }
-  },
-  "summary": {
-    "status": "INCONCLUSO",
-    "meaning": "Resultado no confiable o con senales fuertes. Reintentar y validar por otra via.",
-    "inconclusiveReason": "AutoDecision detecto senales fuertes (MOTW + sin firma + redirecciones + comportamiento inusual). Tratalo como no confiable.",
-    "recommendation": "Reintenta en Balanced (con Internet) y valida la URL en un entorno controlado."
-  }
+    "schemaVersion":  "1.0",
+    "sample":  true,
+    "sampleNotice":  "Ejemplo simulado para mostrar formato. No proviene de un escaneo real.",
+    "meta":  {
+                 "runId":  "run_20260119_124201_Networked",
+                 "timestamp":  "2026-01-19T12:45:01Z",
+                 "preset":  "Networked",
+                 "firewallMode":  "AllowMost",
+                 "enableOutbox":  true,
+                 "sandbox":  "Windows Sandbox",
+                 "openedUrl":  true,
+                 "startedAt":  "2026-01-19T12:42:01Z",
+                 "endedAt":  "2026-01-19T12:45:01Z",
+                 "winlabVersion":  "0.8.0"
+             },
+    "target":  {
+                   "fileName":  "invoice.exe",
+                   "sourcePath":  "C:\\WinLabInboxRO\\invoice.exe",
+                   "sandboxCopyPath":  "C:\\WinLabWork\\input\\20260119_124201__invoice.exe",
+                   "sha256":  "0f1e2d3c4b5a69788796a5b4c3d2e1f0aa55bb66cc77dd88ee99ff0011223344",
+                   "motwSummary":  "ZoneId=3",
+                   "signatureSummary":  "NotSigned",
+                   "extension":  ".exe",
+                   "motw":  {
+                                "Present":  true,
+                                "ZoneId":  3,
+                                "ReferrerUrl":  null,
+                                "Raw":  "ZoneId=3"
+                            },
+                   "authenticode":  {
+                                        "Status":  "NotSigned",
+                                        "StatusMessage":  "",
+                                        "IsOSBinary":  false
+                                    }
+               },
+    "urlAnalysis":  {
+                        "ok":  true,
+                        "url":  "https://example.bad/login",
+                        "scheme":  "https",
+                        "host":  "example.bad",
+                        "port":  443,
+                        "path":  "/login",
+                        "ips":  [
+                                    "203.0.113.5"
+                                ],
+                        "headStatus":  302,
+                        "headError":  null,
+                        "redirects":  [
+                                          {
+                                              "url":  "https://example.bad/login",
+                                              "status":  302,
+                                              "location":  "https://redir.bad/step1"
+                                          },
+                                          {
+                                              "url":  "https://redir.bad/step1",
+                                              "status":  302,
+                                              "location":  "https://redir.bad/step2"
+                                          },
+                                          {
+                                              "url":  "https://redir.bad/step2",
+                                              "status":  302,
+                                              "location":  "https://final.bad/landing"
+                                          }
+                                      ],
+                        "tls":  {
+                                    "ok":  true,
+                                    "subject":  "CN=final.bad",
+                                    "issuer":  "CN=Bad CA",
+                                    "notAfter":  "2026-01-20T00:00:00Z"
+                                },
+                        "whois":  {
+                                      "ok":  false,
+                                      "error":  "WHOIS timeout"
+                                  }
+                    },
+    "defender":  {
+                     "antivirusSignatureVersion":  "1.410.1111.0",
+                     "antivirusSignatureLastUpdated":  "2026-01-12T12:00:00Z",
+                     "signatureAgeDays":  7,
+                     "engineVersion":  "1.1.23000.5",
+                     "serviceVersion":  "4.18.23100.3",
+                     "update":  {
+                                    "Ok":  false,
+                                    "Method":  "Update-MpSignature",
+                                    "Error":  "Networking blocked",
+                                    "DurationMs":  6400
+                                },
+                     "detectionsCount":  0
+                 },
+    "timing":  {
+                   "startedAt":  "2026-01-19T12:42:01Z",
+                   "endedAt":  "2026-01-19T12:45:01Z",
+                   "updateDurationMs":  6400,
+                   "totalScanDurationMs":  0,
+                   "minutes":  15
+               },
+    "artifacts":  {
+                      "files":  [
+                                    {
+                                        "source":  "host_mapped",
+                                        "fileName":  "invoice.exe",
+                                        "extension":  ".exe",
+                                        "fullPath":  "C:\\WinLabWork\\input\\20260119_124201__invoice.exe",
+                                        "sha256":  "0f1e2d3c4b5a69788796a5b4c3d2e1f0aa55bb66cc77dd88ee99ff0011223344",
+                                        "motw":  {
+                                                     "Present":  true,
+                                                     "ZoneId":  3,
+                                                     "ReferrerUrl":  null,
+                                                     "Raw":  "ZoneId=3"
+                                                 },
+                                        "authenticode":  {
+                                                             "Status":  "NotSigned",
+                                                             "StatusMessage":  "",
+                                                             "IsOSBinary":  false
+                                                         }
+                                    }
+                                ],
+                      "scans":  [
+
+                                ]
+                  },
+    "evidence":  {
+                     "detections":  [
+
+                                    ]
+                 },
+    "telemetry":  {
+                      "processBaseline":  [
+
+                                          ],
+                      "processFinal":  [
+
+                                       ],
+                      "netBaseline":  [
+
+                                      ],
+                      "netFinal":  [
+
+                                   ]
+                  },
+    "autoDecision":  {
+                         "enabled":  true,
+                         "score":  78,
+                         "level":  "MEDIO",
+                         "decision":  "CAUTELA",
+                         "reasons":  [
+                                         "No se pudo actualizar firmas de Defender (posible falta de red o bloqueo).",
+                                         "La URL usa múltiples redirecciones.",
+                                         "Archivos con MOTW y sin firma válida (señal combinada).",
+                                         "Se observaron conexiones/procesos inusuales en la sesión."
+                                     ],
+                         "strongSignals":  true,
+                         "forceInconclusive":  true,
+                         "behaviorSummary":  {
+                                                 "newProcessCount":  12,
+                                                 "newConnectionCount":  7,
+                                                 "suspiciousPorts":  [
+                                                                         8080,
+                                                                         4444
+                                                                     ],
+                                                 "suspicious":  true
+                                             }
+                     },
+    "summary":  {
+                    "status":  "INCONCLUSO",
+                    "meaning":  "Resultado no confiable o con señales fuertes. Reintenta y validá por otra vía.",
+                    "inconclusiveReason":  "AutoDecision detectó señales fuertes (MOTW + sin firma + redirecciones + comportamiento inusual). Trátalo como no confiable.",
+                    "recommendation":  "Resultado inconcluso. Reintenta en Balanced (con Internet) para actualizar firmas y repetir el análisis. Para URLs, usa Networked/InternetOnly y evita iniciar sesión o ingresar datos.",
+                    "executive":  "Resultado no confiable o con señales fuertes. Reintenta y validá por otra vía.",
+                    "finalDecision":  "INCONCLUSO",
+                    "decisionReasons":  [
+                                            "No se pudo actualizar firmas de Defender (posible falta de red o bloqueo).",
+                                            "La URL usa múltiples redirecciones.",
+                                            "Archivos con MOTW y sin firma válida (señal combinada).",
+                                            "Se observaron conexiones/procesos inusuales en la sesión."
+                                        ],
+                    "riskLevel":  "MEDIO",
+                    "riskScore":  78,
+                    "riskDecision":  "CAUTELA"
+                }
 }

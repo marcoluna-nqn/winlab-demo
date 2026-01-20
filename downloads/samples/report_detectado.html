@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>WinLab - Reporte (Ejemplo Detectado)</title>
   <style>
-    :root{--bg:#f6f7fb;--card:#fff;--text:#111827;--muted:#4b5563;--line:#e5e7eb}
+    :root{--bg:#f6f7fb;--card:#ffffff;--text:#111827;--muted:#4b5563;--line:#e5e7eb}
     body{font-family:Segoe UI,Arial,sans-serif;margin:0;padding:24px;color:var(--text);background:var(--bg);}
     .wrap{max-width:1080px;margin:0 auto;}
     .header{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;margin-bottom:12px;}
-    .badge{display:inline-block;padding:8px 12px;border-radius:999px;color:#fff;font-weight:700;letter-spacing:.2px}
-    .risk{display:inline-block;padding:6px 10px;border-radius:999px;color:#fff;font-weight:700;letter-spacing:.2px}
+    .badge{display:inline-block;padding:8px 12px;border-radius:999px;color:#fff;background:#b00020;font-weight:700;letter-spacing:.2px}
+    .risk{display:inline-block;padding:6px 10px;border-radius:999px;color:#fff;background:#b00020;font-weight:700;letter-spacing:.2px}
     .card{border:1px solid var(--line);border-radius:16px;padding:16px;background:var(--card);margin-bottom:12px;}
     .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
     .k{font-weight:700;margin-bottom:6px;}
@@ -21,6 +21,7 @@
     th,td{border:1px solid var(--line);padding:8px;vertical-align:top}
     th{background:#f9fafb;text-align:left}
     code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px}
+    .timeline{margin:0;padding-left:18px;color:var(--muted);}
     @media (max-width: 900px){.grid{grid-template-columns:1fr;}.header{flex-direction:column;align-items:flex-start;}}
   </style>
 </head>
@@ -28,39 +29,94 @@
   <div class="wrap">
     <div class="header">
       <div>
-        <h1 style="margin:0;">WinLab - Reporte (Ejemplo)</h1>
-        <div class="small muted">Run: run_20260119_121501_Balanced · Preset: Balanced · Firewall: InternetOnly · 2026-01-19</div>
+        <h1 style="margin:0;">WinLab - Reporte de análisis (Ejemplo)</h1>
+        <div class="small muted">Run: run_20260119_121501_Balanced · WinLab 0.8.0 · Preset: Balanced · Firewall: InternetOnly</div>
+        <div class="small muted">Inicio: 2026-01-19T12:15:01Z · Fin: 2026-01-19T12:16:10Z</div>
       </div>
-      <div class="badge" style="background:#b00020;">DETECTADO</div>
+      <div>
+        <div class="badge">DETECTADO</div>
+        <div class="risk" style="margin-top:6px;">Riesgo: ALTO (92)</div>
+      </div>
     </div>
 
     <section class="card">
-      <h2 style="margin-top:0;">Resumen ejecutivo</h2>
-      <p class="lead">Ejemplo: Defender detecto una amenaza en este run. Evita ejecutar el archivo.</p>
+      <h2>Resumen ejecutivo</h2>
+      <p class="lead">Defender detectó una amenaza en este run. Evita ejecutar el archivo.</p>
       <div class="grid">
         <div>
-          <div class="k">Recomendacion</div>
-          <div>No ejecutes ni abras el archivo. Eliminalo o aislarlo y reportalo si llego por un canal sensible.</div>
+          <div class="k">Decisión final</div>
+          <div>DETECTADO</div>
+        </div>
+        <div>
+          <div class="k">Recomendación</div>
+          <div>No ejecutes ni abras el archivo. Elimínalo o aislarlo. Si fue recibido por trabajo/banco, repórtalo a IT/Seguridad.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Detalle técnico</h2>
+      <div class="grid">
+        <div>
+          <div class="k">Entrada principal</div>
+          <div class="small"><b>Archivo:</b> setup.exe</div>
+          <div class="small"><b>SHA-256:</b> <code>a4b0c1d2e3f4a5b6c7d8e9f00112233445566778899aabbccddeeff001122334</code></div>
+          <div class="small"><b>MOTW:</b> ZoneId=3</div>
+          <div class="small"><b>Firma:</b> UnknownError</div>
+        </div>
+        <div>
+          <div class="k">Microsoft Defender</div>
+          <div class="small"><b>Engine:</b> 1.1.23000.5</div>
+          <div class="small"><b>Firmas:</b> 1.411.2345.0</div>
+          <div class="small"><b>Última actualización:</b> 2026-01-19T12:10:00Z</div>
+          <div class="small"><b>Antigüedad:</b> 0 días</div>
+        </div>
+      </div>
+      <div class="grid" style="margin-top:12px;">
+        <div>
+          <div class="k">Timeline</div>
+          <ul class="timeline">
+            <li><b>Inicio:</b> 2026-01-19T12:15:01Z</li>
+            <li><b>Actualización de firmas:</b> Update-MpSignature · ok=True</li>
+            <li><b>Escaneos:</b> 8200 ms</li>
+            <li><b>Fin:</b> 2026-01-19T12:16:10Z</li>
+          </ul>
         </div>
         <div>
           <div class="k">AutoDecision</div>
-          <div class="risk" style="background:#b00020;">Riesgo: ALTO (92)</div>
+          <div class="small"><b>Decisión sugerida:</b> BLOQUEAR</div>
           <ul>
-            <li>Defender reporto detecciones en este run.</li>
-            <li>Archivo con MOTW y sin firma valida (senal combinada).</li>
+            <li>Defender reportó detecciones en este run.</li>
+            <li>Archivo con MOTW y sin firma válida (señal combinada).</li>
           </ul>
         </div>
       </div>
     </section>
 
     <section class="card">
-      <h2 style="margin-top:0;">Evidencias (Defender)</h2>
+      <h2>Archivos observados</h2>
+      <table>
+        <thead><tr><th>Origen</th><th>Archivo</th><th>SHA256</th><th>MOTW</th><th>Firma</th></tr></thead>
+        <tbody>
+          <tr><td>host_mapped</td><td>setup.exe</td><td><code>a4b0c1d2e3f4a5b6c7d8e9f00112233445566778899aabbccddeeff001122334</code></td><td>ZoneId=3</td><td>UnknownError</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2>Evidencias (Defender)</h2>
       <table>
         <thead><tr><th>ThreatName</th><th>ID</th><th>Severity</th><th>Resources</th></tr></thead>
         <tbody>
-          <tr><td>Trojan:Win32/Example</td><td>999999</td><td>5</td><td>C:\WinLabWork\input\20260119_121501__setup.exe</td></tr>
+          <tr><td><code>Trojan:Win32/Example</code></td><td>999999</td><td>5</td><td><small>C:\WinLabWork\input\20260119_121501__setup.exe</small></td></tr>
         </tbody>
       </table>
+    </section>
+
+    <section class="card">
+      <h2>Notas y limitaciones</h2>
+      <p class="small">WinLab no es un antivirus propio: usa Microsoft Defender dentro de Windows Sandbox. El objetivo es reducir riesgo, no eliminarlo.</p>
+      <p class="small muted">Si el resultado es INCONCLUSO, reintenta con preset con red para actualizar firmas y validá por otra vía.</p>
     </section>
   </div>
 </body>
