@@ -1,0 +1,171 @@
+﻿<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WinLab â€” GuÃ­a rÃ¡pida</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <script defer src="../assets/app.js"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="container header__inner">
+      <a class="brand" href="../index.html">
+        <span class="brand__mark" aria-hidden="true">WL</span>
+        <span class="brand__name">WinLab</span>
+      </a>
+      <nav class="nav">
+        <a href="../index.html#descarga" class="nav__link">Descarga</a>
+        <a href="#reporte" class="nav__link">Reporte</a>
+        <a href="#deploy" class="nav__link">Publicar</a>
+        <a href="#eicar" class="nav__link">EICAR</a>
+        <a href="#contacto" class="nav__btn">Contacto</a>
+      </nav>
+      <button class="nav__toggle" aria-label="Abrir menÃº" data-nav-toggle>
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav__mobile" data-nav-mobile>
+      <a href="../index.html#descarga" class="nav__link">Descarga</a>
+      <a href="#reporte" class="nav__link">Reporte</a>
+      <a href="#deploy" class="nav__link">Publicar</a>
+      <a href="#eicar" class="nav__link">EICAR</a>
+      <a href="#contacto" class="nav__btn">Contacto</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <h1>GuÃ­a rÃ¡pida</h1>
+        <p class="lead">Objetivo: instalar WinLab, correr un preset y ver un reporte en outbox.</p>
+
+        <h2 id="instalar">1) Instalar</h2>
+        <ol class="steps">
+          <li>DescargÃ¡ el ZIP desde la landing.</li>
+          <li>ExtraÃ© todo a una carpeta (no lo corras desde el ZIP).</li>
+          <li>EjecutÃ¡ <code>WinLab_Setup.cmd</code>.</li>
+          <li>Se crean accesos directos y carpetas en <code>%LOCALAPPDATA%\WinLab\</code>.</li>
+        </ol>
+
+        <h2 id="sandbox">2) Confirmar Windows Sandbox</h2>
+        <p>En Windows 10/11 Pro: buscÃ¡ <strong>Windows Sandbox</strong> en Inicio y abrilo.</p>
+        <div class="codecard">
+          <div class="codecard__head">
+            <span>Si no estÃ¡, habilitalo (PowerShell Admin)</span>
+            <button class="copy" data-copy="#cmdSandbox2">Copiar</button>
+          </div>
+          <pre id="cmdSandbox2"><code>Enable-WindowsOptionalFeature -Online -FeatureName Containers-DisposableClientVM -All -NoRestart</code></pre>
+          <div class="codecard__foot">ReiniciÃ¡ Windows despuÃ©s.</div>
+        </div>
+
+        <h2 id="correr">3) Correr WinLab</h2>
+        <ol class="steps">
+          <li>En el host (tu Windows real), dejÃ¡ el archivo a analizar en <strong>Descargas</strong> (WinLab toma el mÃ¡s reciente).</li>
+          <li>UsÃ¡ el acceso directo correspondiente: <strong>Winâ€‘Lab (Balanced 10min)</strong>, <strong>Winâ€‘Lab (UltraSecure 5min)</strong> o <strong>Winâ€‘Lab (Networked 15min)</strong>.</li>
+          <li>EsperÃ¡ a que el Sandbox se cierre solo (por tiempo) o cerralo manualmente cuando veas que el reporte ya se generÃ³.</li>
+          <li>RevisÃ¡ el reporte en <code>%LOCALAPPDATA%\WinLab\outbox\</code>.</li>
+        </ol>
+
+        <h3 id="terminal">Modo terminal (avanzado)</h3>
+        <p>Si querÃ©s pasar un archivo especÃ­fico o analizar un link, WinLab incluye un CLI:</p>
+        <ul>
+          <li><code>WinLab.ps1 scan -Path "C:\\ruta\\archivo.ext" -Preset UltraSecure -Minutes 5 -OpenOutbox</code></li>
+          <li><code>WinLab.ps1 url -Url "https://..." -Preset Networked -Minutes 15 -OpenOutbox</code></li>
+          <li><code>WinLab.ps1 scan-file -Path "C:\\ruta\\archivo.ext"</code> (alias)</li>
+          <li><code>WinLab.ps1 analyze-url -Url "https://..."</code> (alias)</li>
+        </ul>
+        <p class="note">Este modo genera un <code>.wsb</code> temporal y lanza Windows Sandbox con el pipeline automÃ¡tico. No es â€œmagiaâ€: es Defender bien envuelto.</p>
+
+        <h2 id="presets">4) Elegir preset</h2>
+        <p>WinLab ofrece presets listos para usar:</p>
+        <ul>
+          <li><strong>Balanced</strong> (recomendado): red habilitada (solo lo necesario), actualiza firmas de Defender y exporta reportes al host.</li>
+          <li><strong>UltraSecure</strong>: red deshabilitada, portapapeles/impresora/audio deshabilitados, vGPU deshabilitada. Exporta reportes al host (outbox) y minimiza la superficie.</li>
+          <li><strong>Networked</strong>: red habilitada con reglas menos restrictivas. Orientado a abrir links sospechosos dentro del Sandbox (con cautela).</li>
+        </ul>
+        <p>Todos los presets escanean una copia interna del archivo y generan reportes HTML/JSON (mÃ¡s un TXT breve). Con red habilitada, intentan actualizar firmas de Defender. En modo <strong>Networked</strong>, el reporte tambiÃ©n puede incluir anÃ¡lisis de URL (DNS/TLS/headers) y artefactos descargados dentro del Sandbox.</p>
+
+        <h2 id="eicar">5) Probar con EICAR (seguro)</h2>
+        <p>EICAR es un archivo de prueba (no malware real) diseÃ±ado para activar detecciones.</p>
+        <ol class="steps">
+          <li>En el host (tu Windows real), abrÃ­: <code>https://www.eicar.org/download-anti-malware-testfile/</code></li>
+          <li>DescargÃ¡ <strong>EICAR.COM.TXT</strong> a Descargas.</li>
+          <li>EjecutÃ¡ <strong>Winâ€‘Lab (Balanced 10min)</strong>. EsperÃ¡ y revisÃ¡ outbox.</li>
+        </ol>
+        <p class="note"><strong>No hace falta</strong> forzar â€œcontinuar a sitio no seguroâ€. Con EICAR alcanza para la demo.</p>
+
+        <h2 id="reporte">6) Interpretar el reporte</h2>
+        <p>WinLab genera reportes HTML/JSON/TXT en outbox. El HTML resume el estado y las evidencias.</p>
+        <ul>
+          <li><strong>OK</strong>: no hay detecciones en este run. No garantiza que el archivo sea seguro.</li>
+          <li><strong>DETECTADO</strong>: Microsoft Defender registro una amenaza. No ejecutar.</li>
+          <li><strong>INCONCLUSO</strong>: resultado no confiable (update fallido o senales fuertes).</li>
+        </ul>
+        <p class="note">AutoDecision agrega heuristicas (MOTW + firma + redirecciones + comportamiento) para forzar INCONCLUSO cuando hay riesgo alto.</p>
+
+        <h2 id="limitaciones">7) Limitaciones y troubleshooting</h2>
+        <ul>
+          <li>OK no es garantia. Si el origen es dudoso, no ejecutes ni habilites macros.</li>
+          <li>Si no aparece reporte: revisa <code>%LOCALAPPDATA%\\WinLab\\logs\\</code>.</li>
+          <li>Si Sandbox no abre: habilita Containers-DisposableClientVM y reinicia.</li>
+          <li>Si el update falla: reintenta en Balanced con red habilitada.</li>
+        </ul>
+
+        <h2 id="modelo">8) Modelo de amenazas</h2>
+        <p>WinLab estÃ¡ pensado para reducir el riesgo al manipular descargas sospechosas, pero no reemplaza un antivirus completo ni un servicio de anÃ¡lisis profesional.</p>
+        <p>El preset <strong>Balanced</strong> permite conexiÃ³n a Internet dentro del Sandbox para que Defender actualice sus firmas y exporta los reportes al host. Es ideal cuando confiÃ¡s en el origen del archivo pero querÃ©s una segunda opiniÃ³n antes de abrirlo.</p>
+        <p>El preset <strong>UltraSecure</strong> desactiva la red y bloquea portapapeles, impresora y audio para minimizar cualquier fuga de informaciÃ³n. Es Ãºtil cuando el origen es muy dudoso y querÃ©s mÃ¡ximo aislamiento.</p>
+        <p>Aun asÃ­, ninguna soluciÃ³n garantiza el 100&nbsp;%: puede haber fallos en las firmas, amenazas desconocidas o exploits de dÃ­a cero. TomÃ¡ el resultado como orientaciÃ³n y mantenÃ© tu sistema al dÃ­a.</p>
+
+        <h2 id="deploy">9) Publicar en GitHub Pages</h2>
+        <ol class="steps">
+          <li>CreÃ¡ un repo (por ejemplo: <code>winlab-demo</code>).</li>
+          <li>SubÃ­ el contenido de esta carpeta al repo (root).</li>
+          <li>En GitHub: <strong>Settings â†’ Pages</strong>.</li>
+          <li>Source: <strong>Deploy from a branch</strong> â†’ Branch: <strong>main</strong> â†’ Folder: <strong>/(root)</strong>.</li>
+          <li>GuardÃ¡. En 1â€“2 minutos te da una URL tipo <code>https://TUUSER.github.io/winlab-demo/</code>.</li>
+        </ol>
+        <div class="note">
+          Si GitHub te limita por tamaÃ±o de ZIP, alternativa: subilo a <strong>Releases</strong> y cambiÃ¡ el link de descarga.
+        </div>
+
+        <h2 id="licencia">10) Comprar / Licencia / Soporte</h2>
+        <p>WinLab se publica en GitHub Pages como sitio estatico. No se puede ejecutar Windows Sandbox desde la web.</p>
+        <ul>
+          <li>Para comprar o licenciar: ver <a href="../pricing.html">pricing.html</a> o contactar por WhatsApp.</li>
+          <li>El flujo es local: descargar el pack, ejecutar el launcher y abrir el preset.</li>
+          <li>Licencia, soporte y facturacion se gestionan fuera del sitio.</li>
+        </ul>
+
+        <h2 id="contacto">11) Soporte</h2>
+        <p>Si estÃ¡s probando y algo falla, mirÃ¡ primero:</p>
+        <ul>
+          <li><code>%LOCALAPPDATA%\WinLab\logs\</code></li>
+          <li><code>%LOCALAPPDATA%\WinLab\outbox\</code></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__left">
+        <div class="brand brand--small">
+          <span class="brand__mark" aria-hidden="true">WL</span>
+          <span class="brand__name">WinLab</span>
+        </div>
+        <p class="muted">Guia rapida · WinLab</p>
+      </div>
+      <div class="footer__right">
+        <a href="../index.html">Inicio</a>
+        <a href="../index.html#descarga">Descarga</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" data-toast aria-live="polite" aria-atomic="true"></div>
+</body>
+</html>
+

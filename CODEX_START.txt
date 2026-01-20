@@ -1,0 +1,3 @@
+1) Abrí Codex (xhigh) en la raíz del repo.
+2) Pegá `PROMPT_CODEX_XHIGH.md` completo como primer mensaje.
+3) Ejecutá `build.ps1` y `smoke_tests.ps1` cuando Codex los genere.
