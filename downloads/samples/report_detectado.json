@@ -1,0 +1,111 @@
+﻿{
+  "schemaVersion": "1.0",
+  "sample": true,
+  "sampleNotice": "Ejemplo simulado para mostrar formato. No proviene de un escaneo real.",
+  "meta": {
+    "runId": "run_20260119_121501_Balanced",
+    "timestamp": "2026-01-19T12:16:10Z",
+    "preset": "Balanced",
+    "firewallMode": "InternetOnly",
+    "enableOutbox": true,
+    "sandbox": "Windows Sandbox",
+    "openedUrl": false
+  },
+  "target": {
+    "fileName": "setup.exe",
+    "sourcePath": "C:\\WinLabInboxRO\\setup.exe",
+    "sandboxCopyPath": "C:\\WinLabWork\\input\\20260119_121501__setup.exe",
+    "sha256": "a4b0c1d2e3f4a5b6c7d8e9f00112233445566778899aabbccddeeff001122334",
+    "motwSummary": "ZoneId=3",
+    "signatureSummary": "UnknownError"
+  },
+  "urlAnalysis": null,
+  "defender": {
+    "antivirusSignatureVersion": "1.411.2345.0",
+    "antivirusSignatureLastUpdated": "2026-01-19T12:10:00Z",
+    "signatureAgeDays": 0,
+    "engineVersion": "1.1.23000.5",
+    "serviceVersion": "4.18.23100.3",
+    "update": {
+      "Ok": true,
+      "Method": "Update-MpSignature",
+      "Error": null,
+      "DurationMs": 998
+    }
+  },
+  "timing": {
+    "startedAt": "2026-01-19T12:15:01Z",
+    "endedAt": "2026-01-19T12:16:10Z",
+    "updateDurationMs": 998,
+    "totalScanDurationMs": 8200,
+    "minutes": 10
+  },
+  "artifacts": {
+    "files": [
+      {
+        "source": "host_mapped",
+        "fileName": "setup.exe",
+        "extension": ".exe",
+        "fullPath": "C:\\WinLabWork\\input\\20260119_121501__setup.exe",
+        "sha256": "a4b0c1d2e3f4a5b6c7d8e9f00112233445566778899aabbccddeeff001122334",
+        "motw": { "Present": true, "ZoneId": 3, "ReferrerUrl": null, "Raw": "ZoneId=3" },
+        "authenticode": { "Status": "UnknownError", "StatusMessage": "", "IsOSBinary": false }
+      }
+    ],
+    "scans": [
+      {
+        "kind": "file",
+        "path": "C:\\WinLabWork\\input\\20260119_121501__setup.exe",
+        "ok": true,
+        "error": null,
+        "durationMs": 8200
+      }
+    ]
+  },
+  "evidence": {
+    "detections": [
+      {
+        "ThreatName": "Trojan:Win32/Example",
+        "ThreatID": 999999,
+        "SeverityID": 5,
+        "CategoryID": 42,
+        "ActionSuccess": true,
+        "Resources": ["C:\\WinLabWork\\input\\20260119_121501__setup.exe"],
+        "InitialDetectionTime": "2026-01-19T12:15:45Z",
+        "LastThreatStatusChangeTime": "2026-01-19T12:15:46Z",
+        "ProcessName": "MsMpEng.exe"
+      }
+    ]
+  },
+  "telemetry": {
+    "processBaseline": [],
+    "processFinal": [],
+    "netBaseline": [],
+    "netFinal": []
+  },
+  "autoDecision": {
+    "enabled": true,
+    "score": 92,
+    "level": "ALTO",
+    "decision": "BLOQUEAR",
+    "reasons": [
+      "Defender reporto detecciones en este run.",
+      "Archivo con MOTW y sin firma valida (senal combinada)."
+    ],
+    "strongSignals": false,
+    "forceInconclusive": false,
+    "behaviorSummary": {
+      "newProcessCount": 5,
+      "newConnectionCount": 3,
+      "suspiciousPorts": [4444],
+      "suspicious": true
+    }
+  },
+  "summary": {
+    "status": "DETECTADO",
+    "meaning": "Defender detecto una amenaza en este run. Evita ejecutar el archivo.",
+    "inconclusiveReason": null,
+    "recommendation": "No ejecutes ni abras el archivo. Eliminalo o aislarlo. Si fue recibido por trabajo/banco, reportalo a IT/Seguridad."
+  }
+}
+

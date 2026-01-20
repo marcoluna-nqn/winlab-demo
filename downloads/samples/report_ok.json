@@ -1,0 +1,99 @@
+﻿{
+  "schemaVersion": "1.0",
+  "sample": true,
+  "sampleNotice": "Ejemplo simulado para mostrar formato. No proviene de un escaneo real.",
+  "meta": {
+    "runId": "run_20260119_120001_Balanced",
+    "timestamp": "2026-01-19T12:02:44Z",
+    "preset": "Balanced",
+    "firewallMode": "InternetOnly",
+    "enableOutbox": true,
+    "sandbox": "Windows Sandbox",
+    "openedUrl": false
+  },
+  "target": {
+    "fileName": "invoice_2026-01-19.pdf",
+    "sourcePath": "C:\\WinLabInboxRO\\invoice_2026-01-19.pdf",
+    "sandboxCopyPath": "C:\\WinLabWork\\input\\20260119_120001__invoice_2026-01-19.pdf",
+    "sha256": "2e8a2a9b0c6b1f7e7b9c5c7a4d9d8f1c1d3c2b5a0f0a1b2c3d4e5f6071829304",
+    "motwSummary": "ZoneId=3",
+    "signatureSummary": "NotSigned"
+  },
+  "urlAnalysis": null,
+  "defender": {
+    "antivirusSignatureVersion": "1.411.2345.0",
+    "antivirusSignatureLastUpdated": "2026-01-19T11:55:00Z",
+    "signatureAgeDays": 0,
+    "engineVersion": "1.1.23000.5",
+    "serviceVersion": "4.18.23100.3",
+    "update": {
+      "Ok": true,
+      "Method": "Update-MpSignature",
+      "Error": null,
+      "DurationMs": 1243
+    }
+  },
+  "timing": {
+    "startedAt": "2026-01-19T12:00:01Z",
+    "endedAt": "2026-01-19T12:02:44Z",
+    "updateDurationMs": 1243,
+    "totalScanDurationMs": 15300,
+    "minutes": 10
+  },
+  "artifacts": {
+    "files": [
+      {
+        "source": "host_mapped",
+        "fileName": "invoice_2026-01-19.pdf",
+        "extension": ".pdf",
+        "fullPath": "C:\\WinLabWork\\input\\20260119_120001__invoice_2026-01-19.pdf",
+        "sha256": "2e8a2a9b0c6b1f7e7b9c5c7a4d9d8f1c1d3c2b5a0f0a1b2c3d4e5f6071829304",
+        "motw": { "Present": true, "ZoneId": 3, "ReferrerUrl": null, "Raw": "ZoneId=3" },
+        "authenticode": { "Status": "NotSigned", "StatusMessage": "", "IsOSBinary": false }
+      }
+    ],
+    "scans": [
+      {
+        "kind": "file",
+        "path": "C:\\WinLabWork\\input\\20260119_120001__invoice_2026-01-19.pdf",
+        "ok": true,
+        "error": null,
+        "durationMs": 15300
+      }
+    ]
+  },
+  "evidence": {
+    "detections": []
+  },
+  "telemetry": {
+    "processBaseline": [],
+    "processFinal": [],
+    "netBaseline": [],
+    "netFinal": []
+  },
+  "autoDecision": {
+    "enabled": true,
+    "score": 12,
+    "level": "MINIMO",
+    "decision": "OK",
+    "reasons": [
+      "No hay detecciones de Microsoft Defender",
+      "Archivo con MOTW (ZoneId=3) sin senales fuertes adicionales",
+      "Preset Balanced con red limitada"
+    ],
+    "strongSignals": false,
+    "forceInconclusive": false,
+    "behaviorSummary": {
+      "newProcessCount": 2,
+      "newConnectionCount": 1,
+      "suspiciousPorts": [],
+      "suspicious": false
+    }
+  },
+  "summary": {
+    "status": "OK",
+    "meaning": "No se detectaron amenazas en este run. No es una garantia de seguridad.",
+    "inconclusiveReason": null,
+    "recommendation": "Si el archivo no era esperado, descartalo. Si lo necesitas, abrilo con cautela."
+  }
+}

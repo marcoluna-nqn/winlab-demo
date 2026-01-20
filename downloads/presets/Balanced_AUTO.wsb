@@ -1,0 +1,27 @@
+<Configuration>
+  <VGpu>Enable</VGpu>
+  <Networking>Enable</Networking>
+  <Clipboard>Enable</Clipboard>
+  <AudioInput>Disable</AudioInput>
+  <Printer>Disable</Printer>
+  <MappedFolders>
+    <MappedFolder>
+      <HostFolder>__PACK_ROOT__</HostFolder>
+      <SandboxFolder>C:\WinLabPack</SandboxFolder>
+      <ReadOnly>true</ReadOnly>
+    </MappedFolder>
+    <MappedFolder>
+      <HostFolder>C:\WinLab_Inbox</HostFolder>
+      <SandboxFolder>C:\WinLabInboxRO</SandboxFolder>
+      <ReadOnly>true</ReadOnly>
+    </MappedFolder>
+    <MappedFolder>
+      <HostFolder>C:\WinLab_Outbox</HostFolder>
+      <SandboxFolder>C:\WinLabOutbox</SandboxFolder>
+      <ReadOnly>false</ReadOnly>
+    </MappedFolder>
+  </MappedFolders>
+  <LogonCommand>
+    <Command>powershell -NoProfile -ExecutionPolicy Bypass -File "C:\WinLabPack\tools\cli\bin\InsideLab.ps1" -Preset Balanced -InputFolder "C:\WinLabInboxRO" -OutFolder "C:\WinLabOutbox" -Minutes 10 -FirewallMode InternetOnly -EnableOutbox 1 -AutoDecisionEnabled 1 -CollectDeltas 1</Command>
+  </LogonCommand>
+</Configuration>

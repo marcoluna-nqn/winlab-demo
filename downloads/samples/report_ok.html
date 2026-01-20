@@ -1,0 +1,116 @@
+﻿<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>WinLab - Reporte (Ejemplo OK)</title>
+  <style>
+    :root{--bg:#f6f7fb;--card:#fff;--text:#111827;--muted:#4b5563;--line:#e5e7eb}
+    body{font-family:Segoe UI,Arial,sans-serif;margin:0;padding:24px;color:var(--text);background:var(--bg);}
+    .wrap{max-width:1080px;margin:0 auto;}
+    .header{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;margin-bottom:12px;}
+    .badge{display:inline-block;padding:8px 12px;border-radius:999px;color:#fff;font-weight:700;letter-spacing:.2px}
+    .risk{display:inline-block;padding:6px 10px;border-radius:999px;color:#fff;font-weight:700;letter-spacing:.2px}
+    .card{border:1px solid var(--line);border-radius:16px;padding:16px;background:var(--card);margin-bottom:12px;}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .k{font-weight:700;margin-bottom:6px;}
+    .lead{margin:6px 0 10px 0;color:var(--muted);line-height:1.5;}
+    .muted{color:var(--muted);}
+    .small{font-size:13px;}
+    table{border-collapse:collapse;width:100%;margin-top:8px;font-size:13.5px}
+    th,td{border:1px solid var(--line);padding:8px;vertical-align:top}
+    th{background:#f9fafb;text-align:left}
+    code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px}
+    .legend,.timeline{margin:0;padding-left:18px;color:var(--muted);}
+    @media (max-width: 900px){.grid{grid-template-columns:1fr;}.header{flex-direction:column;align-items:flex-start;}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="header">
+      <div>
+        <h1 style="margin:0;">WinLab - Reporte (Ejemplo)</h1>
+        <div class="small muted">Run: run_20260119_120001_Balanced · Preset: Balanced · Firewall: InternetOnly · 2026-01-19</div>
+      </div>
+      <div class="badge" style="background:#1f7a1f;">OK</div>
+    </div>
+
+    <section class="card">
+      <h2 style="margin-top:0;">Resumen ejecutivo</h2>
+      <p class="lead">Ejemplo: no se detectaron amenazas en este run. No es una garantia de seguridad.</p>
+      <div class="grid">
+        <div>
+          <div class="k">Recomendacion</div>
+          <div>Si el archivo no era esperado, descartalo. Si lo necesitas, abrilo con cautela.</div>
+        </div>
+        <div>
+          <div class="k">AutoDecision</div>
+          <div class="risk" style="background:#3a3a3a;">Riesgo: MINIMO (12)</div>
+          <ul>
+            <li>No hay detecciones de Microsoft Defender</li>
+            <li>Archivo con MOTW (ZoneId=3) sin senales fuertes adicionales</li>
+            <li>Preset Balanced con red limitada</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 style="margin-top:0;">Que significa</h2>
+      <ul class="legend">
+        <li><b>OK:</b> Sin detecciones de Defender en este run. No garantiza inocuidad.</li>
+        <li><b>DETECTADO:</b> Defender encontro una amenaza en el entorno.</li>
+        <li><b>INCONCLUSO:</b> Resultado no confiable o con senales fuertes. Reintentar/validar.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2 style="margin-top:0;">Entrada principal</h2>
+      <div class="grid">
+        <div>
+          <div class="small"><b>Archivo:</b> invoice_2026-01-19.pdf</div>
+          <div class="small"><b>SHA-256:</b> <code>2e8a2a9b0c6b1f7e...</code></div>
+          <div class="small"><b>MOTW:</b> ZoneId=3</div>
+          <div class="small"><b>Firma:</b> NotSigned</div>
+        </div>
+        <div>
+          <div class="small"><b>Engine:</b> 1.1.23000.5</div>
+          <div class="small"><b>Sig:</b> 1.411.2345.0</div>
+          <div class="small"><b>Sig age:</b> 0 dias</div>
+          <div class="small"><b>Update:</b> Update-MpSignature · ok=True</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 style="margin-top:0;">Timeline</h2>
+      <ul class="timeline">
+        <li><b>Inicio:</b> 2026-01-19T12:00:01Z</li>
+        <li><b>Update firmas:</b> Update-MpSignature · ok=True · 1243 ms</li>
+        <li><b>Escaneos:</b> 1/1 ok · total 15300 ms</li>
+        <li><b>Fin:</b> 2026-01-19T12:02:44Z</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2 style="margin-top:0;">Archivos observados</h2>
+      <table>
+        <thead><tr><th>Origen</th><th>Archivo</th><th>SHA256</th><th>MOTW</th><th>Firma</th></tr></thead>
+        <tbody>
+          <tr><td>host_mapped</td><td>invoice_2026-01-19.pdf</td><td><code>2e8a2a9b0c6b1f7e...</code></td><td>ZoneId=3</td><td>NotSigned</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2 style="margin-top:0;">Evidencias (Defender)</h2>
+      <table>
+        <thead><tr><th>ThreatName</th><th>ID</th><th>Severity</th><th>Resources</th></tr></thead>
+        <tbody>
+          <tr><td colspan="4" class="muted">Sin detecciones de Defender registradas en este run.</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+</body>
+</html>
