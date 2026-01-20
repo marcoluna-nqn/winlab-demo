@@ -43,10 +43,10 @@
 
         <h2 id="instalar">1) Instalar</h2>
         <ol class="steps">
-          <li>DescargÃ¡ el ZIP desde la landing.</li>
-          <li>ExtraÃ© todo a una carpeta (no lo corras desde el ZIP).</li>
-          <li>EjecutÃ¡ <code>WinLab_Setup.cmd</code>.</li>
-          <li>Se crean accesos directos y carpetas en <code>%LOCALAPPDATA%\WinLab\</code>.</li>
+          <li>Descarga el pack desde la landing.</li>
+          <li>Extrae todo a una carpeta local (no lo corras desde el ZIP).</li>
+          <li>Ejecuta <code>downloads\launcher\WinLab_Launcher.cmd</code>.</li>
+          <li>Se crea staging en <code>C:\WinLab_Pack</code> y carpetas <code>C:\WinLab_Inbox</code> / <code>C:\WinLab_Outbox</code>.</li>
         </ol>
 
         <h2 id="sandbox">2) Confirmar Windows Sandbox</h2>
@@ -113,13 +113,26 @@
           <li>Si el update falla: reintenta en Balanced con red habilitada.</li>
         </ul>
 
-        <h2 id="modelo">8) Modelo de amenazas</h2>
-        <p>WinLab estÃ¡ pensado para reducir el riesgo al manipular descargas sospechosas, pero no reemplaza un antivirus completo ni un servicio de anÃ¡lisis profesional.</p>
-        <p>El preset <strong>Balanced</strong> permite conexiÃ³n a Internet dentro del Sandbox para que Defender actualice sus firmas y exporta los reportes al host. Es ideal cuando confiÃ¡s en el origen del archivo pero querÃ©s una segunda opiniÃ³n antes de abrirlo.</p>
-        <p>El preset <strong>UltraSecure</strong> desactiva la red y bloquea portapapeles, impresora y audio para minimizar cualquier fuga de informaciÃ³n. Es Ãºtil cuando el origen es muy dudoso y querÃ©s mÃ¡ximo aislamiento.</p>
-        <p>Aun asÃ­, ninguna soluciÃ³n garantiza el 100&nbsp;%: puede haber fallos en las firmas, amenazas desconocidas o exploits de dÃ­a cero. TomÃ¡ el resultado como orientaciÃ³n y mantenÃ© tu sistema al dÃ­a.</p>
+        <h2 id="modelo">8) Modelo de amenaza</h2>
+        <p>WinLab reduce riesgo al aislar descargas sospechosas en Windows Sandbox y aplicar Defender con reportes verificables. No es magia: es Defender bien envuelto con aislamiento.</p>
+        <p>Balanced es la opcion recomendada para analizar archivos con update de firmas. UltraSecure prioriza aislamiento al costo de no actualizar. Networked se usa solo si necesitas navegar o abrir URLs.</p>
+        <p>El resultado es una senal de riesgo, no un veredicto absoluto. Siempre valida por otra via si el origen es dudoso.</p>
 
-        <h2 id="deploy">9) Publicar en GitHub Pages</h2>
+        <h2 id="no-cubre">9) Que no cubre</h2>
+        <ul>
+          <li>No reemplaza un antivirus completo ni un servicio profesional de analisis.</li>
+          <li>No garantiza deteccion de amenazas nuevas o zero-day.</li>
+          <li>No evita errores humanos fuera del flujo recomendado.</li>
+        </ul>
+
+        <h2 id="uso-seguro">10) Politica de uso seguro</h2>
+        <ul>
+          <li>No ingreses credenciales reales dentro del Sandbox.</li>
+          <li>No uses datos sensibles en el preset Networked.</li>
+          <li>No desactives Defender ni ignores alertas del reporte.</li>
+        </ul>
+
+        <h2 id="deploy">11) Publicar en GitHub Pages</h2>
         <ol class="steps">
           <li>CreÃ¡ un repo (por ejemplo: <code>winlab-demo</code>).</li>
           <li>SubÃ­ el contenido de esta carpeta al repo (root).</li>
@@ -131,7 +144,7 @@
           Si GitHub te limita por tamaÃ±o de ZIP, alternativa: subilo a <strong>Releases</strong> y cambiÃ¡ el link de descarga.
         </div>
 
-        <h2 id="licencia">10) Comprar / Licencia / Soporte</h2>
+        <h2 id="licencia">12) Comprar / Licencia / Soporte</h2>
         <p>WinLab se publica en GitHub Pages como sitio estatico. No se puede ejecutar Windows Sandbox desde la web.</p>
         <ul>
           <li>Para comprar o licenciar: ver <a href="../pricing.html">pricing.html</a> o contactar por WhatsApp.</li>
@@ -139,7 +152,7 @@
           <li>Licencia, soporte y facturacion se gestionan fuera del sitio.</li>
         </ul>
 
-        <h2 id="contacto">11) Soporte</h2>
+        <h2 id="contacto">13) Soporte</h2>
         <p>Si estÃ¡s probando y algo falla, mirÃ¡ primero:</p>
         <ul>
           <li><code>%LOCALAPPDATA%\WinLab\logs\</code></li>

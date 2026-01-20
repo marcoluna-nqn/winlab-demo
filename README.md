@@ -18,3 +18,8 @@ WinLab es un laboratorio descartable basado en Windows Sandbox y Microsoft Defen
 - Smoke tests: `./smoke_tests.ps1`
 
 Para productizar o ajustar el flujo interno ver `PROMPT_CODEX_XHIGH.md`.
+
+## Release-ready resumen
+- El launcher usa staging en `C:\WinLab_Pack` para evitar fallos por paths con espacios.
+- Presets AUTO listos para Balanced/UltraSecure/Networked con inbox/outbox en `C:\WinLab_Inbox` y `C:\WinLab_Outbox`.
+- Uso rapido: extrae el pack y ejecuta `downloads\launcher\WinLab_Launcher.cmd` (opcional: `Balanced`, `UltraSecure`, `Networked`).
