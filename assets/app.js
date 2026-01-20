@@ -92,13 +92,13 @@
   const config = window.WINLAB_CONFIG || {};
   const defaultWhatsApp = 'https://wa.me/5490000000000?text=Hola%20WinLab%20-%20Quiero%20comprar%20hoy';
   const whatsappUrl = (config.WHATSAPP_URL || defaultWhatsApp).trim();
-  const appendContextToWhatsApp = (url, plan, os, intent) => {
+  const appendContextToWhatsApp = (url, plan, os, intent, message) => {
     try {
       const partsUrl = url.split('?');
       const base = partsUrl[0];
       const query = partsUrl[1] || '';
       const params = new URLSearchParams(query);
-      const existing = (params.get('text') || 'Hola WinLab').trim();
+      const existing = (message || params.get('text') || 'Hola WinLab').trim();
       const lower = existing.toLowerCase();
       const parts = [existing];
       if (plan && !lower.includes(plan.toLowerCase())) parts.push(`Plan ${plan}`);
@@ -123,7 +123,9 @@
     if (kind === 'whatsapp') {
       const plan = btn.getAttribute('data-plan');
       const os = btn.getAttribute('data-os') || 'Windows 10/11 Pro';
-      url = appendContextToWhatsApp(url, plan, os, 'Quiero comprar hoy');
+      const intent = btn.getAttribute('data-intent') || 'Quiero comprar hoy';
+      const message = btn.getAttribute('data-message');
+      url = appendContextToWhatsApp(url, plan, os, intent, message);
     }
     if (!url) url = whatsappUrl;
 
@@ -148,4 +150,54 @@
     sync();
     details.addEventListener('toggle', sync);
   });
+
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('assets/pwa/sw.js').catch(() => {
+        // Ignore SW errors
+      });
+    });
+  }
+
+  const pwaButtons = Array.from(document.querySelectorAll('[data-pwa-install]'));
+  const pwaSheet = document.querySelector('[data-pwa-sheet]');
+  const pwaClose = pwaSheet ? pwaSheet.querySelector('[data-pwa-close]') : null;
+  let deferredPrompt = null;
+
+  const openPwaSheet = () => {
+    if (!pwaSheet) return;
+    pwaSheet.hidden = false;
+    document.body.classList.add('pwa-open');
+  };
+  const closePwaSheet = () => {
+    if (!pwaSheet) return;
+    pwaSheet.hidden = true;
+    document.body.classList.remove('pwa-open');
+  };
+
+  window.addEventListener('beforeinstallprompt', (event) => {
+    event.preventDefault();
+    deferredPrompt = event;
+  });
+
+  pwaButtons.forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        await deferredPrompt.userChoice;
+        deferredPrompt = null;
+        return;
+      }
+      openPwaSheet();
+    });
+  });
+
+  if (pwaClose) {
+    pwaClose.addEventListener('click', closePwaSheet);
+  }
+  if (pwaSheet) {
+    pwaSheet.addEventListener('click', (event) => {
+      if (event.target === pwaSheet) closePwaSheet();
+    });
+  }
 })();

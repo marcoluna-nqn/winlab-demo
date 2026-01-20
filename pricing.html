@@ -6,6 +6,8 @@
   <meta name="description" content="Planes WinLab: licencias y soporte para correr Windows Sandbox con reportes claros en minutos." />
   <title>WinLab - Planes y licenciamiento</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="assets/pwa/manifest.webmanifest" />
+  <meta name="theme-color" content="#1d7dfb" />
   <link rel="stylesheet" href="assets/styles.css" />
   <meta property="og:title" content="WinLab - Planes y licenciamiento" />
   <meta property="og:description" content="Licencias y soporte para WinLab: sandbox descartable, Defender y reportes claros." />
@@ -30,7 +32,9 @@
         <a href="index.html#how" class="nav__link">Cómo funciona</a>
         <a href="index.html#reports" class="nav__link">Reportes</a>
         <a href="#planes" class="nav__link">Planes</a>
+        <a href="mobile.html" class="nav__link">Desde el celular</a>
         <a href="index.html#faq" class="nav__link">Preguntas</a>
+        <button class="nav__btn nav__btn--ghost" type="button" data-pwa-install>Instalar WinLab</button>
         <a class="nav__btn" data-buy="whatsapp" data-plan="Profesional">Comprar ahora</a>
         <div class="theme-toggle">
           <label class="sr-only" for="theme-toggle">Tema</label>
@@ -50,7 +54,9 @@
       <a href="index.html#how" class="nav__link">Cómo funciona</a>
       <a href="index.html#reports" class="nav__link">Reportes</a>
       <a href="#planes" class="nav__link">Planes</a>
+      <a href="mobile.html" class="nav__link">Desde el celular</a>
       <a href="index.html#faq" class="nav__link">Preguntas</a>
+      <button class="nav__btn nav__btn--ghost" type="button" data-pwa-install>Instalar WinLab</button>
       <a class="nav__btn" data-buy="whatsapp" data-plan="Profesional">Comprar ahora</a>
       <div class="theme-toggle">
         <label class="sr-only" for="theme-toggle-mobile">Tema</label>
@@ -113,6 +119,7 @@
             <ul class="plan-list">
               <li>Perfiles equilibrado y ultra seguro.</li>
               <li>Reportes HTML/JSON/TXT.</li>
+              <li>Acceso desde celular (remoto con host Windows).</li>
               <li>Soporte base.</li>
             </ul>
             <div class="plan-actions">
@@ -128,6 +135,7 @@
             <ul class="plan-list">
               <li>Perfiles completos y decisión automática.</li>
               <li>Evidencias extendidas y exportación.</li>
+              <li>Acceso desde celular (remoto con host Windows).</li>
               <li>Onboarding y soporte prioritario.</li>
             </ul>
             <div class="plan-actions">
@@ -143,6 +151,7 @@
             <ul class="plan-list">
               <li>Licencias multi-equipo y perfiles a medida.</li>
               <li>Branding en reportes y exportación avanzada.</li>
+              <li>Acceso desde celular (remoto con host Windows).</li>
               <li>Soporte dedicado y SLA.</li>
             </ul>
             <div class="plan-actions">
@@ -176,6 +185,7 @@
               <tr><td>Perfil con red y análisis de URL</td><td>Opcional</td><td>Incluido</td></tr>
               <tr><td>Decisión automática y señales</td><td>Básico</td><td>Completo</td></tr>
               <tr><td>Reportes HTML/JSON/TXT</td><td>Incluido</td><td>Incluido</td></tr>
+              <tr><td>Acceso desde celular (remoto)</td><td>Incluido</td><td>Incluido</td></tr>
               <tr><td>Soporte</td><td>Base</td><td>Prioritario</td></tr>
               <tr><td>Branding y exportación avanzada</td><td>No</td><td>Equipos sí</td></tr>
             </tbody>
@@ -234,6 +244,22 @@
       </div>
     </div>
   </footer>
+
+  <div class="pwa-sheet" data-pwa-sheet hidden>
+    <div class="pwa-panel">
+      <div class="stack">
+        <strong>Instalar WinLab</strong>
+        <p class="muted">Agregá WinLab al inicio para abrirlo como app web.</p>
+      </div>
+      <div class="pwa-steps">
+        <div><strong>iPhone/iPad:</strong> tocá Compartir y luego "Agregar a inicio".</div>
+        <div><strong>Android:</strong> menú del navegador y "Instalar aplicación" o "Agregar a pantalla".</div>
+      </div>
+      <div class="pwa-actions">
+        <button class="btn btn--primary" type="button" data-pwa-close>Listo</button>
+      </div>
+    </div>
+  </div>
 
   <div class="toast" data-toast aria-live="polite" aria-atomic="true"></div>
 </body>

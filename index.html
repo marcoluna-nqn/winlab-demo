@@ -6,6 +6,8 @@
   <meta name="description" content="WinLab analiza archivos sospechosos en Windows Sandbox y te deja un reporte claro sin arriesgar tu PC. Compra simple por WhatsApp." />
   <title>WinLab - Analizá archivos sospechosos sin arriesgar tu PC</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="assets/pwa/manifest.webmanifest" />
+  <meta name="theme-color" content="#1d7dfb" />
   <meta property="og:title" content="WinLab - Sandbox descartable con reportes claros" />
   <meta property="og:description" content="WinLab abre Windows Sandbox, actualiza Defender y te deja un reporte OK/Detectado/Inconcluso listo para decidir rápido." />
   <meta property="og:type" content="website" />
@@ -45,7 +47,9 @@
         <a href="#features" class="nav__link">Beneficios</a>
         <a href="#reports" class="nav__link">Reportes</a>
         <a href="#pricing" class="nav__link">Planes</a>
+        <a href="mobile.html" class="nav__link">Desde el celular</a>
         <a href="#faq" class="nav__link">Preguntas</a>
+        <button class="nav__btn nav__btn--ghost" type="button" data-pwa-install>Instalar WinLab</button>
         <a class="nav__btn" data-buy="whatsapp" data-plan="Profesional">Comprar ahora</a>
         <div class="theme-toggle">
           <label class="sr-only" for="theme-toggle">Tema</label>
@@ -65,7 +69,9 @@
       <a href="#features" class="nav__link">Beneficios</a>
       <a href="#reports" class="nav__link">Reportes</a>
       <a href="#pricing" class="nav__link">Planes</a>
+      <a href="mobile.html" class="nav__link">Desde el celular</a>
       <a href="#faq" class="nav__link">Preguntas</a>
+      <button class="nav__btn nav__btn--ghost" type="button" data-pwa-install>Instalar WinLab</button>
       <a class="nav__btn" data-buy="whatsapp" data-plan="Profesional">Comprar ahora</a>
       <div class="theme-toggle">
         <label class="sr-only" for="theme-toggle-mobile">Tema</label>
@@ -90,6 +96,7 @@
           </p>
           <div class="hero__cta">
             <a class="btn btn--primary" data-buy="whatsapp" data-plan="Profesional">Comprar ahora</a>
+            <a class="btn btn--secondary" href="mobile.html">Usarlo desde el celular</a>
             <a class="btn btn--ghost" href="#how">Ver cómo funciona</a>
           </div>
           <p class="muted small">Sin backend: descargás el pack y lo ejecutás local.</p>
@@ -438,6 +445,22 @@
       </div>
     </div>
   </footer>
+
+  <div class="pwa-sheet" data-pwa-sheet hidden>
+    <div class="pwa-panel">
+      <div class="stack">
+        <strong>Instalar WinLab</strong>
+        <p class="muted">Agregá WinLab al inicio para abrirlo como app web.</p>
+      </div>
+      <div class="pwa-steps">
+        <div><strong>iPhone/iPad:</strong> tocá Compartir y luego "Agregar a inicio".</div>
+        <div><strong>Android:</strong> menú del navegador y "Instalar aplicación" o "Agregar a pantalla".</div>
+      </div>
+      <div class="pwa-actions">
+        <button class="btn btn--primary" type="button" data-pwa-close>Listo</button>
+      </div>
+    </div>
+  </div>
 
   <div class="toast" data-toast aria-live="polite" aria-atomic="true"></div>
 </body>

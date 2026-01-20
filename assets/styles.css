@@ -219,6 +219,16 @@ img {
   text-decoration: none;
 }
 
+.nav__btn--ghost {
+  background: transparent;
+  color: var(--muted);
+}
+
+.nav__btn--ghost:hover {
+  color: var(--text);
+  background: rgba(29, 125, 251, 0.08);
+}
+
 .nav__toggle {
   display: none;
   width: 42px;
@@ -772,6 +782,54 @@ p {
 
 .toast--show {
   opacity: 1;
+}
+
+.pwa-sheet {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  display: grid;
+  place-items: center;
+  padding: var(--space-4);
+  z-index: 120;
+}
+
+.pwa-sheet[hidden] {
+  display: none;
+}
+
+.pwa-panel {
+  width: min(520px, 100%);
+  background: var(--surface-strong);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: var(--space-4);
+  display: grid;
+  gap: var(--space-3);
+}
+
+.pwa-steps {
+  display: grid;
+  gap: var(--space-2);
+  color: var(--muted);
+}
+
+.pwa-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.icon-chip {
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  display: grid;
+  place-items: center;
+  background: var(--surface-strong);
+  color: var(--accent);
 }
 
 .table-lite {
