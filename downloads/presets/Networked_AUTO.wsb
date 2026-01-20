@@ -1,9 +1,11 @@
-<Configuration>
+﻿<Configuration>
+  <ProtectedClient>Enable</ProtectedClient>
   <VGpu>Enable</VGpu>
   <Networking>Enable</Networking>
-  <Clipboard>Enable</Clipboard>
+  <ClipboardRedirection>Disable</ClipboardRedirection>
+  <PrinterRedirection>Disable</PrinterRedirection>
   <AudioInput>Disable</AudioInput>
-  <Printer>Disable</Printer>
+  <VideoInput>Disable</VideoInput>
   <MappedFolders>
     <MappedFolder>
       <HostFolder>C:\WinLab_Pack</HostFolder>
@@ -20,8 +22,13 @@
       <SandboxFolder>C:\WinLabOutbox</SandboxFolder>
       <ReadOnly>false</ReadOnly>
     </MappedFolder>
+    <MappedFolder>
+      <HostFolder>C:\WinLab\logs</HostFolder>
+      <SandboxFolder>C:\WinLabLogs</SandboxFolder>
+      <ReadOnly>false</ReadOnly>
+    </MappedFolder>
   </MappedFolders>
   <LogonCommand>
-    <Command>powershell -NoProfile -ExecutionPolicy Bypass -File "C:\WinLabPack\tools\cli\bin\InsideLab.ps1" -Preset Networked -InputFolder "C:\WinLabInboxRO" -OutFolder "C:\WinLabOutbox" -Minutes 15 -FirewallMode AllowMost -EnableOutbox 1 -AutoDecisionEnabled 1 -CollectDeltas 1</Command>
+    <Command>powershell -NoProfile -ExecutionPolicy Bypass -File "C:\WinLabPack\tools\cli\bin\InsideLab.ps1" -Preset Networked -InputFolder "C:\WinLabInboxRO" -OutFolder "C:\WinLabOutbox" -Minutes 15 -FirewallMode AllowMost -EnableOutbox 1 -AutoDecisionEnabled 1 -CollectDeltas 1 -LogFolder "C:\WinLabLogs"</Command>
   </LogonCommand>
 </Configuration>

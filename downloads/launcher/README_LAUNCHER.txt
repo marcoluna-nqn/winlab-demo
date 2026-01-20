@@ -1,21 +1,20 @@
-WinLab Launcher - Uso rapido
+﻿WinLab Launcher - Uso rápido
 
-1) Doble click en WinLab_Launcher.cmd
-2) O ejecuta desde terminal: WinLab_Launcher.cmd Balanced
+1) Doble clic en WinLab_Launcher.cmd
+2) O ejecutá desde terminal: WinLab_Launcher.cmd Equilibrado
 
-Presets disponibles:
-- Balanced (default)
-- UltraSecure
-- Networked
+El lanzador permite:
+- Elegir preset (Equilibrado / Ultra seguro / Con red).
+- Analizar un archivo (arrastrar y soltar o pasar ruta) o una URL.
+- Generar el reporte en C:\WinLab_Outbox y abrirlo al finalizar.
 
-Que hace:
-- Verifica Windows Sandbox (Containers-DisposableClientVM).
-- Crea C:\WinLab_Inbox y C:\WinLab_Outbox si no existen.
-- Copia el pack a C:\WinLab_Pack (staging sin espacios).
-- Genera presets AUTO y abre el preset elegido.
+Requisitos:
+- Windows 10/11 Pro, Enterprise o Education.
+- Windows Sandbox habilitado.
 
 Notas:
-- GitHub Pages es estatico: el Sandbox no corre en la web.
-- Extrae el pack completo antes de ejecutar.
-- Si falta Windows Sandbox, habilitalo (PowerShell Admin):
+- GitHub Pages es informativo: el Sandbox no corre en la web.
+- Extraé el pack completo antes de ejecutar.
+- Si falta Windows Sandbox, habilítalo (PowerShell Admin):
   Enable-WindowsOptionalFeature -Online -FeatureName Containers-DisposableClientVM -All -NoRestart
+- Logs en C:\WinLab\logs
