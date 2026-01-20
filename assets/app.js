@@ -53,6 +53,19 @@
   const config = window.WINLAB_CONFIG || {};
   const defaultWhatsApp = 'https://wa.me/5490000000000?text=Hola%20WinLab%20-%20Quiero%20comprar';
   const whatsappUrl = (config.WHATSAPP_URL || defaultWhatsApp).trim();
+  const appendPlanToWhatsApp = (url, plan) => {
+    if (!plan) return url;
+    try {
+      const [base, query] = url.split('?');
+      const params = new URLSearchParams(query || '');
+      const existing = params.get('text') || 'Hola WinLab - Quiero WinLab';
+      const suffix = existing.toLowerCase().includes(plan.toLowerCase()) ? '' : ` - Plan ${plan}`;
+      params.set('text', `${existing}${suffix}`);
+      return `${base}?${params.toString()}`;
+    } catch {
+      return url;
+    }
+  };
   const resolveBuyUrl = (kind) => {
     if (kind === 'mp') return (config.BUY_MP_URL || '').trim();
     if (kind === 'stripe') return (config.BUY_STRIPE_URL || '').trim();
@@ -63,6 +76,10 @@
   document.querySelectorAll('[data-buy]').forEach((btn) => {
     const kind = btn.getAttribute('data-buy');
     let url = resolveBuyUrl(kind);
+    if (kind === 'whatsapp') {
+      const plan = btn.getAttribute('data-plan');
+      url = appendPlanToWhatsApp(url, plan);
+    }
     if (!url) url = whatsappUrl;
 
     if (url) {

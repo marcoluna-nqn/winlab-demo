@@ -1,12 +1,20 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="es">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Planes WinLab: licencias y soporte para ejecutar Windows Sandbox con reportes claros." />
-  <title>WinLab - Planes</title>
+  <meta name="description" content="Planes WinLab: compra licencias y soporte para correr Windows Sandbox con reportes claros en minutos." />
+  <title>WinLab - Planes y licenciamiento</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="assets/styles.css" />
+  <meta property="og:title" content="WinLab - Planes y licenciamiento" />
+  <meta property="og:description" content="Licencias y soporte para WinLab: Sandbox descartable + Defender + reportes listos." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://marcoluna-nqn.github.io/winlab-demo/pricing.html" />
+  <meta property="og:image" content="https://marcoluna-nqn.github.io/winlab-demo/assets/favicon.svg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="WinLab - Planes y licenciamiento" />
+  <meta name="twitter:description" content="Compra WinLab con soporte. Sandbox descartable + Defender + reportes claros." />
   <script defer src="assets/config.js"></script>
   <script defer src="assets/app.js"></script>
 </head>
@@ -19,146 +27,174 @@
       </a>
       <nav class="nav">
         <a href="./" class="nav__link">Inicio</a>
-        <a href="index.html#como" class="nav__link">Como funciona</a>
-        <a href="index.html#reportes" class="nav__link">Reportes</a>
-        <a href="index.html#descarga" class="nav__link">Descarga</a>
-        <a href="docs/guia.html" class="nav__btn">Guia</a>
+        <a href="index.html#how" class="nav__link">Cómo funciona</a>
+        <a href="index.html#reports" class="nav__link">Reportes</a>
+        <a href="#planes" class="nav__link">Planes</a>
+        <a href="index.html#faq" class="nav__link">FAQ</a>
+        <a class="nav__btn" data-buy="whatsapp">Comprar</a>
       </nav>
-      <button class="nav__toggle" aria-label="Abrir menu" data-nav-toggle>
+      <button class="nav__toggle" aria-label="Abrir menú" data-nav-toggle>
         <span></span><span></span><span></span>
       </button>
     </div>
     <div class="nav__mobile" data-nav-mobile>
       <a href="./" class="nav__link">Inicio</a>
-      <a href="index.html#como" class="nav__link">Como funciona</a>
-      <a href="index.html#reportes" class="nav__link">Reportes</a>
-      <a href="index.html#descarga" class="nav__link">Descarga</a>
-      <a href="docs/guia.html" class="nav__btn">Guia</a>
+      <a href="index.html#how" class="nav__link">Cómo funciona</a>
+      <a href="index.html#reports" class="nav__link">Reportes</a>
+      <a href="#planes" class="nav__link">Planes</a>
+      <a href="index.html#faq" class="nav__link">FAQ</a>
+      <a class="nav__btn" data-buy="whatsapp">Comprar</a>
     </div>
   </header>
 
   <main>
     <section class="hero">
       <div class="container hero__grid">
-        <div class="hero__copy">
-          <div class="pill">Licencias y soporte - Sin humo</div>
-          <h1>Planes WinLab para uso profesional</h1>
-          <p class="lead">
-            Compra una licencia externa y ejecuta WinLab localmente. El sitio es estatico:
-            la descarga y el launcher corren en tu PC, no en la web.
-          </p>
-          <p class="muted">No es magia: es Defender bien envuelto.</p>
+        <div class="stack">
+          <div class="pill">Licencias + soporte  -  Sandbox descartable</div>
+          <h1>Compra WinLab y entrega reportes claros en minutos.</h1>
+          <p class="lead">Licencias listas para correr localmente. Pagas por WhatsApp/transferencia o los links que configures. El sitio es estático: nada se ejecuta en el navegador.</p>
           <div class="hero__cta">
-            <a class="btn btn--primary" href="index.html#descarga">Descargar y ejecutar</a>
-            <a class="btn btn--ghost" href="docs/guia.html">Ver guia</a>
+            <a class="btn btn--primary" data-buy="whatsapp" data-plan="Pro">Comprar plan Pro</a>
+            <a class="btn btn--ghost" href="#planes">Ver planes</a>
           </div>
-          <p class="muted">
-            Nota: WinLab no es motor antivirus propio; usa Microsoft Defender.
-          </p>
+          <p class="muted small">No prometemos magia: WinLab usa Microsoft Defender dentro de Windows Sandbox.</p>
         </div>
         <div class="hero__card">
-          <div class="card card--glass">
-            <div class="card__header">
-              <div class="card__title">Que incluye la licencia</div>
-              <div class="card__tag">Producto</div>
+          <div class="card">
+            <div class="card__title">
+              <span>Incluye la licencia</span>
+              <span class="badge">Producto</span>
             </div>
-            <ol class="steps">
-              <li>Presets listos (Balanced, UltraSecure, Networked).</li>
-              <li>Pipeline Defender y reportes HTML/JSON/TXT.</li>
-              <li>Launcher y presets auto para sandbox.</li>
-            </ol>
+            <ul class="list list--steps">
+              <li class="list__item"><span class="list__icon">1</span><div>Presets Balanced / UltraSecure / Networked.</div></li>
+              <li class="list__item"><span class="list__icon">2</span><div>Reportes HTML/JSON/TXT con semáforo.</div></li>
+              <li class="list__item"><span class="list__icon">3</span><div>Launcher, AutoDecision y outbox listos.</div></li>
+              <li class="list__item"><span class="list__icon">4</span><div>Guía rápida + soporte según plan.</div></li>
+            </ul>
             <div class="card__actions">
+              <a class="btn btn--primary btn--wide" data-buy="whatsapp" data-plan="Starter">Quiero Starter</a>
               <a class="btn btn--ghost btn--wide" href="docs/guia.html#limitaciones">Ver limitaciones</a>
             </div>
-            <div class="card__fineprint">
-              <span class="dot"></span>
-              El uso comercial requiere licenciamiento y soporte.
+            <div class="muted small">Se entrega ZIP + launcher. Ejecutas local y compartes el reporte.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="planes" class="section">
+      <div class="container stack">
+        <div class="stack">
+          <div class="chip">Planes</div>
+          <h2>Elige el plan que encaja con tu caso</h2>
+          <p class="muted">Todos incluyen sandbox descartable. Diferencian soporte, presets y entregables.</p>
+        </div>
+        <div class="pricing-grid">
+          <div class="plan-card">
+            <span class="plan-chip">Starter</span>
+            <div class="plan-price">Consultar</div>
+            <div class="plan-subtitle">Evaluación y uso individual.</div>
+            <ul class="plan-list">
+              <li>Presets Balanced + UltraSecure.</li>
+              <li>Reportes HTML/JSON/TXT.</li>
+              <li>1 equipo, alcance interno.</li>
+            </ul>
+            <div class="plan-actions">
+              <a class="btn btn--primary" data-buy="whatsapp" data-plan="Starter">Comprar por WhatsApp</a>
+              <a class="btn btn--ghost" data-buy="mp">Pagar con link (configurable)</a>
+              <a class="btn btn--ghost" data-buy="stripe">Stripe (si lo configuras)</a>
+            </div>
+          </div>
+          <div class="plan-card plan-card--featured">
+            <span class="plan-chip">Best value</span>
+            <div class="plan-price">Consultar</div>
+            <div class="plan-subtitle">Consultores y equipos pequeños.</div>
+            <ul class="plan-list">
+              <li>Todos los presets + AutoDecision.</li>
+              <li>Evidencias extendidas y export.</li>
+              <li>Onboarding base y soporte prioritario.</li>
+            </ul>
+            <div class="plan-actions">
+              <a class="btn btn--primary" data-buy="whatsapp" data-plan="Pro">Comprar Pro</a>
+              <a class="btn btn--ghost" data-buy="mp">Link de pago (si lo configuras)</a>
+              <a class="btn btn--ghost" data-buy="stripe">Stripe (opcional)</a>
+            </div>
+          </div>
+          <div class="plan-card">
+            <span class="plan-chip">Teams</span>
+            <div class="plan-price">Consultar</div>
+            <div class="plan-subtitle">Organizaciones y acuerdos SLA.</div>
+            <ul class="plan-list">
+              <li>Licencias multi-equipo y presets custom.</li>
+              <li>Branding en reportes y export avanzado.</li>
+              <li>Soporte prioritario y playbooks.</li>
+            </ul>
+            <div class="plan-actions">
+              <a class="btn btn--primary" data-buy="whatsapp" data-plan="Teams">Hablar por Teams</a>
+              <a class="btn btn--ghost" data-buy="mp">Link de pago (bajo confirmación)</a>
+              <a class="btn btn--ghost" data-buy="stripe">Stripe (si aplica)</a>
             </div>
           </div>
         </div>
       </div>
     </section>
 
+    <section id="tabla" class="section section--tight">
+      <div class="container stack">
+        <div class="stack">
+          <div class="chip">Qué incluye</div>
+          <h2>Comparativo rápido</h2>
+          <p class="muted">Tabla corta. Máximo 3 columnas para mantenerlo legible.</p>
+        </div>
+        <div class="card card--soft">
+          <table class="table-lite" aria-label="Tabla de funcionalidades por plan">
+            <thead>
+              <tr>
+                <th>Funcionalidad</th>
+                <th>Starter</th>
+                <th>Pro/Teams</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Presets Balanced/UltraSecure</td><td>Incluido</td><td>Incluido</td></tr>
+              <tr><td>Preset Networked + URL</td><td>Opcional</td><td>Incluido</td></tr>
+              <tr><td>AutoDecision y señales extendidas</td><td>Básico</td><td>Completo</td></tr>
+              <tr><td>Reportes HTML/JSON/TXT</td><td>Incluido</td><td>Incluido</td></tr>
+              <tr><td>Soporte</td><td>Base</td><td>Prioritario</td></tr>
+              <tr><td>Branding/Export avanzado</td><td>No</td><td>Teams sí</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
     <section class="section">
-      <div class="container">
-        <h2>Elegi tu plan</h2>
-        <div class="pricing-grid">
-          <div class="plan-card">
-            <div class="plan-kicker">Starter</div>
-            <div class="plan-price">Consultar precio</div>
-            <div class="plan-subtitle">Para evaluar en serio con alcance individual.</div>
-            <ul class="plan-list">
-              <li>Preset Balanced + UltraSecure.</li>
-              <li>Reportes HTML/JSON/TXT con semaforo.</li>
-              <li>1 equipo, uso de evaluacion interna.</li>
-            </ul>
-            <div class="plan-actions">
-              <a class="btn btn--primary" data-buy="mp">Pagar con MercadoPago</a>
-              <a class="btn btn--ghost" data-buy="stripe">Pagar con Stripe</a>
-              <a class="btn btn--ghost" data-buy="whatsapp">Hablar por WhatsApp</a>
-            </div>
+      <div class="container stack">
+        <div class="grid grid--2">
+          <div class="card card--soft">
+            <div class="card__title"><span>Garantía y política</span><span class="badge">Transparente</span></div>
+            <p class="muted">Sitio estático: pagas por WhatsApp/transferencia o los links configurados en <code class="mono">assets/config.js</code>. Entregamos el ZIP, guía y soporte según plan.</p>
+            <p class="muted" style="margin-top:10px;">Si no puedes habilitar Sandbox o Defender no se actualiza, el resultado puede ser inconcluso. Te ayudamos a configurarlo o devolvemos el pago acordado.</p>
           </div>
-
-          <div class="plan-card plan-card--featured">
-            <div class="plan-kicker">Pro</div>
-            <div class="plan-price">Consultar precio</div>
-            <div class="plan-subtitle">Para consultores y equipos pequenos.</div>
-            <ul class="plan-list">
-              <li>Todos los presets + actualizaciones.</li>
-              <li>AutoDecision y evidencia extendida.</li>
-              <li>Soporte por email y onboarding base.</li>
+          <div class="card card--soft">
+            <div class="card__title"><span>Limitaciones reales</span><span class="badge">Sin humo</span></div>
+            <ul class="list">
+              <li>Requiere Windows 10/11 Pro con Windows Sandbox.</li>
+              <li>El archivo no se ejecuta; se analiza con Defender.</li>
+              <li>Sin red, la actualización puede fallar.</li>
+              <li>Safe Mode Helper es opcional y requiere admin.</li>
             </ul>
-            <div class="plan-actions">
-              <a class="btn btn--primary" data-buy="mp">Pagar con MercadoPago</a>
-              <a class="btn btn--ghost" data-buy="stripe">Pagar con Stripe</a>
-              <a class="btn btn--ghost" data-buy="whatsapp">Hablar por WhatsApp</a>
-            </div>
-          </div>
-
-          <div class="plan-card">
-            <div class="plan-kicker">Teams</div>
-            <div class="plan-price">Consultar precio</div>
-            <div class="plan-subtitle">Para organizaciones y soporte prioritario.</div>
-            <ul class="plan-list">
-              <li>Licencias multi-equipo y presets custom.</li>
-              <li>Reportes con branding y export avanzado.</li>
-              <li>Soporte prioritario y acuerdos SLA.</li>
-            </ul>
-            <div class="plan-actions">
-              <a class="btn btn--primary" data-buy="mp">Pagar con MercadoPago</a>
-              <a class="btn btn--ghost" data-buy="stripe">Pagar con Stripe</a>
-              <a class="btn btn--ghost" data-buy="whatsapp">Hablar por WhatsApp</a>
-            </div>
           </div>
         </div>
-
-        <h2>Como se entrega</h2>
-        <div class="grid grid--two">
-          <div class="feature">
-            <h3>ZIP + launcher</h3>
-            <p>Descargas un ZIP con launcher, presets y el pipeline completo. Ejecutas localmente.</p>
+        <div class="cta">
+          <div>
+            <h3>Listo para cerrar</h3>
+            <p class="cta__text">Escribe por WhatsApp con el plan que elijas. Recibirás los links y pasos.</p>
           </div>
-          <div class="feature">
-            <h3>Presets listos</h3>
-            <p>Balanced, UltraSecure y Networked. El launcher abre el preset elegido.</p>
+          <div class="download__actions">
+            <a class="btn btn--primary" data-buy="whatsapp" data-plan="Pro">Comprar Pro</a>
+            <a class="btn btn--ghost" href="docs/guia.html">Ver guía completa</a>
           </div>
-        </div>
-
-        <h2>Requisitos</h2>
-        <div class="grid grid--two">
-          <div class="feature">
-            <h3>Windows 10/11 Pro</h3>
-            <p>Se requiere Windows Sandbox y permisos para habilitarlo.</p>
-          </div>
-          <div class="feature">
-            <h3>Sandbox habilitado</h3>
-            <p>Containers-DisposableClientVM activo y reinicio aplicado.</p>
-          </div>
-        </div>
-
-        <div class="note">
-          <strong>Disclaimer:</strong> WinLab no es motor antivirus propio; usa Microsoft Defender.
-          La compra es externa al sitio. Descarga el pack y ejecuta el launcher en tu PC.
         </div>
       </div>
     </section>
@@ -166,17 +202,19 @@
 
   <footer class="footer">
     <div class="container footer__inner">
-      <div class="footer__left">
+      <div>
         <div class="brand brand--small">
           <span class="brand__mark" aria-hidden="true">WL</span>
           <span class="brand__name">WinLab</span>
         </div>
-        <p class="muted">Planes y licencias - WinLab</p>
+        <p class="muted">Licencias y soporte para Windows Sandbox + Defender.</p>
       </div>
-      <div class="footer__right">
+      <div class="footer__links">
         <a href="./">Inicio</a>
-        <a href="index.html#descarga">Descarga</a>
-        <a href="docs/guia.html">Guia</a>
+        <a href="index.html#how">Cómo funciona</a>
+        <a href="index.html#reports">Reportes</a>
+        <a href="#planes">Planes</a>
+        <a href="index.html#requirements">Requisitos</a>
       </div>
     </div>
   </footer>
@@ -184,3 +222,4 @@
   <div class="toast" data-toast aria-live="polite" aria-atomic="true"></div>
 </body>
 </html>
+
