@@ -5,21 +5,22 @@ WinLab es un laboratorio descartable basado en Windows Sandbox y Microsoft Defen
 ## Contenido
 - Sitio (GitHub Pages): `index.html` + `docs/` + `assets/`.
 - Instalador: `downloads/WinLab_Setup_vX.Y.Z.zip`.
+- Lanzador: `downloads/launcher/WinLab_Launcher.cmd`.
 - CLI: `WinLab.ps1` y `WinLab.cmd` (ver `tools/cli/`).
 
-## Caracteristicas clave
-- Presets: Balanced / UltraSecure / Networked.
+## Características clave
+- Presets: Equilibrado (Balanced) / Ultra seguro (UltraSecure) / Con red (Networked).
 - Flujo seguro: copia ReadOnly -> carpeta interna antes de escanear.
-- Pipeline Defender: update firmas + escaneo + evidencia (hash, MOTW, firma).
-- Reportes: HTML/JSON/TXT con semaforo y AutoDecision.
+- Pipeline Defender: actualización de firmas + escaneo + evidencia (hash, MOTW, firma).
+- Reportes: HTML/JSON/TXT con resumen ejecutivo, detalle técnico y AutoDecision.
 
 ## Build y pruebas
-- Build reproducible: `./build.ps1`
+- Build reproducible: `./build.ps1` o `./build_release.ps1`
 - Smoke tests: `./smoke_tests.ps1`
 
-Para productizar o ajustar el flujo interno ver `PROMPT_CODEX_XHIGH.md`.
+## Uso rápido
+1) Extraé el pack completo.
+2) Ejecutá `downloads\launcher\WinLab_Launcher.cmd` y elegí preset.
+3) Reportes en `C:\WinLab_Outbox` y logs en `C:\WinLab\logs`.
 
-## Release-ready resumen
-- El launcher usa staging en `C:\WinLab_Pack` para evitar fallos por paths con espacios.
-- Presets AUTO listos para Balanced/UltraSecure/Networked con inbox/outbox en `C:\WinLab_Inbox` y `C:\WinLab_Outbox`.
-- Uso rapido: extrae el pack y ejecuta `downloads\launcher\WinLab_Launcher.cmd` (opcional: `Balanced`, `UltraSecure`, `Networked`).
+Para productizar o ajustar el flujo interno ver `PROMPT_CODEX_XHIGH.md`.

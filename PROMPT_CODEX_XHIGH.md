@@ -1,4 +1,4 @@
-# PROMPT para Codex (xhigh) – WinLab Product Release
+﻿# PROMPT para Codex (xhigh) – WinLab Product Release
 
 ## Rol
 Sos un **Senior Release Engineer + Windows Security Engineer + Technical Writer**.
@@ -13,7 +13,7 @@ Tu misión: llevar WinLab a **producto vendible** (no MVP) sin prometer “antiv
 ## Objetivos de producto (más allá del MVP)
 1. **Instalación y uso**:
    - 1 click desde web para instalar (Setup) + accesos directos.
-   - 1 comando desde terminal: `WinLab.cmd session|analyze-url|scan-file ...`.
+   - 1 comando desde terminal: `WinLab.cmd session|analyze-url|scan-file <args>`.
 2. **Presets**:
    - UltraSecure: sin red, clipboard/printer/audio/video/vGPU deshabilitados, ProtectedClient=Enable, outbox habilitado.
    - Balanced: con red, firewall restrictivo “InternetOnly”, outbox habilitado.
@@ -38,10 +38,3 @@ Tu misión: llevar WinLab a **producto vendible** (no MVP) sin prometer “antiv
 A) Auditar árbol actual (site + tools/cli + downloads). Corregir inconsistencias de nombres.
 B) Integrar CLI en el instalador: `tools/cli` debe instalarse y exponerse como accesos directos y ejecutables.
 C) Implementar InsideLab.ps1 productivo (completo) y eliminar “omitido por brevedad”.
-D) Alinear la web: botón descarga al último instalador, sección CLI, ejemplos reportes.
-E) Agregar build.ps1 y smoke_tests.ps1. Ejecutar smoke tests.
-F) Actualizar CHANGELOG y README.
-
-## Output
-- Commits lógicos.
-- Al final: checklist Release Ready + riesgos residuales.
