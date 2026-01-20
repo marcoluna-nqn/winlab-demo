@@ -1,7 +1,7 @@
-# WinLab build script (reproducible packaging)
+﻿# WinLab build script (reproducible packaging)
 # Output:
 #   dist/winlab_site.zip
-#   dist/WinLab_Setup_vX.Y.Z.zip (copied from downloads)
+#   dist/WinLab_Setup_<version>.zip (copiado desde downloads)
 #   dist/SHA256SUMS.txt
 
 Set-StrictMode -Version 2.0
@@ -21,10 +21,10 @@ $dist = Join-Path $root 'dist'
 New-Item -ItemType Directory -Force -Path $dist | Out-Null
 
 $downloads = Join-Path $root 'downloads'
-$setup = Get-ChildItem -Path $downloads -Filter 'WinLab_Setup_*.zip' -File |
+$setup = Get-ChildItem -Path $downloads -Filter 'WinLab_Setup_v*.zip' -File |
   Sort-Object LastWriteTime -Descending |
   Select-Object -First 1
-if (-not $setup) { throw 'No se encontró downloads/WinLab_Setup_*.zip' }
+if (-not $setup) { throw 'No se encontró downloads/WinLab_Setup_v*.zip' }
 
 $ver = 'unknown'
 if ($setup.Name -match 'WinLab_Setup_v([0-9]+\.[0-9]+\.[0-9]+)\.zip') { $ver = $Matches[1] }
@@ -39,7 +39,7 @@ Remove-Item $siteZip -Force -ErrorAction SilentlyContinue
 $paths = $siteItems | ForEach-Object { Join-Path $root $_ }
 Compress-Archive -Path $paths -DestinationPath $siteZip -Force
 
-$setupOut = Join-Path $dist ("WinLab_Setup_v{0}.zip" -f $ver)
+$setupOut = Join-Path $dist ("WinLab_Setup_{0}.zip" -f $ver)
 Copy-Item -Path $setup.FullName -Destination $setupOut -Force
 
 $sumFile = Join-Path $dist 'SHA256SUMS.txt'

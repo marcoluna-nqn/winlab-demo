@@ -23,11 +23,11 @@ if(Test-Path $verPath){
   if($v){ $version = $v }
 }
 
-Write-Host "[INFO] Running smoke tests..." -ForegroundColor Cyan
+Write-Host "[INFO] Ejecutando smoke tests." -ForegroundColor Cyan
 & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $root 'smoke_tests.ps1')
 Exit-OnFail $LASTEXITCODE 'smoke_tests.ps1'
 
-Write-Host "[INFO] Building release artifacts..." -ForegroundColor Cyan
+Write-Host "[INFO] Generando artifacts de release." -ForegroundColor Cyan
 & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $root 'build_release.ps1')
 Exit-OnFail $LASTEXITCODE 'build_release.ps1'
 
