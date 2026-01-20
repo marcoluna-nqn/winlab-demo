@@ -3,6 +3,8 @@
 
 Set-StrictMode -Version 2.0
 $ErrorActionPreference = 'Stop'
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
+$OutputEncoding = [Console]::OutputEncoding
 
 function Fail($m){ Write-Host "[FAIL] $m" -ForegroundColor Red; exit 1 }
 function Ok($m){ Write-Host "[ OK ] $m" -ForegroundColor Green }
@@ -42,6 +44,11 @@ foreach($r in $required){
 }
 Ok 'Estructura base OK'
 
+# Verificar instalador presente
+$setupZip = Join-Path $root 'downloads/WinLab_Setup_v0.8.0.zip'
+if(-not (Test-Path $setupZip)){ Fail 'Falta downloads/WinLab_Setup_v0.8.0.zip' }
+Ok 'Setup ZIP OK'
+
 # index.html debe referenciar un setup existente
 $index = Get-Content -Path (Join-Path $root 'index.html') -Raw
 $m = [regex]::Match($index, 'downloads/(WinLab_Setup_v[0-9]+\.[0-9]+\.[0-9]+\.zip)')
@@ -51,7 +58,7 @@ $setupPath = Join-Path $root ("downloads/" + $setupRel)
 if(-not (Test-Path $setupPath)){ Fail "No existe el ZIP de instalador referenciado: $setupRel" }
 Ok "Installer link OK: $setupRel"
 
-# Verificar contenido mínimo del instalador
+# Verificar contenido minimo del instalador
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 $zip = [System.IO.Compression.ZipFile]::OpenRead($setupPath)
 try {
@@ -73,7 +80,43 @@ function HasZipEntry([string]$name, [string[]]$entries){
 foreach($p in $mustContain){
   if(-not (HasZipEntry -name $p -entries $names)){ Fail "El instalador no contiene: $p" }
 }
-Ok 'Contenido mínimo del instalador OK'
+Ok 'Contenido minimo del instalador OK'
+
+# Launcher debe usar staging en C:\WinLab_Pack
+$launcherPath = Join-Path $root 'downloads/launcher/WinLab_Launcher.cmd'
+$launcher = Get-Content -Path $launcherPath -Raw
+$launcherMust = @('C:\WinLab_Pack','C:\WinLab_Inbox','C:\WinLab_Outbox')
+foreach($s in $launcherMust){
+  if($launcher -notmatch [regex]::Escape($s)){ Fail "Launcher sin ruta requerida: $s" }
+}
+Ok 'Launcher staging OK'
+
+# Presets AUTO deben mapear staging/inbox/outbox
+$presetPaths = @(
+  'downloads/presets/Balanced_AUTO.wsb',
+  'downloads/presets/UltraSecure_AUTO.wsb',
+  'downloads/presets/Networked_AUTO.wsb'
+)
+foreach($p in $presetPaths){
+  $content = Get-Content -Path (Join-Path $root $p) -Raw
+  foreach($s in $launcherMust){
+    if($content -notmatch [regex]::Escape($s)){ Fail "Preset $p sin ruta requerida: $s" }
+  }
+}
+Ok 'Presets AUTO OK'
+
+# Pricing debe cargar config/app y tener botones
+$pricing = Get-Content -Path (Join-Path $root 'pricing.html') -Raw
+if($pricing -notmatch 'assets/config\.js'){ Fail 'pricing.html no referencia assets/config.js' }
+if($pricing -notmatch 'assets/app\.js'){ Fail 'pricing.html no referencia assets/app.js' }
+foreach($token in @('data-buy="mp"','data-buy="stripe"','data-buy="whatsapp"')){
+  if($pricing -notmatch [regex]::Escape($token)){ Fail "pricing.html sin boton: $token" }
+}
+$config = Get-Content -Path (Join-Path $root 'assets/config.js') -Raw
+if($config -notmatch 'WHATSAPP_URL'){ Fail 'assets/config.js sin WHATSAPP_URL' }
+$app = Get-Content -Path (Join-Path $root 'assets/app.js') -Raw
+if($app -notmatch 'defaultWhatsApp'){ Fail 'assets/app.js sin fallback WhatsApp' }
+Ok 'Pricing/config OK'
 
 # Validar schemaVersion en samples JSON
 $sampleJson = @(
