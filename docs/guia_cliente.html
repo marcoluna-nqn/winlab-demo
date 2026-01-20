@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>WinLab - Guia para clientes</title>
+  <style>
+    :root{--bg:#f7f7fb;--card:#ffffff;--text:#0f172a;--muted:#475569;--line:#e2e8f0;--accent:#0ea5e9}
+    body{font-family:Segoe UI,Arial,sans-serif;margin:0;background:var(--bg);color:var(--text);}
+    .wrap{max-width:860px;margin:0 auto;padding:32px 20px;}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;margin:16px 0;}
+    h1,h2{margin:0 0 12px 0;}
+    p{margin:8px 0;color:var(--muted);line-height:1.6;}
+    ul,ol{margin:8px 0 0 18px;color:var(--muted);}
+    code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;background:#eef2ff;padding:2px 6px;border-radius:6px;}
+    .note{background:#eef2ff;border-radius:12px;padding:12px 14px;color:#1e293b;}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Guia breve para clientes</h1>
+    <p>WinLab analiza archivos o URLs sospechosas dentro de Windows Sandbox y te entrega un reporte claro. Sirve para reducir riesgo sin ensuciar tu PC.</p>
+
+    <section class="card" id="requisitos">
+      <h2>Requisitos</h2>
+      <ul>
+        <li>Windows 10/11 Pro, Enterprise o Education.</li>
+        <li>Windows Sandbox habilitado.</li>
+        <li>Virtualizacion activa en BIOS/UEFI.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="instalacion">
+      <h2>Instalacion</h2>
+      <ol>
+        <li>Ejecuta el instalador de WinLab.</li>
+        <li>Se crean accesos directos en el Escritorio y el Menu Inicio.</li>
+        <li>Listo: ya podes abrir WinLab.</li>
+      </ol>
+      <p class="note">Si Windows Sandbox no esta habilitado, WinLab te muestra los pasos para activarlo.</p>
+    </section>
+
+    <section class="card" id="uso">
+      <h2>Como usarlo</h2>
+      <ol>
+        <li>Abrí el launcher de WinLab.</li>
+        <li>Elegi un preset (Equilibrado, Ultra seguro o Con red).</li>
+        <li>Arrastra un archivo o pega una URL.</li>
+        <li>Al finalizar, se abre el reporte automaticamente.</li>
+      </ol>
+      <p>Reportes en <code>C:\WinLab_Outbox</code>. Logs en <code>C:\WinLab\logs</code>.</p>
+    </section>
+
+    <section class="card" id="diagnostico">
+      <h2>Diagnostico rapido</h2>
+      <p>Si algo no funciona, ejecuta el acceso directo de WinLab Doctor. Genera un reporte en <code>C:\WinLab\logs\doctor.txt</code>.</p>
+    </section>
+
+    <section class="card" id="limitaciones">
+      <h2>Limitaciones</h2>
+      <p>WinLab reduce riesgo, pero no garantiza deteccion total. Si el archivo es critico, valida con otras herramientas.</p>
+    </section>
+
+    <section class="card" id="soporte">
+      <h2>Soporte</h2>
+      <p>Si necesitas ayuda, escribinos por WhatsApp desde el sitio oficial de WinLab.</p>
+    </section>
+  </div>
+</body>
+</html>
