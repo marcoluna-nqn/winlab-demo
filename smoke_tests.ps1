@@ -14,6 +14,20 @@ function ReadUtf8([string]$path){
 function StripHtml([string]$html){
   return ($html -replace '<[^>]+>', ' ')
 }
+function Assert-TextClean([string]$label, [string]$text, [string[]]$banCase, [string[]]$banInsensitive){
+  foreach($token in $banCase){
+    if($text -cmatch [regex]::Escape($token)){ Fail "$label contiene texto no permitido: $token" }
+  }
+  foreach($token in $banInsensitive){
+    if($token -match '\s'){
+      $pattern = '(?i)' + [regex]::Escape($token)
+    } else {
+      $pattern = '(?i)(?<![A-Za-z])' + [regex]::Escape($token) + '(?![A-Za-z])'
+    }
+    if($text -match $pattern){ Fail "$label contiene texto no permitido: $token" }
+  }
+  if($text -match '\.\.\.'){ Fail "$label contiene '...'" }
+}
 
 $scriptPath = $PSCommandPath
 if(-not $scriptPath){ $scriptPath = $MyInvocation.MyCommand.Path }
@@ -57,11 +71,14 @@ foreach($r in $required){
 Ok 'Estructura base OK'
 
 # Verificar instalador presente
-$setupZip = Join-Path $root 'downloads/WinLab_Setup_v0.8.0.zip'
-if(-not (Test-Path $setupZip)){ Fail 'Falta downloads/WinLab_Setup_v0.8.0.zip' }
-Ok 'Setup ZIP OK'
+$versionPath = Join-Path $root 'tools/cli/version.txt'
+$version = (Get-Content -Raw -Path $versionPath).Trim()
+if([string]::IsNullOrWhiteSpace($version)){ Fail 'Version vacia en tools/cli/version.txt' }
+$setupZip = Join-Path $root ("downloads/WinLab_Setup_v{0}.zip" -f $version)
+if(-not (Test-Path $setupZip)){ Fail "Falta downloads/WinLab_Setup_v$version.zip" }
+Ok "Setup ZIP OK (v$version)"
 
-$banTokensCase = @('TODO','PLACEHOLDER','TBD')
+$banTokensCase = @('TODO','PLACEHOLDER','TBD','PEGAR_AQUI')
 $banTokensInsensitive = @('lorem','lorem ipsum','buy','pricing','features','preview','starter','teams')
 
 # index.html debe referenciar scripts y un setup existente
@@ -78,13 +95,7 @@ if($indexText -notmatch [regex]::Escape('Cómo funciona') -and $indexText -notma
 if($index -notmatch 'data-theme-toggle' -and $index -notmatch 'theme-toggle'){
   Fail 'index.html sin toggle de tema'
 }
-foreach($token in $banTokensCase){
-  if($indexText -cmatch [regex]::Escape($token)){ Fail "index.html contiene texto no permitido: $token" }
-}
-foreach($token in $banTokensInsensitive){
-  $pattern = '(?i)' + [regex]::Escape($token)
-  if($indexText -match $pattern){ Fail "index.html contiene texto no permitido: $token" }
-}
+Assert-TextClean 'index.html' $indexText $banTokensCase $banTokensInsensitive
 $m = [regex]::Match($index, 'downloads/(WinLab_Setup_v[0-9]+\.[0-9]+\.[0-9]+\.zip)')
 if(-not $m.Success){ Fail 'index.html no referencia downloads/WinLab_Setup_vX.Y.Z.zip' }
 $setupRel = $m.Groups[1].Value
@@ -97,34 +108,71 @@ foreach($sid in $sectionIds){
 }
 Ok 'Secciones clave en index OK'
 
+# Validar textos clave en docs y samples (sin placeholders ni ingles)
+$textChecks = @(
+  @{ Label = 'README.md'; Path = 'README.md'; Strip = $false },
+  @{ Label = 'docs/guia.html'; Path = 'docs/guia.html'; Strip = $true },
+  @{ Label = 'downloads/launcher/README_LAUNCHER.txt'; Path = 'downloads/launcher/README_LAUNCHER.txt'; Strip = $false },
+  @{ Label = 'downloads/samples/report_ok.html'; Path = 'downloads/samples/report_ok.html'; Strip = $true },
+  @{ Label = 'downloads/samples/report_detectado.html'; Path = 'downloads/samples/report_detectado.html'; Strip = $true },
+  @{ Label = 'downloads/samples/report_inconcluso.html'; Path = 'downloads/samples/report_inconcluso.html'; Strip = $true }
+)
+foreach($item in $textChecks){
+  $full = Join-Path $root $item.Path
+  $raw = ReadUtf8 $full
+  $text = if($item.Strip){ StripHtml $raw } else { $raw }
+  Assert-TextClean $item.Label $text $banTokensCase $banTokensInsensitive
+}
+Ok 'Docs y samples OK'
+
 # Verificar contenido minimo del instalador
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 $zip = [System.IO.Compression.ZipFile]::OpenRead($setupPath)
 try {
   $names = $zip.Entries | ForEach-Object { $_.FullName }
+
+  $mustContain = @(
+    'WinLab_Setup.cmd',
+    'payload/WinLab_Launcher.cmd',
+    'payload/bin/InsideLab.ps1',
+    'payload/tools/Run-WinLab.cmd',
+    'payload/WinLab.ps1',
+    'payload/version.txt',
+    'payload/docs/guia.html'
+  )
+  function HasZipEntry([string]$name, [string[]]$entries){
+    if($entries -contains $name){ return $true }
+    $alt = $name.Replace('/', '\')
+    return ($entries -contains $alt)
+  }
+  foreach($p in $mustContain){
+    if(-not (HasZipEntry -name $p -entries $names)){ Fail "El instalador no contiene: $p" }
+  }
+  Ok 'Contenido minimo del instalador OK'
+
+  # Validar texto dentro del ZIP (sin placeholders ni '...')
+  $textExt = @('.cmd','.ps1','.txt','.md','.html','.json')
+  foreach($entry in $zip.Entries){
+    if($entry.FullName.EndsWith('/')){ continue }
+    $ext = [System.IO.Path]::GetExtension($entry.FullName).ToLowerInvariant()
+    if($textExt -contains $ext){
+      $reader = New-Object System.IO.StreamReader($entry.Open(), [System.Text.Encoding]::UTF8, $true)
+      try {
+        $content = $reader.ReadToEnd()
+      } finally {
+        $reader.Dispose()
+      }
+      Assert-TextClean ("setup zip: " + $entry.FullName) $content $banTokensCase $banTokensInsensitive
+    }
+  }
 } finally {
   $zip.Dispose()
 }
-$mustContain = @(
-  'payload/bin/InsideLab.ps1',
-  'payload/tools/Run-WinLab.cmd',
-  'payload/WinLab.ps1',
-  'payload/version.txt'
-)
-function HasZipEntry([string]$name, [string[]]$entries){
-  if($entries -contains $name){ return $true }
-  $alt = $name.Replace('/', '\')
-  return ($entries -contains $alt)
-}
-foreach($p in $mustContain){
-  if(-not (HasZipEntry -name $p -entries $names)){ Fail "El instalador no contiene: $p" }
-}
-Ok 'Contenido minimo del instalador OK'
 
 # Launcher debe usar staging en C:\WinLab_Pack
 $launcherPath = Join-Path $root 'downloads/launcher/WinLab_Launcher.cmd'
 $launcher = Get-Content -Path $launcherPath -Raw
-$launcherMust = @('C:\WinLab_Pack','C:\WinLab_Inbox','C:\WinLab_Outbox')
+$launcherMust = @('C:\WinLab_Pack','C:\WinLab_Inbox','C:\WinLab_Outbox','C:\WinLab\logs')
 foreach($s in $launcherMust){
   if($launcher -notmatch [regex]::Escape($s)){ Fail "Launcher sin ruta requerida: $s" }
 }
@@ -156,13 +204,7 @@ if($pricing -notmatch 'data-theme-toggle' -and $pricing -notmatch 'theme-toggle'
 if($pricing -notmatch [regex]::Escape('Mejor relación precio/valor') -and $pricing -notmatch [regex]::Escape('Mejor relacion precio/valor')){
   Fail 'pricing.html sin badge Mejor relación precio/valor'
 }
-foreach($token in $banTokensCase){
-  if($pricingText -cmatch [regex]::Escape($token)){ Fail "pricing.html contiene texto no permitido: $token" }
-}
-foreach($token in $banTokensInsensitive){
-  $pattern = '(?i)' + [regex]::Escape($token)
-  if($pricingText -match $pattern){ Fail "pricing.html contiene texto no permitido: $token" }
-}
+Assert-TextClean 'pricing.html' $pricingText $banTokensCase $banTokensInsensitive
 foreach($token in @('data-buy="mp"','data-buy="stripe"','data-buy="whatsapp"')){
   if($pricing -notmatch [regex]::Escape($token)){ Fail "pricing.html sin boton: $token" }
 }
