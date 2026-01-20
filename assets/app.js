@@ -51,7 +51,8 @@
 
   // Pricing buttons: fallback to WhatsApp when BUY_* is empty.
   const config = window.WINLAB_CONFIG || {};
-  const whatsappUrl = (config.WHATSAPP_URL || '').trim();
+  const defaultWhatsApp = 'https://wa.me/5490000000000?text=Hola%20WinLab%20-%20Quiero%20comprar';
+  const whatsappUrl = (config.WHATSAPP_URL || defaultWhatsApp).trim();
   const resolveBuyUrl = (kind) => {
     if (kind === 'mp') return (config.BUY_MP_URL || '').trim();
     if (kind === 'stripe') return (config.BUY_STRIPE_URL || '').trim();

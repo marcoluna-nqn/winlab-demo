@@ -344,6 +344,10 @@ h3 {
   margin-top: 18px;
 }
 
+.grid--two {
+  grid-template-columns: repeat(2, 1fr);
+}
+
 .plan-card {
   padding: 20px;
   border-radius: var(--radius2);
