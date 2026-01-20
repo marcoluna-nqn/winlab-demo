@@ -8,6 +8,9 @@ $OutputEncoding = [Console]::OutputEncoding
 
 function Fail($m){ Write-Host "[FAIL] $m" -ForegroundColor Red; exit 1 }
 function Ok($m){ Write-Host "[ OK ] $m" -ForegroundColor Green }
+function ReadUtf8([string]$path){
+  return [System.IO.File]::ReadAllText($path, [System.Text.Encoding]::UTF8)
+}
 
 $scriptPath = $PSCommandPath
 if(-not $scriptPath){ $scriptPath = $MyInvocation.MyCommand.Path }
@@ -56,10 +59,18 @@ if(-not (Test-Path $setupZip)){ Fail 'Falta downloads/WinLab_Setup_v0.8.0.zip' }
 Ok 'Setup ZIP OK'
 
 # index.html debe referenciar scripts y un setup existente
-$index = Get-Content -Path (Join-Path $root 'index.html') -Raw
+$index = ReadUtf8 (Join-Path $root 'index.html')
 $indexDeps = @('assets/config\.js','assets/app\.js')
 foreach($d in $indexDeps){
   if($index -notmatch $d){ Fail "index.html no referencia $d" }
+}
+if($index -notmatch [regex]::Escape('Comprar ahora')){ Fail 'index.html sin copy requerido: Comprar ahora' }
+$como = 'C' + [char]0xF3 + 'mo funciona'
+if($index -notmatch [regex]::Escape($como) -and $index -notmatch [regex]::Escape('Como funciona')){
+  Fail 'index.html sin copy requerido: Cómo funciona'
+}
+if($index -notmatch 'data-theme-toggle' -and $index -notmatch 'theme-toggle'){
+  Fail 'index.html sin toggle de tema'
 }
 $m = [regex]::Match($index, 'downloads/(WinLab_Setup_v[0-9]+\.[0-9]+\.[0-9]+\.zip)')
 if(-not $m.Success){ Fail 'index.html no referencia downloads/WinLab_Setup_vX.Y.Z.zip' }
@@ -121,9 +132,13 @@ foreach($p in $presetPaths){
 Ok 'Presets AUTO OK'
 
 # Pricing debe cargar config/app y tener botones
-$pricing = Get-Content -Path (Join-Path $root 'pricing.html') -Raw
+$pricing = ReadUtf8 (Join-Path $root 'pricing.html')
 if($pricing -notmatch 'assets/config\.js'){ Fail 'pricing.html no referencia assets/config.js' }
 if($pricing -notmatch 'assets/app\.js'){ Fail 'pricing.html no referencia assets/app.js' }
+$mejor = 'Mejor relaci' + [char]0xF3 + 'n precio/valor'
+if($pricing -notmatch [regex]::Escape($mejor) -and $pricing -notmatch [regex]::Escape('Mejor relacion precio/valor')){
+  Fail 'pricing.html sin badge Mejor relación precio/valor'
+}
 foreach($token in @('data-buy="mp"','data-buy="stripe"','data-buy="whatsapp"')){
   if($pricing -notmatch [regex]::Escape($token)){ Fail "pricing.html sin boton: $token" }
 }
