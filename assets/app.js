@@ -9,6 +9,40 @@
     });
   }
 
+  const themeKey = 'winlab-theme';
+  const themeToggles = Array.from(document.querySelectorAll('[data-theme-toggle]'));
+  const applyTheme = (value) => {
+    if (value === 'light' || value === 'dark') {
+      document.documentElement.setAttribute('data-theme', value);
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
+    themeToggles.forEach((toggleEl) => {
+      if (toggleEl.value !== value) toggleEl.value = value;
+    });
+  };
+  const savedTheme = (() => {
+    try {
+      return localStorage.getItem(themeKey) || 'auto';
+    } catch {
+      return 'auto';
+    }
+  })();
+  if (themeToggles.length) {
+    applyTheme(savedTheme);
+    themeToggles.forEach((toggleEl) => {
+      toggleEl.addEventListener('change', (event) => {
+        const next = event.target.value || 'auto';
+        try {
+          localStorage.setItem(themeKey, next);
+        } catch {
+          // Ignore storage errors
+        }
+        applyTheme(next);
+      });
+    });
+  }
+
   const toast = document.querySelector('[data-toast]');
   function showToast(msg) {
     if (!toast) return;
