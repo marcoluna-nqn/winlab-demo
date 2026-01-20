@@ -6,7 +6,7 @@
   <Printer>Disable</Printer>
   <MappedFolders>
     <MappedFolder>
-      <HostFolder>__PACK_ROOT__</HostFolder>
+      <HostFolder>C:\WinLab_Pack</HostFolder>
       <SandboxFolder>C:\WinLabPack</SandboxFolder>
       <ReadOnly>true</ReadOnly>
     </MappedFolder>
