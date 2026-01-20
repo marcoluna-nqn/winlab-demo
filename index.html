@@ -3,11 +3,36 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="WinLab: laboratorio descartable en Windows Sandbox para analizar descargas sospechosas y generar reportes." />
-  <title>WinLab â€” Laboratorio descartable en Windows Sandbox</title>
+  <meta name="description" content="WinLab: laboratorio descartable en Windows Sandbox + Microsoft Defender para analizar archivos sospechosos y obtener un reporte claro en minutos." />
+  <title>WinLab - Analiza descargas sospechosas sin ensuciar tu Windows</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <meta property="og:title" content="WinLab - Sandbox desechable con reportes claros" />
+  <meta property="og:description" content="Abre Windows Sandbox, actualiza Defender y entrega un reporte OK/Detectado/Inconcluso sin tocar tu equipo principal." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://marcoluna-nqn.github.io/winlab-demo/" />
+  <meta property="og:image" content="https://marcoluna-nqn.github.io/winlab-demo/assets/favicon.svg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="WinLab - Sandbox desechable con reportes claros" />
+  <meta name="twitter:description" content="Prueba archivos sospechosos en Windows Sandbox, con reportes accionables en minutos." />
   <link rel="stylesheet" href="assets/styles.css" />
+  <script defer src="assets/config.js"></script>
   <script defer src="assets/app.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "WinLab",
+    "applicationCategory": "SecurityApplication",
+    "operatingSystem": "Windows 10/11 Pro",
+    "description": "Laboratorio descartable que usa Windows Sandbox y Microsoft Defender para analizar archivos sospechosos y generar reportes claros.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "url": "https://marcoluna-nqn.github.io/winlab-demo/"
+  }
+  </script>
 </head>
 <body>
   <header class="header">
@@ -17,114 +42,219 @@
         <span class="brand__name">WinLab</span>
       </a>
       <nav class="nav">
-        <a href="#como" class="nav__link">CÃ³mo funciona</a>
-        <a href="#reportes" class="nav__link">Reportes</a>
-        <a href="#descarga" class="nav__link">Descarga</a>
-        <a href="pricing.html" class="nav__link">Planes</a>
+        <a href="#how" class="nav__link">Cómo funciona</a>
+        <a href="#features" class="nav__link">Features</a>
+        <a href="#reports" class="nav__link">Reportes</a>
+        <a href="#pricing" class="nav__link">Planes</a>
         <a href="#faq" class="nav__link">FAQ</a>
-        <a href="docs/guia.html" class="nav__btn">GuÃ­a</a>
+        <a class="nav__btn" data-buy="whatsapp">Comprar</a>
       </nav>
-      <button class="nav__toggle" aria-label="Abrir menÃº" data-nav-toggle>
+      <button class="nav__toggle" aria-label="Abrir menú" data-nav-toggle>
         <span></span><span></span><span></span>
       </button>
     </div>
     <div class="nav__mobile" data-nav-mobile>
-      <a href="#como" class="nav__link">CÃ³mo funciona</a>
-      <a href="#reportes" class="nav__link">Reportes</a>
-      <a href="#descarga" class="nav__link">Descarga</a>
-      <a href="pricing.html" class="nav__link">Planes</a>
+      <a href="#how" class="nav__link">Cómo funciona</a>
+      <a href="#features" class="nav__link">Features</a>
+      <a href="#reports" class="nav__link">Reportes</a>
+      <a href="#pricing" class="nav__link">Planes</a>
       <a href="#faq" class="nav__link">FAQ</a>
-      <a href="docs/guia.html" class="nav__btn">GuÃ­a</a>
+      <a class="nav__btn" data-buy="whatsapp">Comprar</a>
     </div>
   </header>
 
   <main>
     <section class="hero">
       <div class="container hero__grid">
-        <div class="hero__copy">
-          <div class="pill">Windows 10/11 Pro Â· Sandbox Â· Defender</div>
-          <h1>ProbÃ¡ archivos sospechosos en un entorno descartable. Sin ensuciar tu PC.</h1>
+        <div class="stack">
+          <div class="pill pill--glow">Windows Sandbox + Microsoft Defender - Reporte en minutos</div>
+          <h1>Analiza descargas sospechosas sin ensuciar tu Windows.</h1>
           <p class="lead">
-            WinLab abre un <strong>Windows Sandbox</strong>, actualiza las firmas de <strong>Microsoft Defender</strong>,
-            analiza tus descargas y genera un reporte HTML/JSON con semÃ¡foro en una carpeta de salida.
+            WinLab abre un Windows Sandbox descartable, actualiza Defender, analiza tu archivo más reciente y entrega un
+            reporte HTML/JSON con semáforo claro. Nada queda instalado: al cerrar el sandbox, todo desaparece.
           </p>
           <div class="hero__cta">
-            <a class="btn btn--primary" href="#descarga">Descargar y ejecutar</a>
-            <a class="btn btn--ghost" href="pricing.html">Ver planes</a>
+            <a class="btn btn--primary" data-buy="whatsapp">Comprar ahora</a>
+            <a class="btn btn--ghost" href="#how">Ver cómo funciona</a>
           </div>
-          <p class="muted">
-            Nota: WinLab <strong>no ejecuta</strong> el archivo. Actualiza firmas, analiza y reporta. No es magia: es Defender bien envuelto.
-          </p>
+          <div class="tagline">No corre desde el navegador. Descargas el pack, ejecutas local y recibes el reporte.</div>
         </div>
 
         <div class="hero__card">
-          <div class="card card--glass">
-            <div class="card__header">
-              <div class="card__title">Prueba en 90 segundos</div>
-              <div class="card__tag">Recomendado</div>
+          <div class="card floating">
+            <div class="card__title">
+              <span>Prueba guiada</span>
+              <span class="badge">Balanced 10min</span>
             </div>
-            <ol class="steps">
-              <li>DescargÃ¡ el archivo de prueba <strong>EICAR</strong> (seguro, solo test).</li>
-              <li>EjecutÃ¡ <strong>Winâ€‘Lab (Balanced 10min)</strong> desde el acceso directo.</li>
-              <li>AbrÃ­ la carpeta <strong>outbox</strong> y revisÃ¡ el reporte.</li>
-            </ol>
+            <ul class="list list--steps">
+              <li class="list__item">
+                <span class="list__icon">1</span>
+                <div>
+                  <strong>Descarga el ZIP</strong><br />
+                  Extrae completo y abre el launcher WinLab (preset AUTO).
+                </div>
+              </li>
+              <li class="list__item">
+                <span class="list__icon">2</span>
+                <div>
+                  <strong>Sandbox + Defender</strong><br />
+                  Actualiza firmas y escanea el archivo más reciente en Descargas.
+                </div>
+              </li>
+              <li class="list__item">
+                <span class="list__icon">3</span>
+                <div>
+                  <strong>Reporte OK/Detección/Inconcluso</strong><br />
+                  Abre <code class="mono">%LOCALAPPDATA%\WinLab\outbox</code> y revisa el HTML.
+                </div>
+              </li>
+            </ul>
             <div class="card__actions">
-              <a class="btn btn--primary btn--wide" href="#descarga">Bajar WinLab</a>
-              <a class="btn btn--ghost btn--wide" href="docs/guia.html#eicar">CÃ³mo probar con EICAR</a>
+              <a class="btn btn--primary btn--wide" href="downloads/WinLab_Setup_v0.8.0.zip" download>Descargar demo</a>
+              <a class="btn btn--ghost btn--wide" href="docs/guia.html#eicar">Probar con archivo EICAR seguro</a>
             </div>
-            <div class="card__fineprint">
-              <span class="dot"></span>
-              Sandbox se descarta al cerrar: todo lo que pase dentro desaparece.
+            <div class="muted small">Sandbox se descarta al cerrar. El host no ejecuta el archivo.</div>
+          </div>
+        </div>
+      </div>
+      <div class="container trust-bar">
+        <div class="trust-item">
+          <strong>No subimos tu archivo</strong>
+          <span class="muted small">Corre 100% local. Nada viaja a la nube.</span>
+        </div>
+        <div class="trust-item">
+          <strong>Windows Sandbox + Defender</strong>
+          <span class="muted small">Entorno aislado con firmas actualizadas.</span>
+        </div>
+        <div class="trust-item">
+          <strong>Reporte en minutos</strong>
+          <span class="muted small">HTML/JSON con semáforo y evidencias.</span>
+        </div>
+        <div class="trust-item">
+          <strong>Presets listos</strong>
+          <span class="muted small">Balanced, UltraSecure y Networked incluidos.</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="how" class="section">
+      <div class="container stack">
+        <div class="stack">
+          <div class="chip">Cómo funciona</div>
+          <h2>Sandbox descartable en 4 pasos</h2>
+          <p class="muted">Sin inventos. Solo Windows Sandbox y Defender bien orquestados.</p>
+        </div>
+        <div class="grid grid--2">
+          <div class="bento">
+            <div class="bento__icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="4" width="18" height="14" rx="3" />
+                <path d="M3 9h18" />
+              </svg>
             </div>
+            <h3>Descarga y abre</h3>
+            <p class="bento__meta">Baja el ZIP, extráelo completo y lanza el preset AUTO (Balanced).</p>
+          </div>
+          <div class="bento">
+            <div class="bento__icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M9.5 12l1.8 1.8L15 10" />
+              </svg>
+            </div>
+            <h3>Sandbox con Defender</h3>
+            <p class="bento__meta">Habilita Windows Sandbox, actualiza firmas y usa Defender como motor.</p>
+          </div>
+          <div class="bento">
+            <div class="bento__icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M4 7h12" />
+                <path d="M4 12h9" />
+                <path d="M4 17h6" />
+                <rect x="16" y="6" width="4" height="12" rx="1" />
+              </svg>
+            </div>
+            <h3>AutoDecision</h3>
+            <p class="bento__meta">Semáforo OK / Detectado / Inconcluso con señales: MOTW, firma, red, hashes.</p>
+          </div>
+          <div class="bento">
+            <div class="bento__icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M5 5h9l5 5v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z" />
+                <path d="M14 5v5h5" />
+              </svg>
+            </div>
+            <h3>Reporte listo</h3>
+            <p class="bento__meta">Abre <code class="mono">%LOCALAPPDATA%\WinLab\outbox</code> y comparte el HTML/JSON.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="como" class="section">
-      <div class="container">
-        <h2>Como funciona</h2>
-        <div class="grid">
-          <div class="feature">
-            <div class="feature__icon" aria-hidden="true">1</div>
-            <h3>Descargar</h3>
-            <p>Descarga el pack de WinLab y extraelo completo en una carpeta local.</p>
+    <section id="features" class="section">
+      <div class="container stack">
+        <div class="stack">
+          <div class="chip">Features</div>
+          <h2>Bento grid de capacidades</h2>
+          <p class="muted">Listo para demos, consultoría y operaciones internas.</p>
+        </div>
+        <div class="bento-grid">
+          <div class="bento">
+            <div class="bento__icon">🔒</div>
+            <h3>Privacidad real</h3>
+            <p class="bento__meta">No sube muestras. Todo corre en tu Windows y se descarta al cerrar.</p>
           </div>
-          <div class="feature">
-            <div class="feature__icon" aria-hidden="true">2</div>
-            <h3>Elegir preset</h3>
-            <p>Usa Balanced/UltraSecure/Networked segun el riesgo. El launcher abre el preset AUTO recomendado.</p>
+          <div class="bento">
+            <div class="bento__icon">🧪</div>
+            <h3>Sandbox descartable</h3>
+            <p class="bento__meta">Mapea Descargas en solo lectura, clona la muestra y la elimina al salir.</p>
           </div>
-          <div class="feature">
-            <div class="feature__icon" aria-hidden="true">3</div>
-            <h3>Ver reporte</h3>
-            <p>Al cerrar el Sandbox, revisa el HTML/JSON en outbox con semaforo y recomendacion.</p>
+          <div class="bento">
+            <div class="bento__icon">📊</div>
+            <h3>Reporte accionable</h3>
+            <p class="bento__meta">Semáforo, hashes, MOTW, firma, red, heurísticas y recomendaciones.</p>
+          </div>
+          <div class="bento">
+            <div class="bento__icon">⚙️</div>
+            <h3>Presets listos</h3>
+            <p class="bento__meta">Balanced, UltraSecure y Networked. Ajusta minutos y abre outbox.</p>
+          </div>
+          <div class="bento">
+            <div class="bento__icon">🚀</div>
+            <h3>Launcher simple</h3>
+            <p class="bento__meta">Un clic abre el preset recomendado. Sin scripts extraños en el host.</p>
+          </div>
+          <div class="bento">
+            <div class="bento__icon">🛟</div>
+            <h3>Safe Mode Helper</h3>
+            <p class="bento__meta">Asistente opcional para activar Modo Seguro (requiere admin, manual y reversible).</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="reportes" class="section">
-      <div class="container">
-        <h2>Reportes claros y accionables</h2>
-        <p class="lead">
-          SemÃƒÂ¡foro OK / DETECTADO / INCONCLUSO, evidencias verificables (hash, MOTW, firma) y recomendaciones.
-        </p>
-        <div class="report-grid">
+    <section id="reports" class="section">
+      <div class="container stack">
+        <div class="stack">
+          <div class="chip">Reportes</div>
+          <h2>Ejemplos listos para compartir</h2>
+          <p class="muted">HTML/JSON con evidencias verificables. Usa estos samples para mostrar el formato.</p>
+        </div>
+        <div class="report-preview">
           <div class="report-card report-card--ok">
             <div class="report-card__tag">OK</div>
             <h3>Sin detecciones</h3>
-            <p>Defender no detectÃƒÂ³ amenazas en este run. No es garantÃƒÂ­a absoluta; usÃƒÂ¡ criterio.</p>
+            <p class="muted">Defender limpio, hash estable, firma válida. Igual verifica la procedencia.</p>
           </div>
           <div class="report-card report-card--bad">
             <div class="report-card__tag">DETECTADO</div>
             <h3>Alerta confirmada</h3>
-            <p>Se registraron detecciones. RecomendaciÃƒÂ³n: no ejecutar y aislar la muestra.</p>
+            <p class="muted">Se detectó amenaza. Recomendación: no ejecutar y aislar la muestra.</p>
           </div>
           <div class="report-card report-card--warn">
             <div class="report-card__tag">INCONCLUSO</div>
-            <h3>SeÃƒÂ±ales fuertes</h3>
-            <p>AutoDecision marca riesgo alto (MOTW + sin firma + redirecciones + comportamiento raro).</p>
+            <h3>Señales fuertes</h3>
+            <p class="muted">Firmas viejas, sin firma digital y red sospechosa. Repite en Balanced/Networked.</p>
           </div>
         </div>
         <div class="report-links">
@@ -133,123 +263,164 @@
           <a class="btn btn--ghost" href="downloads/samples/report_inconcluso.html">Ejemplo Inconcluso (HTML)</a>
           <a class="btn btn--ghost" href="downloads/samples/report_ok.json">Ejemplo OK (JSON)</a>
         </div>
-        <p class="muted small">Los ejemplos son simulados para mostrar el formato y no provienen de un escaneo real.</p>
+        <p class="muted small">Los ejemplos son simulados para mostrar el formato. No provienen de un escaneo real.</p>
       </div>
     </section>
 
-    <section id="limitaciones" class="section section--alt">
-      <div class="container">
-        <h2>Limitaciones</h2>
-        <ul class="steps">
-          <li>Requiere Windows 10/11 Pro, Enterprise o Education con Windows Sandbox habilitado.</li>
-          <li>GitHub Pages es estatico: no se ejecuta Sandbox desde la web. Se descarga el pack y el launcher.</li>
-          <li>OK no es garantia absoluta. El contexto y las firmas importan.</li>
-          <li>Sin red, el update puede fallar y el resultado queda inconcluso.</li>
-        </ul>
-      </div>
-    </section>
-
-    <section id="inconcluso" class="section">
-      <div class="container">
-        <h2>Que significa Inconcluso</h2>
-        <p class="lead">El resultado no es confiable o hay senales fuertes de riesgo.</p>
-        <ul class="steps">
-          <li>Firmas viejas o update fallido.</li>
-          <li>Senales fuertes: MOTW + sin firma + redirecciones + comportamiento anomalo.</li>
-          <li>No se encontro un archivo estable para escanear.</li>
-        </ul>
-        <p class="muted">Reintenta en Balanced con red y valida por otra via si el origen es dudoso.</p>
-      </div>
-    </section>
-
-    <section id="descarga" class="section section--alt">
-      <div class="container">
-        <h2>Descarga</h2>
-        <p class="lead">
-          DescargÃ¡ la versiÃ³n de evaluaciÃ³n para demos controladas o pruebas internas.
-          Para uso comercial se agrega licenciamiento y soporte.
-        </p>
-
-        <div class="download">
-          <div class="download__left">
-            <div class="download__title">WinLab Setup v0.8.0</div>
-            <div class="download__meta">ZIP Â· Windows 10/11 Pro Â· Requiere Windows Sandbox</div>
-            <div class="download__actions">
-              <a class="btn btn--primary" href="downloads/WinLab_Setup_v0.8.0.zip" download>
-                Descargar WinLab
-              </a>
-              <a class="btn btn--ghost" href="docs/guia.html">Instrucciones</a>
+    <section id="pricing" class="section section--tight">
+      <div class="container stack">
+        <div class="stack">
+          <div class="chip">Pricing</div>
+          <h2>Elegí tu plan y compra al instante</h2>
+          <p class="muted">CTA directo por WhatsApp con el plan que elijas. Pagos por transferencia o el link que configures.</p>
+        </div>
+        <div class="pricing-grid">
+          <div class="plan-card">
+            <span class="plan-chip">Starter</span>
+            <div class="plan-price">USD -</div>
+            <div class="plan-subtitle">Para evaluar en serio con alcance individual.</div>
+            <ul class="plan-list">
+              <li>Presets Balanced + UltraSecure.</li>
+              <li>Reportes HTML/JSON/TXT con semáforo.</li>
+              <li>1 equipo - uso interno.</li>
+            </ul>
+            <div class="plan-actions">
+              <a class="btn btn--primary" data-buy="whatsapp">Comprar Starter</a>
+              <a class="btn btn--ghost" href="pricing.html#tabla">Ver detalle</a>
             </div>
           </div>
-          <div class="download__right">
-            <div class="codecard">
-              <div class="codecard__head">
-                <span>Si te falta Windows Sandbox (PowerShell Admin)</span>
-                <button class="copy" data-copy="#cmdSandbox">Copiar</button>
-              </div>
-              <pre id="cmdSandbox"><code>Enable-WindowsOptionalFeature -Online -FeatureName Containers-DisposableClientVM -All -NoRestart</code></pre>
-              <div class="codecard__foot">Luego reiniciÃ¡ Windows y probÃ¡ â€œWindows Sandboxâ€ desde Inicio.</div>
+          <div class="plan-card plan-card--featured">
+            <span class="plan-chip">Best value</span>
+            <div class="plan-price">USD -</div>
+            <div class="plan-subtitle">Consultores y equipos pequeños.</div>
+            <ul class="plan-list">
+              <li>Todos los presets + AutoDecision.</li>
+              <li>Reportes extendidos y evidencias extra.</li>
+              <li>Soporte base + onboarding.</li>
+            </ul>
+            <div class="plan-actions">
+              <a class="btn btn--primary" data-buy="whatsapp">Comprar Pro</a>
+              <a class="btn btn--ghost" href="pricing.html#tabla">Ver detalle</a>
+            </div>
+          </div>
+          <div class="plan-card">
+            <span class="plan-chip">Teams</span>
+            <div class="plan-price">USD -</div>
+            <div class="plan-subtitle">Equipos y soporte prioritario.</div>
+            <ul class="plan-list">
+              <li>Licencias multi-equipo y presets custom.</li>
+              <li>Branding en reportes y export avanzado.</li>
+              <li>Soporte prioritario y acuerdos SLA.</li>
+            </ul>
+            <div class="plan-actions">
+              <a class="btn btn--primary" data-buy="whatsapp">Hablar por Teams</a>
+              <a class="btn btn--ghost" href="pricing.html#tabla">Ver detalle</a>
             </div>
           </div>
         </div>
+        <div class="cta">
+          <div>
+            <h3>¿Querés ver más detalles?</h3>
+            <p class="cta__text">Política de compra, alcance y soporte están en la página de precios.</p>
+          </div>
+          <a class="btn btn--primary" href="pricing.html">Ir a pricing completo</a>
+        </div>
+      </div>
+    </section>
 
+    <section id="requirements" class="section">
+      <div class="container stack">
+        <div class="stack">
+          <div class="chip">Requisitos</div>
+          <h2>Lo mínimo para correr WinLab</h2>
+          <p class="muted">Sin esto, el sandbox no abre o queda inconcluso.</p>
+        </div>
+        <ul class="requirements">
+          <li>
+            <strong>Windows 10/11 Pro, Enterprise o Education.</strong>
+            <span class="muted">Windows Sandbox no está disponible en Home.</span>
+          </li>
+          <li>
+            <strong>Windows Sandbox habilitado.</strong>
+            <span class="muted">PowerShell admin: <code class="mono">Enable-WindowsOptionalFeature -Online -FeatureName Containers-DisposableClientVM -All -NoRestart</code></span>
+          </li>
+          <li>
+            <strong>Permisos para Defender.</strong>
+            <span class="muted">El escaneo usa Defender. Si no puede actualizar, el resultado puede ser inconcluso.</span>
+          </li>
+          <li>
+            <strong>Safe Mode Helper (opcional).</strong>
+            <span class="muted">Descárgalo para activar modo seguro con guía y confirmación: <a class="underline-link" href="downloads/safe_mode/README.txt">Ver helper</a>.</span>
+          </li>
+        </ul>
+        <div class="download">
+          <div>
+            <div class="download__title">WinLab Setup v0.8.0</div>
+            <div class="download__meta">ZIP - Windows 10/11 Pro - Requiere Sandbox</div>
+            <div class="download__actions">
+              <a class="btn btn--primary" href="downloads/WinLab_Setup_v0.8.0.zip" download>Descargar WinLab</a>
+              <a class="btn btn--secondary" href="docs/guia.html">Ver guía</a>
+            </div>
+          </div>
+          <div class="codecard">
+            <div class="codecard__head">
+              <span>Habilitar Windows Sandbox (PowerShell admin)</span>
+              <button class="copy" data-copy="#cmdSandbox">Copiar</button>
+            </div>
+            <pre id="cmdSandbox"><code>Enable-WindowsOptionalFeature -Online -FeatureName Containers-DisposableClientVM -All -NoRestart</code></pre>
+          </div>
+        </div>
         <div class="note">
-          <strong>Consejo:</strong> para una demo segura usÃ¡ EICAR. No hace falta â€œcontinuar a sitios no segurosâ€.
-          <a href="docs/guia.html#eicar">Ver pasos</a>.
+          <strong>Importante:</strong> GitHub Pages es estático. La web no ejecuta sandbox ni toca tu PC. Descargas el pack, lo ejecutas local y revisas el reporte.
         </div>
       </div>
     </section>
 
     <section id="faq" class="section">
-      <div class="container">
-        <h2>FAQ</h2>
-        <div class="faq">
+      <div class="container stack">
+        <div class="stack">
+          <div class="chip">FAQ</div>
+          <h2>Respuestas rápidas</h2>
+          <p class="muted">Lo esencial antes de comprar o probar.</p>
+        </div>
+        <div class="faq" role="region" aria-label="Preguntas frecuentes">
           <details>
-            <summary>Â¿Funciona en Windows Home?</summary>
+            <summary aria-expanded="false">¿Funciona en Windows Home?<span class="faq__icon" aria-hidden="true">+</span></summary>
             <p>No. Windows Sandbox requiere Windows 10/11 Pro, Enterprise o Education.</p>
           </details>
           <details>
-            <summary>Â¿WinLab ejecuta el archivo?</summary>
-            <p>No. Analiza y reporta. El objetivo es reducir riesgo, no correr cosas â€œa ver quÃ© pasaâ€.</p>
+            <summary aria-expanded="false">¿WinLab ejecuta el archivo?<span class="faq__icon" aria-hidden="true">+</span></summary>
+            <p>No lo ejecuta. Analiza y reporta. El objetivo es reducir riesgo, no probar malware en el host.</p>
           </details>
           <details>
-            <summary>Â¿DÃ³nde quedan los reportes?</summary>
-            <p>En <code>%LOCALAPPDATA%\WinLab\outbox\</code> (si el preset tiene outbox ON). Logs en <code>%LOCALAPPDATA%\WinLab\logs\</code>.</p>
+            <summary aria-expanded="false">¿Dónde quedan los reportes?<span class="faq__icon" aria-hidden="true">+</span></summary>
+            <p>En <code class="mono">%LOCALAPPDATA%\WinLab\outbox</code> si el preset tiene outbox ON. Logs en <code class="mono">%LOCALAPPDATA%\WinLab\logs</code>.</p>
           </details>
           <details>
-            <summary>Â¿QuÃ© archivo analiza?</summary>
-            <p>Por defecto, toma el <strong>archivo mÃ¡s reciente</strong> de tu carpeta <strong>Descargas</strong> (mapeada ReadOnly al Sandbox) y lo copia a una carpeta interna antes de escanear.</p>
+            <summary aria-expanded="false">¿Qué pasa si sale INCONCLUSO?<span class="faq__icon" aria-hidden="true">+</span></summary>
+            <p>Puede ser por firmas viejas, update fallido o señales fuertes (MOTW + sin firma + red). Repite con red en Balanced/Networked.</p>
           </details>
           <details>
-            <summary>Â¿Puedo analizar un link sospechoso?</summary>
-            <p>SÃ­. UsÃ¡ el preset <strong>Networked</strong> y el modo terminal: <code>WinLab.ps1 url -Url "https://..."</code>. El reporte incluye DNS/TLS/headers y, si hay descargas, las analiza dentro del Sandbox.</p>
+            <summary aria-expanded="false">¿Puedo analizar un link sospechoso?<span class="faq__icon" aria-hidden="true">+</span></summary>
+            <p>Sí. Usa el preset Networked y modo terminal: <code class="mono">WinLab.ps1 url -Url "https://..."</code>. El reporte incluye DNS/TLS/headers.</p>
           </details>
           <details>
-            <summary>Â¿Se puede ejecutar desde terminal?</summary>
-            <p>SÃ­. WinLab incluye <code>WinLab.ps1</code> (y <code>WinLab.cmd</code>) para casos avanzados: elegir archivo, pasar URL, ajustar minutos y abrir el outbox.</p>
-          </details>
-                    <details>
-            <summary>&#191;Como comparto el instalador?</summary>
-            <p>Comparti el ZIP de WinLab Setup. La otra persona debe extraerlo completo y ejecutar <code>WinLab_Setup.cmd</code>.</p>
-          </details>
-          <details>
-            <summary>&#191;Que significa INCONCLUSO?</summary>
-            <p>El resultado no es confiable: firmas viejas, update fallido o senales fuertes (MOTW + sin firma + redirecciones + comportamiento raro). Reintenta en Balanced/Networked y valida por otra via.</p>
+            <summary aria-expanded="false">¿Cómo se paga?<span class="faq__icon" aria-hidden="true">+</span></summary>
+            <p>El sitio es estático. Pagas vía WhatsApp/transferencia o el link de pago que configures en <code class="mono">assets/config.js</code>. Luego recibes soporte/manual.</p>
           </details>
         </div>
       </div>
     </section>
 
-    <section class="section section--alt">
-      <div class="container">
-        <div class="cta">
-          <div>
-            <h2 class="cta__title">Listo para probar hoy</h2>
-            <p class="cta__text">Publica en GitHub Pages o un hosting estatico y comparti el link.</p>
-          </div>
-          <div class="cta__actions">
-            <a class="btn btn--primary" href="docs/guia.html#deploy">CÃ³mo publicar en GitHub Pages</a>
-          </div>
+    <section class="section section--tight">
+      <div class="container cta">
+        <div>
+          <h3>Lanza tu demo hoy</h3>
+          <p class="cta__text">Publica en GitHub Pages, comparte el link y vende el servicio. El laboratorio corre local.</p>
+        </div>
+        <div class="download__actions">
+          <a class="btn btn--primary" data-buy="whatsapp">Comprar ahora</a>
+          <a class="btn btn--ghost" href="docs/guia.html#deploy">Cómo publicar en GitHub Pages</a>
         </div>
       </div>
     </section>
@@ -257,18 +428,18 @@
 
   <footer class="footer">
     <div class="container footer__inner">
-      <div class="footer__left">
+      <div>
         <div class="brand brand--small">
           <span class="brand__mark" aria-hidden="true">WL</span>
           <span class="brand__name">WinLab</span>
         </div>
-        <p class="muted">Laboratorio descartable para anÃ¡lisis seguro. Producto.</p>
+        <p class="muted">Laboratorio descartable para análisis seguro con Windows Sandbox + Defender.</p>
       </div>
-      <div class="footer__right">
-        <a href="docs/guia.html">GuÃ­a</a>
-        <a href="#reportes">Reportes</a>
+      <div class="footer__links">
+        <a href="docs/guia.html">Guía</a>
+        <a href="#reports">Reportes</a>
         <a href="pricing.html">Planes</a>
-        <a href="#descarga">Descarga</a>
+        <a href="#requirements">Requisitos</a>
         <a href="docs/guia.html#contacto">Contacto</a>
       </div>
     </div>
@@ -277,6 +448,7 @@
   <div class="toast" data-toast aria-live="polite" aria-atomic="true"></div>
 </body>
 </html>
+
 
 
 

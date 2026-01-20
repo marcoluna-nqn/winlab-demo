@@ -263,6 +263,13 @@ p {
   align-items: start;
 }
 
+.hero__cta {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
 .hero__card {
   position: relative;
 }

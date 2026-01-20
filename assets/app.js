@@ -78,4 +78,13 @@
       showToast('Configura WHATSAPP_URL en assets/config.js');
     });
   });
+
+  // FAQ accordion: keep aria-expanded in sync for accessibility.
+  document.querySelectorAll('.faq details').forEach((details) => {
+    const summary = details.querySelector('summary');
+    if (!summary) return;
+    const sync = () => summary.setAttribute('aria-expanded', details.open ? 'true' : 'false');
+    sync();
+    details.addEventListener('toggle', sync);
+  });
 })();
