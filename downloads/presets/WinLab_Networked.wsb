@@ -1,0 +1,16 @@
+﻿<Configuration>
+  <VGpu>Default</VGpu>
+  <Networking>Enable</Networking>
+  <AudioInput>Disable</AudioInput>
+  <ClipboardRedirection>Disable</ClipboardRedirection>
+  <PrinterRedirection>Disable</PrinterRedirection>
+  <MappedFolders>
+    <MappedFolder>
+      <HostFolder>E:\WinLab_Inbox</HostFolder>
+      <ReadOnly>true</ReadOnly>
+    </MappedFolder>
+  </MappedFolders>
+  <LogonCommand>
+    <Command>powershell -NoProfile -ExecutionPolicy Bypass -Command "Write-Host 'WinLab Networked: solo para abrir links sospechosos. No pegues credenciales. Cerrá al terminar.'"</Command>
+  </LogonCommand>
+</Configuration>

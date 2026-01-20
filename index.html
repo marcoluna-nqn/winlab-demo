@@ -1,0 +1,260 @@
+﻿<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="WinLab: laboratorio descartable en Windows Sandbox para analizar descargas sospechosas y generar reportes." />
+  <title>WinLab â€” Laboratorio descartable en Windows Sandbox</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/styles.css" />
+  <script defer src="assets/app.js"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="container header__inner">
+      <a class="brand" href="./">
+        <span class="brand__mark" aria-hidden="true">WL</span>
+        <span class="brand__name">WinLab</span>
+      </a>
+      <nav class="nav">
+        <a href="#como" class="nav__link">CÃ³mo funciona</a>
+        <a href="#reportes" class="nav__link">Reportes</a>
+        <a href="#descarga" class="nav__link">Descarga</a>
+        <a href="#faq" class="nav__link">FAQ</a>
+        <a href="docs/guia.html" class="nav__btn">GuÃ­a</a>
+      </nav>
+      <button class="nav__toggle" aria-label="Abrir menÃº" data-nav-toggle>
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav__mobile" data-nav-mobile>
+      <a href="#como" class="nav__link">CÃ³mo funciona</a>
+      <a href="#reportes" class="nav__link">Reportes</a>
+      <a href="#descarga" class="nav__link">Descarga</a>
+      <a href="#faq" class="nav__link">FAQ</a>
+      <a href="docs/guia.html" class="nav__btn">GuÃ­a</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero__grid">
+        <div class="hero__copy">
+          <div class="pill">Windows 10/11 Pro Â· Sandbox Â· Defender</div>
+          <h1>ProbÃ¡ archivos sospechosos en un entorno descartable. Sin ensuciar tu PC.</h1>
+          <p class="lead">
+            WinLab abre un <strong>Windows Sandbox</strong>, actualiza las firmas de <strong>Microsoft Defender</strong>,
+            analiza tus descargas y genera un reporte HTML/JSON con semÃ¡foro en una carpeta de salida.
+          </p>
+          <div class="hero__cta">
+            <a class="btn btn--primary" href="#descarga">Descargar</a>
+            <a class="btn btn--ghost" href="docs/guia.html">Ver guÃ­a rÃ¡pida</a>
+          </div>
+          <p class="muted">
+            Nota: WinLab <strong>no ejecuta</strong> el archivo. Actualiza las firmas, analiza y reporta (sin trucos de â€œIA mÃ¡gicaâ€).
+          </p>
+        </div>
+
+        <div class="hero__card">
+          <div class="card card--glass">
+            <div class="card__header">
+              <div class="card__title">Prueba en 90 segundos</div>
+              <div class="card__tag">Recomendado</div>
+            </div>
+            <ol class="steps">
+              <li>DescargÃ¡ el archivo de prueba <strong>EICAR</strong> (seguro, solo test).</li>
+              <li>EjecutÃ¡ <strong>Winâ€‘Lab (Balanced 10min)</strong> desde el acceso directo.</li>
+              <li>AbrÃ­ la carpeta <strong>outbox</strong> y revisÃ¡ el reporte.</li>
+            </ol>
+            <div class="card__actions">
+              <a class="btn btn--primary btn--wide" href="#descarga">Bajar WinLab</a>
+              <a class="btn btn--ghost btn--wide" href="docs/guia.html#eicar">CÃ³mo probar con EICAR</a>
+            </div>
+            <div class="card__fineprint">
+              <span class="dot"></span>
+              Sandbox se descarta al cerrar: todo lo que pase dentro desaparece.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="como" class="section">
+      <div class="container">
+        <h2>CÃ³mo funciona</h2>
+        <div class="grid">
+          <div class="feature">
+            <div class="feature__icon" aria-hidden="true">ðŸ§ª</div>
+            <h3>Sandbox descartable</h3>
+            <p>WinLab lanza Windows Sandbox con una configuraciÃ³n predefinida. Al cerrar, el entorno se destruye.</p>
+          </div>
+          <div class="feature">
+            <div class="feature__icon" aria-hidden="true">ðŸ›¡ï¸</div>
+            <h3>Defender real</h3>
+            <p>Dentro del Sandbox, se utiliza Microsoft Defender para escanear archivos (sin â€œIA mÃ¡gicaâ€).</p>
+          </div>
+          <div class="feature">
+            <div class="feature__icon" aria-hidden="true">ðŸ“„</div>
+            <h3>Reporte en el host</h3>
+            <p>WinLab escribe el resultado en el host (outbox): detecciones, hashes, firma/MOTW, AutoDecision y recomendacion accionable con semaforo.</p>
+          </div>
+          <div class="feature">
+            <div class="feature__icon" aria-hidden="true">âš™ï¸</div>
+            <h3>Presets</h3>
+            <p>Balanced / UltraSecure / Networked: ajustan la red y el nivel de aislamiento. El archivo se copia desde carpeta ReadOnly a una carpeta interna antes de escanear. Ademas, podes ejecutarlo desde terminal con <code>WinLab.ps1</code> para casos avanzados (URLs, archivos especificos).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="reportes" class="section">
+      <div class="container">
+        <h2>Reportes claros y accionables</h2>
+        <p class="lead">
+          SemÃƒÂ¡foro OK / DETECTADO / INCONCLUSO, evidencias verificables (hash, MOTW, firma) y recomendaciones.
+        </p>
+        <div class="report-grid">
+          <div class="report-card report-card--ok">
+            <div class="report-card__tag">OK</div>
+            <h3>Sin detecciones</h3>
+            <p>Defender no detectÃƒÂ³ amenazas en este run. No es garantÃƒÂ­a absoluta; usÃƒÂ¡ criterio.</p>
+          </div>
+          <div class="report-card report-card--bad">
+            <div class="report-card__tag">DETECTADO</div>
+            <h3>Alerta confirmada</h3>
+            <p>Se registraron detecciones. RecomendaciÃƒÂ³n: no ejecutar y aislar la muestra.</p>
+          </div>
+          <div class="report-card report-card--warn">
+            <div class="report-card__tag">INCONCLUSO</div>
+            <h3>SeÃƒÂ±ales fuertes</h3>
+            <p>AutoDecision marca riesgo alto (MOTW + sin firma + redirecciones + comportamiento raro).</p>
+          </div>
+        </div>
+        <div class="report-links">
+          <a class="btn btn--ghost" href="downloads/samples/report_ok.html">Ejemplo OK (HTML)</a>
+          <a class="btn btn--ghost" href="downloads/samples/report_detectado.html">Ejemplo Detectado (HTML)</a>
+          <a class="btn btn--ghost" href="downloads/samples/report_inconcluso.html">Ejemplo Inconcluso (HTML)</a>
+          <a class="btn btn--ghost" href="downloads/samples/report_ok.json">Ejemplo OK (JSON)</a>
+        </div>
+        <p class="muted small">Los ejemplos son simulados para mostrar el formato y no provienen de un escaneo real.</p>
+      </div>
+    </section>
+
+    <section id="descarga" class="section section--alt">
+      <div class="container">
+        <h2>Descarga</h2>
+        <p class="lead">
+          DescargÃ¡ la versiÃ³n de evaluaciÃ³n para demos controladas o pruebas internas.
+          Para uso comercial se agrega licenciamiento y soporte.
+        </p>
+
+        <div class="download">
+          <div class="download__left">
+            <div class="download__title">WinLab Setup v0.8.0</div>
+            <div class="download__meta">ZIP Â· Windows 10/11 Pro Â· Requiere Windows Sandbox</div>
+            <div class="download__actions">
+              <a class="btn btn--primary" href="downloads/WinLab_Setup_v0.8.0.zip" download>
+                Descargar WinLab
+              </a>
+              <a class="btn btn--ghost" href="docs/guia.html">Instrucciones</a>
+            </div>
+          </div>
+          <div class="download__right">
+            <div class="codecard">
+              <div class="codecard__head">
+                <span>Si te falta Windows Sandbox (PowerShell Admin)</span>
+                <button class="copy" data-copy="#cmdSandbox">Copiar</button>
+              </div>
+              <pre id="cmdSandbox"><code>Enable-WindowsOptionalFeature -Online -FeatureName Containers-DisposableClientVM -All -NoRestart</code></pre>
+              <div class="codecard__foot">Luego reiniciÃ¡ Windows y probÃ¡ â€œWindows Sandboxâ€ desde Inicio.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="note">
+          <strong>Consejo:</strong> para una demo segura usÃ¡ EICAR. No hace falta â€œcontinuar a sitios no segurosâ€.
+          <a href="docs/guia.html#eicar">Ver pasos</a>.
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section">
+      <div class="container">
+        <h2>FAQ</h2>
+        <div class="faq">
+          <details>
+            <summary>Â¿Funciona en Windows Home?</summary>
+            <p>No. Windows Sandbox requiere Windows 10/11 Pro, Enterprise o Education.</p>
+          </details>
+          <details>
+            <summary>Â¿WinLab ejecuta el archivo?</summary>
+            <p>No. Analiza y reporta. El objetivo es reducir riesgo, no correr cosas â€œa ver quÃ© pasaâ€.</p>
+          </details>
+          <details>
+            <summary>Â¿DÃ³nde quedan los reportes?</summary>
+            <p>En <code>%LOCALAPPDATA%\WinLab\outbox\</code> (si el preset tiene outbox ON). Logs en <code>%LOCALAPPDATA%\WinLab\logs\</code>.</p>
+          </details>
+          <details>
+            <summary>Â¿QuÃ© archivo analiza?</summary>
+            <p>Por defecto, toma el <strong>archivo mÃ¡s reciente</strong> de tu carpeta <strong>Descargas</strong> (mapeada ReadOnly al Sandbox) y lo copia a una carpeta interna antes de escanear.</p>
+          </details>
+          <details>
+            <summary>Â¿Puedo analizar un link sospechoso?</summary>
+            <p>SÃ­. UsÃ¡ el preset <strong>Networked</strong> y el modo terminal: <code>WinLab.ps1 url -Url "https://..."</code>. El reporte incluye DNS/TLS/headers y, si hay descargas, las analiza dentro del Sandbox.</p>
+          </details>
+          <details>
+            <summary>Â¿Se puede ejecutar desde terminal?</summary>
+            <p>SÃ­. WinLab incluye <code>WinLab.ps1</code> (y <code>WinLab.cmd</code>) para casos avanzados: elegir archivo, pasar URL, ajustar minutos y abrir el outbox.</p>
+          </details>
+                    <details>
+            <summary>&#191;Como comparto el instalador?</summary>
+            <p>Comparti el ZIP de WinLab Setup. La otra persona debe extraerlo completo y ejecutar <code>WinLab_Setup.cmd</code>.</p>
+          </details>
+          <details>
+            <summary>&#191;Que significa INCONCLUSO?</summary>
+            <p>El resultado no es confiable: firmas viejas, update fallido o senales fuertes (MOTW + sin firma + redirecciones + comportamiento raro). Reintenta en Balanced/Networked y valida por otra via.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt">
+      <div class="container">
+        <div class="cta">
+          <div>
+            <h2 class="cta__title">Listo para probar hoy</h2>
+            <p class="cta__text">Publica en GitHub Pages o un hosting estatico y comparti el link.</p>
+          </div>
+          <div class="cta__actions">
+            <a class="btn btn--primary" href="docs/guia.html#deploy">CÃ³mo publicar en GitHub Pages</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__left">
+        <div class="brand brand--small">
+          <span class="brand__mark" aria-hidden="true">WL</span>
+          <span class="brand__name">WinLab</span>
+        </div>
+        <p class="muted">Laboratorio descartable para anÃ¡lisis seguro. Producto.</p>
+      </div>
+      <div class="footer__right">
+        <a href="docs/guia.html">GuÃ­a</a>
+        <a href="#reportes">Reportes</a>
+        <a href="#descarga">Descarga</a>
+        <a href="docs/guia.html#contacto">Contacto</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" data-toast aria-live="polite" aria-atomic="true"></div>
+</body>
+</html>
+
+
+
+

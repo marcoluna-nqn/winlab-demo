@@ -1,0 +1,57 @@
+﻿<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>WinLab - Reporte (Ejemplo Inconcluso)</title>
+  <style>
+    :root{--bg:#f6f7fb;--card:#fff;--text:#111827;--muted:#4b5563;--line:#e5e7eb}
+    body{font-family:Segoe UI,Arial,sans-serif;margin:0;padding:24px;color:var(--text);background:var(--bg);}
+    .wrap{max-width:1080px;margin:0 auto;}
+    .header{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;margin-bottom:12px;}
+    .badge{display:inline-block;padding:8px 12px;border-radius:999px;color:#fff;font-weight:700;letter-spacing:.2px}
+    .risk{display:inline-block;padding:6px 10px;border-radius:999px;color:#fff;font-weight:700;letter-spacing:.2px}
+    .card{border:1px solid var(--line);border-radius:16px;padding:16px;background:var(--card);margin-bottom:12px;}
+    .alert{margin:8px 0;padding:10px 12px;border-radius:12px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .k{font-weight:700;margin-bottom:6px;}
+    .lead{margin:6px 0 10px 0;color:var(--muted);line-height:1.5;}
+    .muted{color:var(--muted);}
+    .small{font-size:13px;}
+    @media (max-width: 900px){.grid{grid-template-columns:1fr;}.header{flex-direction:column;align-items:flex-start;}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="header">
+      <div>
+        <h1 style="margin:0;">WinLab - Reporte (Ejemplo)</h1>
+        <div class="small muted">Run: run_20260119_124201_Networked · Preset: Networked · Firewall: AllowMost · 2026-01-19</div>
+      </div>
+      <div class="badge" style="background:#b26a00;">INCONCLUSO</div>
+    </div>
+
+    <section class="card">
+      <h2 style="margin-top:0;">Resumen ejecutivo</h2>
+      <p class="lead">Ejemplo: resultado no confiable o con senales fuertes. Reintentar y validar por otra via.</p>
+      <div class="alert">AutoDecision detecto senales fuertes (MOTW + sin firma + redirecciones + comportamiento inusual).</div>
+      <div class="grid">
+        <div>
+          <div class="k">Recomendacion</div>
+          <div>Reintenta en Balanced (con Internet) y valida la URL en un entorno controlado.</div>
+        </div>
+        <div>
+          <div class="k">AutoDecision</div>
+          <div class="risk" style="background:#b26a00;">Riesgo: MEDIO (78)</div>
+          <ul>
+            <li>No se pudo actualizar firmas de Defender.</li>
+            <li>Multiples redirecciones en la URL.</li>
+            <li>Archivo con MOTW y sin firma valida.</li>
+            <li>Comportamiento inusual en la sesion.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+﻿<Configuration>
+  <VGpu>Default</VGpu>
+  <Networking>Enable</Networking>
+  <AudioInput>Disable</AudioInput>
+  <ClipboardRedirection>Disable</ClipboardRedirection>
+  <PrinterRedirection>Disable</PrinterRedirection>
+  <MappedFolders>
+    <MappedFolder>
+      <HostFolder>E:\WinLab_Inbox</HostFolder>
+      <ReadOnly>true</ReadOnly>
+    </MappedFolder>
+  </MappedFolders>
+  <LogonCommand>
+    <Command>powershell -NoProfile -ExecutionPolicy Bypass -Command "Write-Host 'WinLab Balanced listo. Red habilitada.'"</Command>
+  </LogonCommand>
+</Configuration>
