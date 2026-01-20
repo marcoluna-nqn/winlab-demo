@@ -37,10 +37,14 @@ Set-Location $root
 $required = @(
   'index.html',
   'pricing.html',
+  'mobile.html',
   '404.html',
   '.nojekyll',
   'docs/guia.html',
   'docs/guia_cliente.html',
+  'assets/pwa/manifest.webmanifest',
+  'assets/pwa/sw.js',
+  'assets/pwa/icon.svg',
   'assets/config.js',
   'assets/styles.css',
   'scripts/publish.ps1',
@@ -57,6 +61,9 @@ $required = @(
   'downloads/samples/report_inconcluso.json',
   'downloads/launcher/WinLab_Launcher.cmd',
   'downloads/launcher/README_LAUNCHER.txt',
+  'downloads/remote_host/README_REMOTE_HOST_ESAR.txt',
+  'downloads/remote_host/RemoteHost_Doctor.ps1',
+  'downloads/remote_host/RemoteHost_Hardening.txt',
   'downloads/presets/Balanced_AUTO.wsb',
   'downloads/presets/UltraSecure_AUTO.wsb',
   'downloads/presets/Networked_AUTO.wsb',
@@ -101,6 +108,7 @@ $indexDeps = @('assets/config\.js','assets/app\.js')
 foreach($d in $indexDeps){
   if($index -notmatch $d){ Fail "index.html no referencia $d" }
 }
+if($index -notmatch 'assets/pwa/manifest\.webmanifest'){ Fail 'index.html sin manifest PWA' }
 if($indexText -notmatch [regex]::Escape('Comprar ahora')){ Fail 'index.html sin copy requerido: Comprar ahora' }
 if($indexText -notmatch [regex]::Escape('Cómo funciona') -and $indexText -notmatch [regex]::Escape('Como funciona')){
   Fail 'index.html sin copy requerido: Cómo funciona'
@@ -120,6 +128,16 @@ foreach($sid in $sectionIds){
   if($index -notmatch $sid){ Fail "index.html sin seccion requerida: $sid" }
 }
 Ok 'Secciones clave en index OK'
+
+$mobile = ReadUtf8 (Join-Path $root 'mobile.html')
+$mobileText = StripHtml $mobile
+if($mobile -notmatch 'assets/pwa/manifest\.webmanifest'){ Fail 'mobile.html sin manifest PWA' }
+if($mobileText -notmatch '(?i)celular'){ Fail 'mobile.html sin referencia a celular' }
+if($mobileText -notmatch '(?i)Laboratorio Remoto'){ Fail 'mobile.html sin Laboratorio Remoto' }
+if($mobileText -notmatch '(?i)Tailscale|VPN'){ Fail 'mobile.html sin referencia a Tailscale o VPN' }
+if($mobileText -notmatch '(?i)no corre en iPhone|no corre en Android|no corre en iOS'){ Fail 'mobile.html sin aviso de no correr en iPhone/Android' }
+if($mobile -notmatch 'downloads/remote_host/README_REMOTE_HOST_ESAR\.txt'){ Fail 'mobile.html sin link a remote_host' }
+Ok 'mobile.html OK'
 
 # Validar textos clave en docs y samples (sin placeholders ni ingles)
 $textChecks = @(
@@ -248,6 +266,7 @@ $pricing = ReadUtf8 (Join-Path $root 'pricing.html')
 $pricingText = StripHtml $pricing
 if($pricing -notmatch 'assets/config\.js'){ Fail 'pricing.html no referencia assets/config.js' }
 if($pricing -notmatch 'assets/app\.js'){ Fail 'pricing.html no referencia assets/app.js' }
+if($pricing -notmatch 'assets/pwa/manifest\.webmanifest'){ Fail 'pricing.html sin manifest PWA' }
 if($pricingText -notmatch [regex]::Escape('Comprar ahora')){ Fail 'pricing.html sin CTA Comprar ahora' }
 if($pricing -notmatch 'data-theme-toggle' -and $pricing -notmatch 'theme-toggle'){
   Fail 'pricing.html sin toggle de tema'
@@ -267,6 +286,8 @@ if(-not $waMatch.Success -or [string]::IsNullOrWhiteSpace($waMatch.Groups[1].Val
 }
 $app = Get-Content -Path (Join-Path $root 'assets/app.js') -Raw
 if($app -notmatch 'defaultWhatsApp'){ Fail 'assets/app.js sin fallback WhatsApp' }
+if($app -notmatch 'serviceWorker'){ Fail 'assets/app.js sin registro de service worker' }
+if($app -notmatch 'assets/pwa/sw\.js'){ Fail 'assets/app.js sin referencia a assets/pwa/sw.js' }
 Ok 'Pricing/config OK'
 
 # Validar schemaVersion en samples JSON

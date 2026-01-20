@@ -29,7 +29,7 @@ if (-not $setup) { throw 'No se encontró downloads/WinLab_Setup_v*.zip' }
 $ver = 'unknown'
 if ($setup.Name -match 'WinLab_Setup_v([0-9]+\.[0-9]+\.[0-9]+)\.zip') { $ver = $Matches[1] }
 
-$siteItems = @('index.html','404.html','assets','docs','downloads')
+$siteItems = @('index.html','pricing.html','mobile.html','404.html','assets','docs','downloads')
 foreach ($i in $siteItems) {
   if (-not (Test-Path (Join-Path $root $i))) { throw "Falta $i" }
 }

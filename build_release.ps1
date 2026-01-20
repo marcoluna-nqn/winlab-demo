@@ -133,7 +133,7 @@ Remove-Item -Force -Path $siteZip,$productZip,$setupZip -ErrorAction SilentlyCon
 Push-Location $root
 try {
   Write-Host "[INFO] Generando zip del sitio." -ForegroundColor Cyan
-  $siteItems = @('index.html','pricing.html','404.html','assets','docs','downloads')
+  $siteItems = @('index.html','pricing.html','mobile.html','404.html','assets','docs','downloads')
   Compress-Archive -Path $siteItems -DestinationPath $siteZip -Force
 
   Write-Host "[INFO] Generando zip del product pack." -ForegroundColor Cyan
