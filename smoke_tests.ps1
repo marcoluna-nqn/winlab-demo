@@ -21,6 +21,9 @@ $required = @(
   'docs/guia.html',
   'assets/config.js',
   'assets/styles.css',
+  'scripts/publish.ps1',
+  'RELEASE_NOTES.md',
+  'PUBLISH_CHECKLIST.md',
   'downloads/samples/report_ok.html',
   'downloads/samples/report_detectado.html',
   'downloads/samples/report_inconcluso.html',
@@ -114,6 +117,10 @@ foreach($token in @('data-buy="mp"','data-buy="stripe"','data-buy="whatsapp"')){
 }
 $config = Get-Content -Path (Join-Path $root 'assets/config.js') -Raw
 if($config -notmatch 'WHATSAPP_URL'){ Fail 'assets/config.js sin WHATSAPP_URL' }
+$waMatch = [regex]::Match($config, 'WHATSAPP_URL\s*:\s*\"([^\"]+)\"')
+if(-not $waMatch.Success -or [string]::IsNullOrWhiteSpace($waMatch.Groups[1].Value)){
+  Fail 'assets/config.js WHATSAPP_URL vacio'
+}
 $app = Get-Content -Path (Join-Path $root 'assets/app.js') -Raw
 if($app -notmatch 'defaultWhatsApp'){ Fail 'assets/app.js sin fallback WhatsApp' }
 Ok 'Pricing/config OK'
