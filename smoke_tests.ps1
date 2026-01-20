@@ -18,6 +18,7 @@ $required = @(
   'index.html',
   'pricing.html',
   '404.html',
+  '.nojekyll',
   'docs/guia.html',
   'assets/config.js',
   'assets/styles.css',
@@ -35,6 +36,8 @@ $required = @(
   'downloads/presets/Balanced_AUTO.wsb',
   'downloads/presets/UltraSecure_AUTO.wsb',
   'downloads/presets/Networked_AUTO.wsb',
+  'downloads/safe_mode/README.txt',
+  'downloads/safe_mode/SafeMode_Helper.cmd',
   'tools/cli/WinLab.ps1',
   'tools/cli/winlab_cli.ps1',
   'tools/cli/bin/InsideLab.ps1',
@@ -52,14 +55,23 @@ $setupZip = Join-Path $root 'downloads/WinLab_Setup_v0.8.0.zip'
 if(-not (Test-Path $setupZip)){ Fail 'Falta downloads/WinLab_Setup_v0.8.0.zip' }
 Ok 'Setup ZIP OK'
 
-# index.html debe referenciar un setup existente
+# index.html debe referenciar scripts y un setup existente
 $index = Get-Content -Path (Join-Path $root 'index.html') -Raw
+$indexDeps = @('assets/config\.js','assets/app\.js')
+foreach($d in $indexDeps){
+  if($index -notmatch $d){ Fail "index.html no referencia $d" }
+}
 $m = [regex]::Match($index, 'downloads/(WinLab_Setup_v[0-9]+\.[0-9]+\.[0-9]+\.zip)')
 if(-not $m.Success){ Fail 'index.html no referencia downloads/WinLab_Setup_vX.Y.Z.zip' }
 $setupRel = $m.Groups[1].Value
 $setupPath = Join-Path $root ("downloads/" + $setupRel)
 if(-not (Test-Path $setupPath)){ Fail "No existe el ZIP de instalador referenciado: $setupRel" }
 Ok "Installer link OK: $setupRel"
+$sectionIds = @('id="how"','id="features"','id="reports"','id="pricing"','id="faq"')
+foreach($sid in $sectionIds){
+  if($index -notmatch $sid){ Fail "index.html sin seccion requerida: $sid" }
+}
+Ok 'Secciones clave en index OK'
 
 # Verificar contenido minimo del instalador
 Add-Type -AssemblyName System.IO.Compression.FileSystem
