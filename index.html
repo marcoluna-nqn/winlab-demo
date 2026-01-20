@@ -3,33 +3,32 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="WinLab: laboratorio descartable en Windows Sandbox + Microsoft Defender para analizar archivos sospechosos y obtener un reporte claro en minutos." />
-  <title>WinLab - Analiza descargas sospechosas sin ensuciar tu Windows</title>
+  <meta name="description" content="WinLab: laboratorio descartable con Windows Sandbox + Microsoft Defender. Analizás archivos sospechosos y recibís un reporte claro en minutos." />
+  <title>WinLab - Analizá archivos sospechosos sin arriesgar tu PC</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <meta property="og:title" content="WinLab - Sandbox desechable con reportes claros" />
-  <meta property="og:description" content="Abre Windows Sandbox, actualiza Defender y entrega un reporte OK/Detectado/Inconcluso sin tocar tu equipo principal." />
+  <meta property="og:title" content="WinLab - Sandbox descartable con reportes claros" />
+  <meta property="og:description" content="WinLab abre Windows Sandbox, actualiza Defender y te deja un reporte OK/Detectado/Inconcluso listo para compartir." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://marcoluna-nqn.github.io/winlab-demo/" />
   <meta property="og:image" content="https://marcoluna-nqn.github.io/winlab-demo/assets/favicon.svg" />
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="WinLab - Sandbox desechable con reportes claros" />
-  <meta name="twitter:description" content="Prueba archivos sospechosos en Windows Sandbox, con reportes accionables en minutos." />
+  <meta name="twitter:title" content="WinLab - Sandbox descartable con reportes claros" />
+  <meta name="twitter:description" content="Probá archivos dudosos en Windows Sandbox y recibí un reporte listo en minutos." />
   <link rel="stylesheet" href="assets/styles.css" />
   <script defer src="assets/config.js"></script>
   <script defer src="assets/app.js"></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
+    "@type": "Service",
     "name": "WinLab",
-    "applicationCategory": "SecurityApplication",
-    "operatingSystem": "Windows 10/11 Pro",
+    "serviceType": "Disposable Windows Sandbox malware lab + reports",
     "description": "Laboratorio descartable que usa Windows Sandbox y Microsoft Defender para analizar archivos sospechosos y generar reportes claros.",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
+    "provider": {
+      "@type": "Organization",
+      "name": "WinLab"
     },
+    "areaServed": "AR",
     "url": "https://marcoluna-nqn.github.io/winlab-demo/"
   }
   </script>
@@ -47,7 +46,7 @@
         <a href="#reports" class="nav__link">Reportes</a>
         <a href="#pricing" class="nav__link">Planes</a>
         <a href="#faq" class="nav__link">FAQ</a>
-        <a class="nav__btn" data-buy="whatsapp">Comprar</a>
+        <a class="nav__btn" data-buy="whatsapp" data-plan="Pro">Comprar</a>
         <div class="theme-toggle">
           <label class="sr-only" for="theme-toggle">Tema</label>
           <select id="theme-toggle" data-theme-toggle aria-label="Tema">
@@ -67,7 +66,7 @@
       <a href="#reports" class="nav__link">Reportes</a>
       <a href="#pricing" class="nav__link">Planes</a>
       <a href="#faq" class="nav__link">FAQ</a>
-      <a class="nav__btn" data-buy="whatsapp">Comprar</a>
+      <a class="nav__btn" data-buy="whatsapp" data-plan="Pro">Comprar</a>
       <div class="theme-toggle">
         <label class="sr-only" for="theme-toggle-mobile">Tema</label>
         <select id="theme-toggle-mobile" data-theme-toggle aria-label="Tema">
@@ -83,72 +82,72 @@
     <section class="hero">
       <div class="container hero__grid">
         <div class="stack">
-          <div class="pill pill--glow">Windows Sandbox + Microsoft Defender - Reporte en minutos</div>
-          <h1>Analiza descargas sospechosas sin ensuciar tu Windows.</h1>
+          <div class="pill">Windows Sandbox + Microsoft Defender - Reporte en minutos</div>
+          <h1>Analizá archivos sospechosos sin arriesgar tu PC.</h1>
           <p class="lead">
-            WinLab abre un Windows Sandbox descartable, actualiza Defender, analiza tu archivo más reciente y entrega un
-            reporte HTML/JSON con semáforo claro. Nada queda instalado: al cerrar el sandbox, todo desaparece.
+            WinLab abre un Windows Sandbox descartable, actualiza Defender y analiza tu archivo más reciente. En minutos te deja
+            un reporte claro (HTML/JSON) con semáforo y señales verificables.
           </p>
           <div class="hero__cta">
-            <a class="btn btn--primary" data-buy="whatsapp">Comprar ahora</a>
+            <a class="btn btn--primary" data-buy="whatsapp" data-plan="Pro">Comprar ahora</a>
             <a class="btn btn--ghost" href="#how">Ver cómo funciona</a>
           </div>
-          <div class="tagline">No corre desde el navegador. Descargas el pack, ejecutas local y recibes el reporte.</div>
+          <p class="muted small">No corre en la web: descargás el pack y lo ejecutás local.</p>
         </div>
 
         <div class="hero__card">
-          <div class="card floating">
+          <div class="card">
             <div class="card__title">
-              <span>Prueba guiada</span>
-              <span class="badge">Balanced 10min</span>
+              <span>Prueba rápida</span>
+              <span class="badge">Preset recomendado</span>
             </div>
             <ul class="list list--steps">
               <li class="list__item">
                 <span class="list__icon">1</span>
                 <div>
-                  <strong>Descarga el ZIP</strong><br />
-                  Extrae completo y abre el launcher WinLab (preset AUTO).
+                  <strong>Descargá el ZIP</strong><br />
+                  Extraelo completo y abrí el launcher (AUTO - Balanced).
                 </div>
               </li>
               <li class="list__item">
                 <span class="list__icon">2</span>
                 <div>
                   <strong>Sandbox + Defender</strong><br />
-                  Actualiza firmas y escanea el archivo más reciente en Descargas.
+                  Se actualizan firmas y se analiza el archivo más reciente en Descargas.
                 </div>
               </li>
               <li class="list__item">
                 <span class="list__icon">3</span>
                 <div>
-                  <strong>Reporte OK/Detección/Inconcluso</strong><br />
-                  Abre <code class="mono">%LOCALAPPDATA%\WinLab\outbox</code> y revisa el HTML.
+                  <strong>Reporte listo</strong><br />
+                  Abrí <code>%LOCALAPPDATA%\WinLab\outbox</code> y compartí el HTML.
                 </div>
               </li>
             </ul>
             <div class="card__actions">
               <a class="btn btn--primary btn--wide" href="downloads/WinLab_Setup_v0.8.0.zip" download>Descargar demo</a>
-              <a class="btn btn--ghost btn--wide" href="docs/guia.html#eicar">Probar con archivo EICAR seguro</a>
+              <a class="btn btn--ghost btn--wide" href="docs/guia.html#eicar">Probar con archivo EICAR</a>
             </div>
-            <div class="muted small">Sandbox se descarta al cerrar. El host no ejecuta el archivo.</div>
+            <p class="muted small">El sandbox se descarta al cerrar. Nada queda instalado.</p>
           </div>
         </div>
       </div>
       <div class="container trust-bar">
         <div class="trust-item">
-          <strong>No subimos tu archivo</strong>
-          <span class="muted small">Corre 100% local. Nada viaja a la nube.</span>
+          <strong>Privacidad local</strong>
+          <span class="muted small">No subimos tu archivo. Todo corre en tu Windows.</span>
         </div>
         <div class="trust-item">
-          <strong>Windows Sandbox + Defender</strong>
-          <span class="muted small">Entorno aislado con firmas actualizadas.</span>
+          <strong>Sandbox descartable</strong>
+          <span class="muted small">Aislado y sin persistencia al cerrar.</span>
+        </div>
+        <div class="trust-item">
+          <strong>Defender actualizado</strong>
+          <span class="muted small">Firmas al día para un resultado realista.</span>
         </div>
         <div class="trust-item">
           <strong>Reporte en minutos</strong>
-          <span class="muted small">HTML/JSON con semáforo y evidencias.</span>
-        </div>
-        <div class="trust-item">
-          <strong>Presets listos</strong>
-          <span class="muted small">Balanced, UltraSecure y Networked incluidos.</span>
+          <span class="muted small">Semáforo claro y evidencias verificables.</span>
         </div>
       </div>
     </section>
@@ -157,51 +156,24 @@
       <div class="container stack">
         <div class="stack">
           <div class="chip">Cómo funciona</div>
-          <h2>Sandbox descartable en 4 pasos</h2>
-          <p class="muted">Sin inventos. Solo Windows Sandbox y Defender bien orquestados.</p>
+          <h2>3 pasos, sin vueltas</h2>
+          <p class="muted">Todo local, sin backend y sin promesas mágicas.</p>
         </div>
-        <div class="grid grid--2">
+        <div class="grid grid--3">
           <div class="bento">
-            <div class="bento__icon" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <rect x="3" y="4" width="18" height="14" rx="3" />
-                <path d="M3 9h18" />
-              </svg>
-            </div>
-            <h3>Descarga y abre</h3>
-            <p class="bento__meta">Baja el ZIP, extráelo completo y lanza el preset AUTO (Balanced).</p>
+            <div class="bento__icon" aria-hidden="true">1</div>
+            <h3>Descargás y abrís</h3>
+            <p class="muted">Bajás el ZIP, lo extraés y abrís el preset AUTO recomendado.</p>
           </div>
           <div class="bento">
-            <div class="bento__icon" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <circle cx="12" cy="12" r="9" />
-                <path d="M9.5 12l1.8 1.8L15 10" />
-              </svg>
-            </div>
-            <h3>Sandbox con Defender</h3>
-            <p class="bento__meta">Habilita Windows Sandbox, actualiza firmas y usa Defender como motor.</p>
+            <div class="bento__icon" aria-hidden="true">2</div>
+            <h3>Sandbox analiza</h3>
+            <p class="muted">Windows Sandbox actualiza Defender y analiza tu archivo sospechoso.</p>
           </div>
           <div class="bento">
-            <div class="bento__icon" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M4 7h12" />
-                <path d="M4 12h9" />
-                <path d="M4 17h6" />
-                <rect x="16" y="6" width="4" height="12" rx="1" />
-              </svg>
-            </div>
-            <h3>AutoDecision</h3>
-            <p class="bento__meta">Semáforo OK / Detectado / Inconcluso con señales: MOTW, firma, red, hashes.</p>
-          </div>
-          <div class="bento">
-            <div class="bento__icon" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M5 5h9l5 5v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z" />
-                <path d="M14 5v5h5" />
-              </svg>
-            </div>
-            <h3>Reporte listo</h3>
-            <p class="bento__meta">Abre <code class="mono">%LOCALAPPDATA%\WinLab\outbox</code> y comparte el HTML/JSON.</p>
+            <div class="bento__icon" aria-hidden="true">3</div>
+            <h3>Reporte claro</h3>
+            <p class="muted">HTML/JSON con semáforo y señales para decidir rápido.</p>
           </div>
         </div>
       </div>
@@ -211,39 +183,39 @@
       <div class="container stack">
         <div class="stack">
           <div class="chip">Features</div>
-          <h2>Bento grid de capacidades</h2>
-          <p class="muted">Listo para demos, consultoría y operaciones internas.</p>
+          <h2>Lo que hace que WinLab venda fácil</h2>
+          <p class="muted">Pensado para demos, consultores y equipos internos.</p>
         </div>
         <div class="bento-grid">
           <div class="bento">
             <div class="bento__icon">🔒</div>
             <h3>Privacidad real</h3>
-            <p class="bento__meta">No sube muestras. Todo corre en tu Windows y se descarta al cerrar.</p>
+            <p class="muted">No sube muestras ni requiere cloud. Tu archivo queda en tu PC.</p>
           </div>
           <div class="bento">
             <div class="bento__icon">🧪</div>
-            <h3>Sandbox descartable</h3>
-            <p class="bento__meta">Mapea Descargas en solo lectura, clona la muestra y la elimina al salir.</p>
+            <h3>Entorno descartable</h3>
+            <p class="muted">Sandbox aislado: cerrás y se borra todo lo que pasó adentro.</p>
           </div>
           <div class="bento">
             <div class="bento__icon">📊</div>
             <h3>Reporte accionable</h3>
-            <p class="bento__meta">Semáforo, hashes, MOTW, firma, red, heurísticas y recomendaciones.</p>
+            <p class="muted">Semáforo, hashes, MOTW, firma digital y señales de red.</p>
           </div>
           <div class="bento">
             <div class="bento__icon">⚙️</div>
             <h3>Presets listos</h3>
-            <p class="bento__meta">Balanced, UltraSecure y Networked. Ajusta minutos y abre outbox.</p>
+            <p class="muted">Balanced, UltraSecure y Networked. Elegís según el riesgo.</p>
           </div>
           <div class="bento">
             <div class="bento__icon">🚀</div>
-            <h3>Launcher simple</h3>
-            <p class="bento__meta">Un clic abre el preset recomendado. Sin scripts extraños en el host.</p>
+            <h3>Launcher en 1 clic</h3>
+            <p class="muted">Abrís el preset recomendado sin tocar scripts raros.</p>
           </div>
           <div class="bento">
             <div class="bento__icon">🛟</div>
             <h3>Safe Mode Helper</h3>
-            <p class="bento__meta">Asistente opcional para activar Modo Seguro (requiere admin, manual y reversible).</p>
+            <p class="muted">Asistente opcional descargable (requiere admin) para modo seguro.</p>
           </div>
         </div>
       </div>
@@ -253,93 +225,93 @@
       <div class="container stack">
         <div class="stack">
           <div class="chip">Reportes</div>
-          <h2>Ejemplos listos para compartir</h2>
-          <p class="muted">HTML/JSON con evidencias verificables. Usa estos samples para mostrar el formato.</p>
+          <h2>Ver el reporte te lo deja clarísimo</h2>
+          <p class="muted">OK no es garantía absoluta. Inconcluso significa que necesitás repetir o validar.</p>
         </div>
         <div class="report-preview">
           <div class="report-card report-card--ok">
             <div class="report-card__tag">OK</div>
             <h3>Sin detecciones</h3>
-            <p class="muted">Defender limpio, hash estable, firma válida. Igual verifica la procedencia.</p>
+            <p class="muted">Defender limpio y señales consistentes. Igual validá el origen.</p>
           </div>
           <div class="report-card report-card--bad">
             <div class="report-card__tag">DETECTADO</div>
             <h3>Alerta confirmada</h3>
-            <p class="muted">Se detectó amenaza. Recomendación: no ejecutar y aislar la muestra.</p>
+            <p class="muted">Se detectó amenaza. Recomendación: no ejecutar y aislar.</p>
           </div>
           <div class="report-card report-card--warn">
             <div class="report-card__tag">INCONCLUSO</div>
             <h3>Señales fuertes</h3>
-            <p class="muted">Firmas viejas, sin firma digital y red sospechosa. Repite en Balanced/Networked.</p>
+            <p class="muted">Firmas viejas o señales raras. Repetí con red y validá.</p>
           </div>
         </div>
-        <div class="report-links">
+        <div class="download__actions">
           <a class="btn btn--ghost" href="downloads/samples/report_ok.html">Ejemplo OK (HTML)</a>
-          <a class="btn btn--ghost" href="downloads/samples/report_detectado.html">Ejemplo Detectado (HTML)</a>
-          <a class="btn btn--ghost" href="downloads/samples/report_inconcluso.html">Ejemplo Inconcluso (HTML)</a>
+          <a class="btn btn--ghost" href="downloads/samples/report_detectado.html">Ejemplo Detectado</a>
+          <a class="btn btn--ghost" href="downloads/samples/report_inconcluso.html">Ejemplo Inconcluso</a>
           <a class="btn btn--ghost" href="downloads/samples/report_ok.json">Ejemplo OK (JSON)</a>
         </div>
-        <p class="muted small">Los ejemplos son simulados para mostrar el formato. No provienen de un escaneo real.</p>
+        <p class="muted small">Los ejemplos son simulados para mostrar el formato.</p>
       </div>
     </section>
 
     <section id="pricing" class="section section--tight">
       <div class="container stack">
         <div class="stack">
-          <div class="chip">Pricing</div>
-          <h2>Elegí tu plan y compra al instante</h2>
-          <p class="muted">CTA directo por WhatsApp con el plan que elijas. Pagos por transferencia o el link que configures.</p>
+          <div class="chip">Planes</div>
+          <h2>Elegí tu plan y cerrá hoy</h2>
+          <p class="muted">CTA directo por WhatsApp con el plan listo. Pagos por transferencia o link configurado.</p>
         </div>
         <div class="pricing-grid">
           <div class="plan-card">
             <span class="plan-chip">Starter</span>
-            <div class="plan-price">USD -</div>
-            <div class="plan-subtitle">Para evaluar en serio con alcance individual.</div>
+            <div class="plan-price">Consultar</div>
+            <div class="plan-subtitle">Ideal para evaluar en serio, 1 equipo.</div>
             <ul class="plan-list">
               <li>Presets Balanced + UltraSecure.</li>
-              <li>Reportes HTML/JSON/TXT con semáforo.</li>
-              <li>1 equipo - uso interno.</li>
+              <li>Reportes HTML/JSON/TXT.</li>
+              <li>Soporte básico.</li>
             </ul>
             <div class="plan-actions">
-              <a class="btn btn--primary" data-buy="whatsapp">Comprar Starter</a>
+              <a class="btn btn--primary" data-buy="whatsapp" data-plan="Starter">Comprar Starter</a>
               <a class="btn btn--ghost" href="pricing.html#tabla">Ver detalle</a>
             </div>
           </div>
           <div class="plan-card plan-card--featured">
-            <span class="plan-chip">Best value</span>
-            <div class="plan-price">USD -</div>
-            <div class="plan-subtitle">Consultores y equipos pequeños.</div>
+            <span class="plan-chip">Mejor relación precio/valor</span>
+            <div class="plan-price">Consultar</div>
+            <div class="plan-subtitle">Para consultores y equipos chicos.</div>
             <ul class="plan-list">
-              <li>Todos los presets + AutoDecision.</li>
-              <li>Reportes extendidos y evidencias extra.</li>
-              <li>Soporte base + onboarding.</li>
+              <li>Presets completos + AutoDecision.</li>
+              <li>Evidencias extendidas.</li>
+              <li>Onboarding y soporte prioritario.</li>
             </ul>
             <div class="plan-actions">
-              <a class="btn btn--primary" data-buy="whatsapp">Comprar Pro</a>
+              <a class="btn btn--primary" data-buy="whatsapp" data-plan="Pro">Comprar Pro</a>
               <a class="btn btn--ghost" href="pricing.html#tabla">Ver detalle</a>
             </div>
           </div>
           <div class="plan-card">
             <span class="plan-chip">Teams</span>
-            <div class="plan-price">USD -</div>
-            <div class="plan-subtitle">Equipos y soporte prioritario.</div>
+            <div class="plan-price">Consultar</div>
+            <div class="plan-subtitle">Organizaciones con más de un equipo.</div>
             <ul class="plan-list">
-              <li>Licencias multi-equipo y presets custom.</li>
-              <li>Branding en reportes y export avanzado.</li>
-              <li>Soporte prioritario y acuerdos SLA.</li>
+              <li>Licencias multi-equipo.</li>
+              <li>Branding y export avanzado.</li>
+              <li>SLA y soporte dedicado.</li>
             </ul>
             <div class="plan-actions">
-              <a class="btn btn--primary" data-buy="whatsapp">Hablar por Teams</a>
+              <a class="btn btn--primary" data-buy="whatsapp" data-plan="Teams">Hablar por Teams</a>
               <a class="btn btn--ghost" href="pricing.html#tabla">Ver detalle</a>
             </div>
           </div>
         </div>
         <div class="cta">
           <div>
-            <h3>¿Querés ver más detalles?</h3>
-            <p class="cta__text">Política de compra, alcance y soporte están en la página de precios.</p>
+            <h3>¿Querés todo el detalle?</h3>
+            <p class="cta__text">Qué incluye cada plan, políticas y limitaciones están en pricing.</p>
           </div>
-          <a class="btn btn--primary" href="pricing.html">Ir a pricing completo</a>
+          <a class="btn btn--primary" href="pricing.html">Ir a precios</a>
         </div>
       </div>
     </section>
@@ -347,26 +319,26 @@
     <section id="requirements" class="section">
       <div class="container stack">
         <div class="stack">
-          <div class="chip">Requisitos</div>
-          <h2>Lo mínimo para correr WinLab</h2>
-          <p class="muted">Sin esto, el sandbox no abre o queda inconcluso.</p>
+          <div class="chip">Requisitos y límites</div>
+          <h2>Claros desde el minuto uno</h2>
+          <p class="muted">Si no se cumple esto, el resultado puede ser inconcluso.</p>
         </div>
         <ul class="requirements">
           <li>
             <strong>Windows 10/11 Pro, Enterprise o Education.</strong>
-            <span class="muted">Windows Sandbox no está disponible en Home.</span>
+            <p class="muted">Windows Sandbox no está disponible en Home.</p>
           </li>
           <li>
-            <strong>Windows Sandbox habilitado.</strong>
-            <span class="muted">PowerShell admin: <code class="mono">Enable-WindowsOptionalFeature -Online -FeatureName Containers-DisposableClientVM -All -NoRestart</code></span>
+            <strong>Sandbox habilitado con permisos admin.</strong>
+            <p class="muted">Si no podés habilitarlo, te guiamos con el helper o la guía.</p>
           </li>
           <li>
-            <strong>Permisos para Defender.</strong>
-            <span class="muted">El escaneo usa Defender. Si no puede actualizar, el resultado puede ser inconcluso.</span>
+            <strong>Actualización de Defender.</strong>
+            <p class="muted">Si el update falla, el reporte puede quedar inconcluso.</p>
           </li>
           <li>
-            <strong>Safe Mode Helper (opcional).</strong>
-            <span class="muted">Descárgalo para activar modo seguro con guía y confirmación: <a class="underline-link" href="downloads/safe_mode/README.txt">Ver helper</a>.</span>
+            <strong>Safe Mode Helper opcional.</strong>
+            <p class="muted">Descargable y reversible: <a class="underline-link" href="downloads/safe_mode/README.txt">ver pasos</a>.</p>
           </li>
         </ul>
         <div class="download">
@@ -375,7 +347,7 @@
             <div class="download__meta">ZIP - Windows 10/11 Pro - Requiere Sandbox</div>
             <div class="download__actions">
               <a class="btn btn--primary" href="downloads/WinLab_Setup_v0.8.0.zip" download>Descargar WinLab</a>
-              <a class="btn btn--secondary" href="docs/guia.html">Ver guía</a>
+              <a class="btn btn--secondary" href="docs/guia.html">Leer guía rápida</a>
             </div>
           </div>
           <div class="codecard">
@@ -387,7 +359,8 @@
           </div>
         </div>
         <div class="note">
-          <strong>Importante:</strong> GitHub Pages es estático. La web no ejecuta sandbox ni toca tu PC. Descargas el pack, lo ejecutas local y revisas el reporte.
+          <strong>Importante:</strong> GitHub Pages es estático. La web no ejecuta sandbox ni toca tu PC.
+          Descargás el pack, lo ejecutás local y revisás el reporte.
         </div>
       </div>
     </section>
@@ -396,33 +369,44 @@
       <div class="container stack">
         <div class="stack">
           <div class="chip">FAQ</div>
-          <h2>Respuestas rápidas</h2>
-          <p class="muted">Lo esencial antes de comprar o probar.</p>
+          <h2>Preguntas típicas antes de comprar</h2>
         </div>
         <div class="faq" role="region" aria-label="Preguntas frecuentes">
           <details>
             <summary aria-expanded="false">¿Funciona en Windows Home?<span class="faq__icon" aria-hidden="true">+</span></summary>
-            <p>No. Windows Sandbox requiere Windows 10/11 Pro, Enterprise o Education.</p>
+            <div class="faq__content">
+              <p>No. Windows Sandbox requiere Windows 10/11 Pro, Enterprise o Education.</p>
+            </div>
           </details>
           <details>
             <summary aria-expanded="false">¿WinLab ejecuta el archivo?<span class="faq__icon" aria-hidden="true">+</span></summary>
-            <p>No lo ejecuta. Analiza y reporta. El objetivo es reducir riesgo, no probar malware en el host.</p>
+            <div class="faq__content">
+              <p>No. Analiza con Defender dentro del sandbox. El objetivo es reducir riesgo, no ejecutar en el host.</p>
+            </div>
           </details>
           <details>
             <summary aria-expanded="false">¿Dónde quedan los reportes?<span class="faq__icon" aria-hidden="true">+</span></summary>
-            <p>En <code class="mono">%LOCALAPPDATA%\WinLab\outbox</code> si el preset tiene outbox ON. Logs en <code class="mono">%LOCALAPPDATA%\WinLab\logs</code>.</p>
+            <div class="faq__content">
+              <p>En <code>%LOCALAPPDATA%\WinLab\outbox</code> si el preset tiene outbox ON. Logs en <code>%LOCALAPPDATA%\WinLab\logs</code>.</p>
+            </div>
           </details>
           <details>
-            <summary aria-expanded="false">¿Qué pasa si sale INCONCLUSO?<span class="faq__icon" aria-hidden="true">+</span></summary>
-            <p>Puede ser por firmas viejas, update fallido o señales fuertes (MOTW + sin firma + red). Repite con red en Balanced/Networked.</p>
+            <summary aria-expanded="false">¿Qué significa INCONCLUSO?<span class="faq__icon" aria-hidden="true">+</span></summary>
+            <div class="faq__content">
+              <p>Puede ser por firmas viejas, update fallido o señales fuertes. Repetí en Balanced/Networked y validá.</p>
+            </div>
           </details>
           <details>
             <summary aria-expanded="false">¿Puedo analizar un link sospechoso?<span class="faq__icon" aria-hidden="true">+</span></summary>
-            <p>Sí. Usa el preset Networked y modo terminal: <code class="mono">WinLab.ps1 url -Url "https://..."</code>. El reporte incluye DNS/TLS/headers.</p>
+            <div class="faq__content">
+              <p>Sí. Usá el preset Networked y modo terminal: <code>WinLab.ps1 url -Url "https://..."</code>.</p>
+            </div>
           </details>
           <details>
             <summary aria-expanded="false">¿Cómo se paga?<span class="faq__icon" aria-hidden="true">+</span></summary>
-            <p>El sitio es estático. Pagas vía WhatsApp/transferencia o el link de pago que configures en <code class="mono">assets/config.js</code>. Luego recibes soporte/manual.</p>
+            <div class="faq__content">
+              <p>Por WhatsApp/transferencia o con los links que configures en <code>assets/config.js</code>. Luego recibís el pack y soporte.</p>
+            </div>
           </details>
         </div>
       </div>
@@ -431,11 +415,11 @@
     <section class="section section--tight">
       <div class="container cta">
         <div>
-          <h3>Lanza tu demo hoy</h3>
-          <p class="cta__text">Publica en GitHub Pages, comparte el link y vende el servicio. El laboratorio corre local.</p>
+          <h3>¿Listo para venderlo hoy?</h3>
+          <p class="cta__text">Compartí el link y cerrá por WhatsApp. El laboratorio corre local.</p>
         </div>
         <div class="download__actions">
-          <a class="btn btn--primary" data-buy="whatsapp">Comprar ahora</a>
+          <a class="btn btn--primary" data-buy="whatsapp" data-plan="Pro">Comprar ahora</a>
           <a class="btn btn--ghost" href="docs/guia.html#deploy">Cómo publicar en GitHub Pages</a>
         </div>
       </div>
@@ -464,8 +448,3 @@
   <div class="toast" data-toast aria-live="polite" aria-atomic="true"></div>
 </body>
 </html>
-
-
-
-
-
