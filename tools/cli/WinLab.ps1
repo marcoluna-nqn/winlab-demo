@@ -21,16 +21,37 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
-function Write-Info([string]$m){ Write-Host $m }
-function Write-Warn([string]$m){ Write-Host $m -ForegroundColor Yellow }
-function Write-Err([string]$m){ Write-Host $m -ForegroundColor Red }
+$script:LogFile = $null
+
+function Write-LogLine([string]$m){
+  if(-not $script:LogFile){ return }
+  $ts = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
+  Add-Content -LiteralPath $script:LogFile -Value ("[{0}] {1}" -f $ts, $m)
+}
+function Write-Info([string]$m){ Write-Host $m; Write-LogLine $m }
+function Write-Warn([string]$m){ Write-Host $m -ForegroundColor Yellow; Write-LogLine ("ADVERTENCIA: {0}" -f $m) }
+function Write-Err([string]$m){ Write-Host $m -ForegroundColor Red; Write-LogLine ("ERROR: {0}" -f $m) }
 
 function Get-NowStamp { Get-Date -Format 'yyyyMMdd_HHmmss' }
+
+function Get-LogRoot {
+  $primary = 'C:\WinLab\logs'
+  try{
+    New-Item -ItemType Directory -Force -Path $primary | Out-Null
+    return $primary
+  } catch {}
+  $fallback = Join-Path $env:LOCALAPPDATA 'WinLab\logs'
+  try{
+    New-Item -ItemType Directory -Force -Path $fallback | Out-Null
+    return $fallback
+  } catch {}
+  return $env:TEMP
+}
 
 function Ensure-SandboxAvailable {
   $wsbExe = Join-Path $env:SystemRoot 'System32\WindowsSandbox.exe'
   if(-not (Test-Path $wsbExe)){
-    throw "Windows Sandbox no esta disponible (WindowsSandbox.exe no existe). Requiere Windows 10/11 Pro/Enterprise/Education + feature habilitado."
+    throw "Windows Sandbox no está disponible (WindowsSandbox.exe no existe). Requiere Windows 10/11 Pro/Enterprise/Education y el feature habilitado."
   }
 
   $stateLine = (dism /online /English /Get-FeatureInfo /FeatureName:Containers-DisposableClientVM | Select-String -Pattern '^State' -ErrorAction SilentlyContinue | Select-Object -First 1).Line
@@ -38,7 +59,7 @@ function Ensure-SandboxAvailable {
     throw 'No pude consultar el estado del feature (DISM). Ejecuta como Administrador o verifica DISM/Windows Update.'
   }
   if($stateLine -notmatch 'Enabled'){
-    throw "Windows Sandbox feature no esta Enabled ($stateLine). Habilitalo con: Enable-WindowsOptionalFeature -Online -FeatureName Containers-DisposableClientVM -All"
+    throw "Windows Sandbox no está habilitado ($stateLine). Habilítalo con: Enable-WindowsOptionalFeature -Online -FeatureName Containers-DisposableClientVM -All"
   }
   return $wsbExe
 }
@@ -71,11 +92,11 @@ function Start-WinLabSandbox {
   $root = Split-Path -Parent $MyInvocation.MyCommand.Path
   $labHome = Join-Path $env:LOCALAPPDATA 'WinLab'
   $outboxHost = Join-Path $labHome 'outbox'
-  $logs = Join-Path $labHome 'logs'
+  $logRoot = Get-LogRoot
   New-Item -ItemType Directory -Force -Path $outboxHost | Out-Null
-  New-Item -ItemType Directory -Force -Path $logs | Out-Null
-
   $stamp = Get-NowStamp
+  $script:LogFile = Join-Path $logRoot ("host_{0}_{1}.log" -f $Preset,$stamp)
+  Write-Info "Logs: $logRoot"
   $wsbFile = Join-Path $env:TEMP ("WinLab_{0}_{1}.wsb" -f $Preset,$stamp)
 
   $networking = 'Enable'
@@ -102,7 +123,7 @@ function Start-WinLabSandbox {
   # Start watchdog (outbox hardening) using the bundled cmd.
   $watchdog = Join-Path (Join-Path $root 'tools') 'Watchdog.cmd'
   if(Test-Path $watchdog){
-    Start-Process -WindowStyle Minimized -FilePath 'cmd.exe' -ArgumentList "/c \"`"$watchdog`" `"$outboxHost`" $Minutes $stamp > `"$logs\watchdog_$stamp.log`" 2>&1\"" | Out-Null
+    Start-Process -WindowStyle Minimized -FilePath 'cmd.exe' -ArgumentList "/c \"`"$watchdog`" `"$outboxHost`" $Minutes $stamp > `"$logRoot\watchdog_$stamp.log`" 2>&1\"" | Out-Null
   }
 
   $logonCmd = @(
@@ -113,7 +134,8 @@ function Start-WinLabSandbox {
     '-OutFolder "C:\Outbox"',
     "-Minutes $Minutes",
     "-FirewallMode $firewall",
-    '-EnableOutbox 1'
+    '-EnableOutbox 1',
+    '-LogFolder "C:\WinLabLogs"'
   )
   if($Url){ $logonCmd += ('-Url "{0}"' -f $Url) }
   if($targetName){ $logonCmd += ('-TargetFileName "{0}"' -f $targetName) }
@@ -144,6 +166,11 @@ function Start-WinLabSandbox {
   $xml += '      <SandboxFolder>C:\Outbox</SandboxFolder>'
   $xml += '      <ReadOnly>false</ReadOnly>'
   $xml += '    </MappedFolder>'
+  $xml += '    <MappedFolder>'
+  $xml += "      <HostFolder>$logRoot</HostFolder>"
+  $xml += '      <SandboxFolder>C:\WinLabLogs</SandboxFolder>'
+  $xml += '      <ReadOnly>false</ReadOnly>'
+  $xml += '    </MappedFolder>'
   $xml += '  </MappedFolders>'
   $xml += '  <LogonCommand>'
   $xml += "    <Command>$logonCmd</Command>"
@@ -154,9 +181,9 @@ function Start-WinLabSandbox {
 
   Write-Info "[WinLab] Preset=$Preset Minutes=$Minutes"
   if($Url){ Write-Info "[WinLab] URL: $Url" }
-  if($TargetPath){ Write-Info "[WinLab] Target: $TargetPath" }
-  Write-Info "[WinLab] Outbox: $outboxHost"
-  Write-Info "[WinLab] WSB: $wsbFile"
+  if($TargetPath){ Write-Info "[WinLab] Archivo: $TargetPath" }
+  Write-Info "[WinLab] Carpeta de salida: $outboxHost"
+  Write-Info "[WinLab] Archivo WSB: $wsbFile"
 
   Start-Process -FilePath $wsbExe -ArgumentList "`"$wsbFile`"" | Out-Null
   if($OpenOutbox){ Start-Process explorer.exe -ArgumentList "`"$outboxHost`"" | Out-Null }
@@ -166,8 +193,8 @@ function Show-Help {
   @'
 WinLab (terminal)
 
-Este software NO es un antivirus propio: usa Microsoft Defender dentro de Windows Sandbox.
-WinLab aporta aislamiento + pipeline + reporte.
+Esto no es un antivirus propio: usa Microsoft Defender dentro de Windows Sandbox.
+WinLab aporta aislamiento, un flujo repetible y reportes claros.
 
 Uso:
   ./WinLab.ps1 scan    -Path <archivo>   [-Preset Balanced|UltraSecure] [-Minutes N] [-OpenOutbox]
@@ -179,7 +206,7 @@ Uso:
 
 Ejemplos:
   ./WinLab.ps1 scan -Path "$env:USERPROFILE\Downloads\factura.exe" -Preset UltraSecure -OpenOutbox
-  ./WinLab.ps1 url  -Url "https://sitio.ejemplo" -Preset Networked -OpenOutbox
+  ./WinLab.ps1 url  -Url "https://ejemplo.com" -Preset Networked -OpenOutbox
 '
 @ | Write-Host
 }
@@ -204,7 +231,7 @@ if($Command -eq 'analyze-url'){ $commandNorm = 'url' }
 switch($commandNorm){
   'scan' {
     if(-not $Path){
-      Write-Warn 'No especificaste -Path. Se usara el archivo mas reciente de Descargas (host).'
+      Write-Warn 'No especificaste -Path. Se va a usar el archivo más reciente de Descargas (host).'
       Start-WinLabSandbox -Preset $Preset -Minutes $Minutes -Url '' -TargetPath ''
       exit 0
     }
