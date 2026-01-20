@@ -1,5 +1,5 @@
 ﻿<!doctype html>
-<html lang="es">
+<html lang="es" data-theme="light">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,13 +8,13 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="assets/styles.css" />
   <meta property="og:title" content="WinLab - Planes y licenciamiento" />
-  <meta property="og:description" content="Licencias y soporte para WinLab: sandbox descartable + Defender + reportes listos." />
+  <meta property="og:description" content="Licencias y soporte para WinLab: sandbox descartable, Defender y reportes claros." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://marcoluna-nqn.github.io/winlab-demo/pricing.html" />
   <meta property="og:image" content="https://marcoluna-nqn.github.io/winlab-demo/assets/favicon.svg" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="WinLab - Planes y licenciamiento" />
-  <meta name="twitter:description" content="Comprá WinLab con soporte. Sandbox descartable + Defender + reportes claros." />
+  <meta name="twitter:description" content="Comprá WinLab con soporte. Sandbox descartable y reportes claros." />
   <script defer src="assets/config.js"></script>
   <script defer src="assets/app.js"></script>
 </head>
@@ -30,8 +30,8 @@
         <a href="index.html#how" class="nav__link">Cómo funciona</a>
         <a href="index.html#reports" class="nav__link">Reportes</a>
         <a href="#planes" class="nav__link">Planes</a>
-        <a href="index.html#faq" class="nav__link">FAQ</a>
-        <a class="nav__btn" data-buy="whatsapp" data-plan="Pro">Comprar</a>
+        <a href="index.html#faq" class="nav__link">Preguntas</a>
+        <a class="nav__btn" data-buy="whatsapp" data-plan="Profesional">Comprar ahora</a>
         <div class="theme-toggle">
           <label class="sr-only" for="theme-toggle">Tema</label>
           <select id="theme-toggle" data-theme-toggle aria-label="Tema">
@@ -50,8 +50,8 @@
       <a href="index.html#how" class="nav__link">Cómo funciona</a>
       <a href="index.html#reports" class="nav__link">Reportes</a>
       <a href="#planes" class="nav__link">Planes</a>
-      <a href="index.html#faq" class="nav__link">FAQ</a>
-      <a class="nav__btn" data-buy="whatsapp" data-plan="Pro">Comprar</a>
+      <a href="index.html#faq" class="nav__link">Preguntas</a>
+      <a class="nav__btn" data-buy="whatsapp" data-plan="Profesional">Comprar ahora</a>
       <div class="theme-toggle">
         <label class="sr-only" for="theme-toggle-mobile">Tema</label>
         <select id="theme-toggle-mobile" data-theme-toggle aria-label="Tema">
@@ -67,11 +67,11 @@
     <section class="hero">
       <div class="container hero__grid">
         <div class="stack">
-          <div class="pill">Licencias + soporte - Sin humo</div>
+          <div class="pill">Licencias + soporte - Sin vueltas</div>
           <h1>Comprá WinLab y entregá reportes claros en minutos.</h1>
           <p class="lead">Pagás por WhatsApp o por los links que configures. Recibís el pack, la guía y soporte según tu plan. Todo corre local en tu Windows.</p>
           <div class="hero__cta">
-            <a class="btn btn--primary" data-buy="whatsapp" data-plan="Pro">Comprar Pro</a>
+            <a class="btn btn--primary" data-buy="whatsapp" data-plan="Profesional">Comprar ahora</a>
             <a class="btn btn--ghost" href="#planes">Ver planes</a>
           </div>
           <p class="muted small">WinLab usa Microsoft Defender dentro de Windows Sandbox. No es un motor propio.</p>
@@ -83,16 +83,16 @@
               <span class="badge">Producto</span>
             </div>
             <ul class="list list--steps">
-              <li class="list__item"><span class="list__icon">1</span><div>Presets Balanced, UltraSecure y Networked.</div></li>
+              <li class="list__item"><span class="list__icon">1</span><div>Perfiles equilibrado, ultra seguro y con red.</div></li>
               <li class="list__item"><span class="list__icon">2</span><div>Reportes HTML/JSON/TXT con semáforo.</div></li>
-              <li class="list__item"><span class="list__icon">3</span><div>Launcher 1 clic y outbox listo.</div></li>
+              <li class="list__item"><span class="list__icon">3</span><div>Iniciador en 1 clic y outbox listo.</div></li>
               <li class="list__item"><span class="list__icon">4</span><div>Guía rápida + soporte según plan.</div></li>
             </ul>
             <div class="card__actions">
-              <a class="btn btn--primary btn--wide" data-buy="whatsapp" data-plan="Starter">Quiero Starter</a>
+              <a class="btn btn--primary btn--wide" data-buy="whatsapp" data-plan="Inicial">Quiero el plan inicial</a>
               <a class="btn btn--ghost btn--wide" href="docs/guia.html#limitaciones">Ver limitaciones</a>
             </div>
-            <p class="muted small">Se entrega ZIP + launcher. Ejecutás local y compartís el reporte.</p>
+            <p class="muted small">Se entrega ZIP + iniciador. Ejecutás local y compartís el reporte.</p>
           </div>
         </div>
       </div>
@@ -103,22 +103,22 @@
         <div class="stack">
           <div class="chip">Planes</div>
           <h2>Elegí el plan que te conviene</h2>
-          <p class="muted">Todos incluyen sandbox descartable. Cambia soporte, presets y entregables.</p>
+          <p class="muted">Todos incluyen sandbox descartable. Cambia soporte, perfiles y entregables.</p>
         </div>
         <div class="pricing-grid">
           <div class="plan-card">
-            <span class="plan-chip">Starter</span>
+            <span class="plan-chip">Inicial</span>
             <div class="plan-price">Consultar</div>
             <div class="plan-subtitle">Evaluación seria, 1 equipo.</div>
             <ul class="plan-list">
-              <li>Presets Balanced + UltraSecure.</li>
+              <li>Perfiles equilibrado y ultra seguro.</li>
               <li>Reportes HTML/JSON/TXT.</li>
               <li>Soporte base.</li>
             </ul>
             <div class="plan-actions">
-              <a class="btn btn--primary" data-buy="whatsapp" data-plan="Starter">Comprar por WhatsApp</a>
+              <a class="btn btn--primary" data-buy="whatsapp" data-plan="Inicial">Comprar ahora</a>
               <a class="btn btn--ghost" data-buy="mp">Pagar con link (configurable)</a>
-              <a class="btn btn--ghost" data-buy="stripe">Stripe (si lo configurás)</a>
+              <a class="btn btn--ghost" data-buy="stripe">Tarjeta (si lo configurás)</a>
             </div>
           </div>
           <div class="plan-card plan-card--featured">
@@ -126,29 +126,29 @@
             <div class="plan-price">Consultar</div>
             <div class="plan-subtitle">Consultores y equipos chicos.</div>
             <ul class="plan-list">
-              <li>Presets completos + AutoDecision.</li>
-              <li>Evidencias extendidas y export.</li>
+              <li>Perfiles completos y decisión automática.</li>
+              <li>Evidencias extendidas y exportación.</li>
               <li>Onboarding y soporte prioritario.</li>
             </ul>
             <div class="plan-actions">
-              <a class="btn btn--primary" data-buy="whatsapp" data-plan="Pro">Comprar Pro</a>
+              <a class="btn btn--primary" data-buy="whatsapp" data-plan="Profesional">Comprar ahora</a>
               <a class="btn btn--ghost" data-buy="mp">Link de pago (si lo configurás)</a>
-              <a class="btn btn--ghost" data-buy="stripe">Stripe (opcional)</a>
+              <a class="btn btn--ghost" data-buy="stripe">Tarjeta (opcional)</a>
             </div>
           </div>
           <div class="plan-card">
-            <span class="plan-chip">Teams</span>
+            <span class="plan-chip">Equipos</span>
             <div class="plan-price">Consultar</div>
-            <div class="plan-subtitle">Organizaciones con más de un equipo.</div>
+            <div class="plan-subtitle">Organizaciones con varios equipos.</div>
             <ul class="plan-list">
-              <li>Licencias multi-equipo y presets custom.</li>
-              <li>Branding en reportes y export avanzado.</li>
+              <li>Licencias multi-equipo y perfiles a medida.</li>
+              <li>Branding en reportes y exportación avanzada.</li>
               <li>Soporte dedicado y SLA.</li>
             </ul>
             <div class="plan-actions">
-              <a class="btn btn--primary" data-buy="whatsapp" data-plan="Teams">Hablar por Teams</a>
+              <a class="btn btn--primary" data-buy="whatsapp" data-plan="Equipos">Comprar ahora</a>
               <a class="btn btn--ghost" data-buy="mp">Link de pago (bajo confirmación)</a>
-              <a class="btn btn--ghost" data-buy="stripe">Stripe (si aplica)</a>
+              <a class="btn btn--ghost" data-buy="stripe">Tarjeta (si aplica)</a>
             </div>
           </div>
         </div>
@@ -167,17 +167,17 @@
             <thead>
               <tr>
                 <th>Funcionalidad</th>
-                <th>Starter</th>
-                <th>Pro/Teams</th>
+                <th>Inicial</th>
+                <th>Profesional/Equipos</th>
               </tr>
             </thead>
             <tbody>
-              <tr><td>Presets Balanced/UltraSecure</td><td>Incluido</td><td>Incluido</td></tr>
-              <tr><td>Preset Networked + URL</td><td>Opcional</td><td>Incluido</td></tr>
-              <tr><td>AutoDecision y señales</td><td>Básico</td><td>Completo</td></tr>
+              <tr><td>Perfiles equilibrado y ultra seguro</td><td>Incluido</td><td>Incluido</td></tr>
+              <tr><td>Perfil con red y análisis de URL</td><td>Opcional</td><td>Incluido</td></tr>
+              <tr><td>Decisión automática y señales</td><td>Básico</td><td>Completo</td></tr>
               <tr><td>Reportes HTML/JSON/TXT</td><td>Incluido</td><td>Incluido</td></tr>
               <tr><td>Soporte</td><td>Base</td><td>Prioritario</td></tr>
-              <tr><td>Branding/Export avanzado</td><td>No</td><td>Teams sí</td></tr>
+              <tr><td>Branding y exportación avanzada</td><td>No</td><td>Equipos sí</td></tr>
             </tbody>
           </table>
         </div>
@@ -188,8 +188,8 @@
       <div class="container stack">
         <div class="grid grid--2">
           <div class="card card--soft">
-            <div class="card__title"><span>Garantía y política</span><span class="badge">Transparente</span></div>
-            <p class="muted">Sitio estático: pagás por WhatsApp/transferencia o los links configurados en <code>assets/config.js</code>. Entregamos el ZIP, guía y soporte según plan.</p>
+            <div class="card__title"><span>Política clara</span><span class="badge">Transparente</span></div>
+            <p class="muted">Sitio estático: pagás por WhatsApp/transferencia o con links configurados en <code>assets/config.js</code>. Entregamos el ZIP, guía y soporte según plan.</p>
             <p class="muted" style="margin-top:10px;">Si no podés habilitar Sandbox o Defender no se actualiza, el resultado puede ser inconcluso. Te ayudamos a configurarlo.</p>
           </div>
           <div class="card card--soft">
@@ -198,7 +198,7 @@
               <li>Requiere Windows 10/11 Pro con Windows Sandbox.</li>
               <li>El archivo no se ejecuta; se analiza con Defender.</li>
               <li>Sin red, la actualización puede fallar.</li>
-              <li>Safe Mode Helper es opcional y requiere admin.</li>
+              <li>Asistente de modo seguro opcional y con permisos admin.</li>
             </ul>
           </div>
         </div>
@@ -208,7 +208,7 @@
             <p class="cta__text">Escribinos por WhatsApp con el plan elegido y te respondemos hoy.</p>
           </div>
           <div class="download__actions">
-            <a class="btn btn--primary" data-buy="whatsapp" data-plan="Pro">Comprar Pro</a>
+            <a class="btn btn--primary" data-buy="whatsapp" data-plan="Profesional">Comprar ahora</a>
             <a class="btn btn--ghost" href="docs/guia.html">Ver guía completa</a>
           </div>
         </div>

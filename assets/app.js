@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   const toggle = document.querySelector('[data-nav-toggle]');
   const mobile = document.querySelector('[data-nav-mobile]');
   if (toggle && mobile) {
@@ -23,16 +23,24 @@
   };
   const savedTheme = (() => {
     try {
-      return localStorage.getItem(themeKey) || 'auto';
+      return localStorage.getItem(themeKey);
     } catch {
-      return 'auto';
+      return null;
     }
   })();
+  const initialTheme = savedTheme || 'light';
   if (themeToggles.length) {
-    applyTheme(savedTheme);
+    applyTheme(initialTheme);
+    if (!savedTheme) {
+      try {
+        localStorage.setItem(themeKey, initialTheme);
+      } catch {
+        // Ignore storage errors
+      }
+    }
     themeToggles.forEach((toggleEl) => {
       toggleEl.addEventListener('change', (event) => {
-        const next = event.target.value || 'auto';
+        const next = event.target.value || 'light';
         try {
           localStorage.setItem(themeKey, next);
         } catch {
@@ -62,7 +70,6 @@
         await navigator.clipboard.writeText(text);
         showToast('Copiado');
       } catch {
-        // Fallback
         const ta = document.createElement('textarea');
         ta.value = text;
         document.body.appendChild(ta);
@@ -74,7 +81,6 @@
     });
   });
 
-  // Close mobile nav on anchor click
   if (mobile) {
     mobile.querySelectorAll('a').forEach((a) => {
       a.addEventListener('click', () => {
@@ -83,18 +89,22 @@
     });
   }
 
-  // Pricing buttons: fallback to WhatsApp when BUY_* is empty.
   const config = window.WINLAB_CONFIG || {};
-  const defaultWhatsApp = 'https://wa.me/5490000000000?text=Hola%20WinLab%20-%20Quiero%20comprar';
+  const defaultWhatsApp = 'https://wa.me/5490000000000?text=Hola%20WinLab%20-%20Quiero%20comprar%20hoy';
   const whatsappUrl = (config.WHATSAPP_URL || defaultWhatsApp).trim();
-  const appendPlanToWhatsApp = (url, plan) => {
-    if (!plan) return url;
+  const appendContextToWhatsApp = (url, plan, os, intent) => {
     try {
-      const [base, query] = url.split('?');
-      const params = new URLSearchParams(query || '');
-      const existing = params.get('text') || 'Hola WinLab - Quiero WinLab';
-      const suffix = existing.toLowerCase().includes(plan.toLowerCase()) ? '' : ` - Plan ${plan}`;
-      params.set('text', `${existing}${suffix}`);
+      const partsUrl = url.split('?');
+      const base = partsUrl[0];
+      const query = partsUrl[1] || '';
+      const params = new URLSearchParams(query);
+      const existing = (params.get('text') || 'Hola WinLab').trim();
+      const lower = existing.toLowerCase();
+      const parts = [existing];
+      if (plan && !lower.includes(plan.toLowerCase())) parts.push(`Plan ${plan}`);
+      if (os && !lower.includes(os.toLowerCase())) parts.push(os);
+      if (intent && !lower.includes(intent.toLowerCase())) parts.push(intent);
+      params.set('text', parts.join(' - '));
       return `${base}?${params.toString()}`;
     } catch {
       return url;
@@ -112,7 +122,8 @@
     let url = resolveBuyUrl(kind);
     if (kind === 'whatsapp') {
       const plan = btn.getAttribute('data-plan');
-      url = appendPlanToWhatsApp(url, plan);
+      const os = btn.getAttribute('data-os') || 'Windows 10/11 Pro';
+      url = appendContextToWhatsApp(url, plan, os, 'Quiero comprar hoy');
     }
     if (!url) url = whatsappUrl;
 
@@ -130,7 +141,6 @@
     });
   });
 
-  // FAQ accordion: keep aria-expanded in sync for accessibility.
   document.querySelectorAll('.faq details').forEach((details) => {
     const summary = details.querySelector('summary');
     if (!summary) return;
