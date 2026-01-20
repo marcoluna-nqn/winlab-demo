@@ -40,9 +40,13 @@ $required = @(
   '404.html',
   '.nojekyll',
   'docs/guia.html',
+  'docs/guia_cliente.html',
   'assets/config.js',
   'assets/styles.css',
   'scripts/publish.ps1',
+  'scripts/installer/WinLab.iss.tpl',
+  'scripts/installer/WinLab_Install.ps1',
+  'scripts/installer/Uninstall-WinLab.ps1',
   'RELEASE_NOTES.md',
   'PUBLISH_CHECKLIST.md',
   'downloads/samples/report_ok.html',
@@ -78,8 +82,17 @@ $setupZip = Join-Path $root ("downloads/WinLab_Setup_v{0}.zip" -f $version)
 if(-not (Test-Path $setupZip)){ Fail "Falta downloads/WinLab_Setup_v$version.zip" }
 Ok "Setup ZIP OK (v$version)"
 
+$installerExe = Join-Path $root ("dist/WinLab_Installer_{0}.exe" -f $version)
+$installerManifest = Join-Path $root ("dist/WinLab_Installer_{0}_manifest.txt" -f $version)
+if(-not (Test-Path $installerExe)){ Fail "Falta dist/WinLab_Installer_$version.exe" }
+if(-not (Test-Path $installerManifest)){ Fail "Falta dist/WinLab_Installer_${version}_manifest.txt" }
+Ok "Installer EXE OK (v$version)"
+
 $banTokensCase = @('TODO','PLACEHOLDER','TBD','PEGAR_AQUI')
-$banTokensInsensitive = @('lorem','lorem ipsum','buy','pricing','features','preview','starter','teams')
+$banTokensInsensitive = @('lorem','lorem ipsum','buy','pricing','features','preview','starter','teams','download','support','quick','guide')
+function Assert-TextNoPlaceholders([string]$label, [string]$text){
+  Assert-TextClean $label $text $banTokensCase @()
+}
 
 # index.html debe referenciar scripts y un setup existente
 $index = ReadUtf8 (Join-Path $root 'index.html')
@@ -112,6 +125,7 @@ Ok 'Secciones clave en index OK'
 $textChecks = @(
   @{ Label = 'README.md'; Path = 'README.md'; Strip = $false },
   @{ Label = 'docs/guia.html'; Path = 'docs/guia.html'; Strip = $true },
+  @{ Label = 'docs/guia_cliente.html'; Path = 'docs/guia_cliente.html'; Strip = $true },
   @{ Label = 'downloads/launcher/README_LAUNCHER.txt'; Path = 'downloads/launcher/README_LAUNCHER.txt'; Strip = $false },
   @{ Label = 'downloads/samples/report_ok.html'; Path = 'downloads/samples/report_ok.html'; Strip = $true },
   @{ Label = 'downloads/samples/report_detectado.html'; Path = 'downloads/samples/report_detectado.html'; Strip = $true },
@@ -124,6 +138,21 @@ foreach($item in $textChecks){
   Assert-TextClean $item.Label $text $banTokensCase $banTokensInsensitive
 }
 Ok 'Docs y samples OK'
+
+# Validar textos en scripts (sin placeholders ni rutas truncadas)
+$scriptFiles = Get-ChildItem -Path $root -Recurse -File -Include *.ps1,*.cmd |
+  Where-Object {
+    $_.FullName -notmatch '\\dist\\' -and
+    $_.FullName -notmatch '\\tmp\\' -and
+    $_.FullName -notmatch '\\.git\\' -and
+    $_.Name -ne 'smoke_tests.ps1'
+  }
+foreach($f in $scriptFiles){
+  $content = ReadUtf8 $f.FullName
+  $label = 'script: ' + $f.FullName.Substring($root.Length + 1)
+  Assert-TextNoPlaceholders $label $content
+}
+Ok 'Scripts sin placeholders ni truncados'
 
 # Verificar contenido minimo del instalador
 Add-Type -AssemblyName System.IO.Compression.FileSystem
@@ -150,6 +179,28 @@ try {
   }
   Ok 'Contenido minimo del instalador OK'
 
+  $manifestLines = Get-Content -Path $installerManifest
+  $manifestMust = @(
+    'tools/cli/WinLab.ps1',
+    'downloads/launcher/WinLab_Launcher.cmd',
+    'downloads/presets/Balanced_AUTO.wsb',
+    'downloads/presets/UltraSecure_AUTO.wsb',
+    'downloads/presets/Networked_AUTO.wsb',
+    'downloads/safe_mode/README.txt',
+    'downloads/safe_mode/SafeMode_Helper.cmd',
+    'downloads/samples/report_ok.html',
+    'downloads/samples/report_detectado.html',
+    'downloads/samples/report_inconcluso.html',
+    'docs/guia.html',
+    'docs/guia_cliente.html',
+    'VERSION.txt',
+    'Uninstall-WinLab.ps1'
+  )
+  foreach($p in $manifestMust){
+    if(-not ($manifestLines -contains $p)){ Fail "Installer manifest sin archivo requerido: $p" }
+  }
+  Ok 'Installer manifest OK'
+
   # Validar texto dentro del ZIP (sin placeholders ni '...')
   $textExt = @('.cmd','.ps1','.txt','.md','.html','.json')
   foreach($entry in $zip.Entries){
@@ -162,7 +213,7 @@ try {
       } finally {
         $reader.Dispose()
       }
-      Assert-TextClean ("setup zip: " + $entry.FullName) $content $banTokensCase $banTokensInsensitive
+      Assert-TextNoPlaceholders ("setup zip: " + $entry.FullName) $content
     }
   }
 } finally {
