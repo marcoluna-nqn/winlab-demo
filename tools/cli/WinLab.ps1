@@ -1,7 +1,7 @@
 [CmdletBinding()]
 param(
   [Parameter(Position=0)]
-  [ValidateSet('scan','scan-file','url','analyze-url','session','help','version')]
+  [ValidateSet('scan','scan-file','url','analyze-url','session','help','version','doctor')]
   [string]$Command = 'help',
 
   # scan
@@ -48,10 +48,127 @@ function Get-LogRoot {
   return $env:TEMP
 }
 
+function Get-WinLabVersion {
+  $here = Split-Path -Parent $MyInvocation.MyCommand.Path
+  $local = Join-Path $here 'version.txt'
+  if(Test-Path $local){
+    return (Get-Content -LiteralPath $local | Select-Object -First 1).Trim()
+  }
+  try{
+    $root = Resolve-Path (Join-Path $here '..\\..') -ErrorAction SilentlyContinue
+    if($root){
+      $rootVer = Join-Path $root 'VERSION.txt'
+      if(Test-Path $rootVer){
+        return (Get-Content -LiteralPath $rootVer | Select-Object -First 1).Trim()
+      }
+    }
+  } catch {}
+  return 'unknown'
+}
+
+function Test-IsAdmin {
+  try{
+    $id = [Security.Principal.WindowsIdentity]::GetCurrent()
+    $p = New-Object Security.Principal.WindowsPrincipal($id)
+    return $p.IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)
+  } catch {
+    return $false
+  }
+}
+
+function Get-EditionInfo {
+  $edition = ''
+  $product = ''
+  try{
+    $edition = (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion' -Name EditionID -ErrorAction SilentlyContinue).EditionID
+    $product = (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion' -Name ProductName -ErrorAction SilentlyContinue).ProductName
+  } catch {}
+  if(-not $edition){ $edition = 'UNKNOWN' }
+  if(-not $product){ $product = 'Windows' }
+  return [pscustomobject]@{ Edition=$edition; Product=$product }
+}
+
+function Get-FeatureState {
+  try{
+    $line = (dism /online /English /Get-FeatureInfo /FeatureName:Containers-DisposableClientVM | Select-String -Pattern '^State' -ErrorAction SilentlyContinue | Select-Object -First 1).Line
+    return $line
+  } catch {
+    return $null
+  }
+}
+
+function Run-Doctor {
+  $reportPath = 'C:\WinLab\logs\doctor.txt'
+  $lines = New-Object System.Collections.Generic.List[string]
+  $lines.Add("WinLab Doctor")
+  $lines.Add("Fecha: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')")
+  $lines.Add("Version: $(Get-WinLabVersion)")
+
+  $isAdmin = Test-IsAdmin
+  $lines.Add("Admin: $isAdmin")
+
+  $ed = Get-EditionInfo
+  $lines.Add("Windows: $($ed.Product) (EditionID=$($ed.Edition))")
+  $supported = $true
+  if($ed.Edition -match 'Core' -or $ed.Product -match 'Home'){
+    $supported = $false
+  }
+  $lines.Add("Edicion compatible: $supported")
+
+  $wsbExe = Join-Path $env:SystemRoot 'System32\WindowsSandbox.exe'
+  $wsbExists = Test-Path $wsbExe
+  $lines.Add("WindowsSandbox.exe: $wsbExists")
+
+  $featureLine = Get-FeatureState
+  $featureEnabled = $false
+  if($featureLine -and $featureLine -match 'Enabled'){ $featureEnabled = $true }
+  $lines.Add("Feature Containers-DisposableClientVM: $featureLine")
+
+  $logRoot = 'C:\WinLab\logs'
+  $inbox = 'C:\WinLab_Inbox'
+  $outbox = 'C:\WinLab_Outbox'
+  $dirs = @($logRoot,$inbox,$outbox)
+  foreach($d in $dirs){
+    $ok = Test-Path $d
+    if(-not $ok){
+      try{ New-Item -ItemType Directory -Force -Path $d | Out-Null; $ok = $true } catch {}
+    }
+    $lines.Add("Carpeta $d: $ok")
+  }
+
+  $writeOk = $false
+  try{
+    New-Item -ItemType Directory -Force -Path $logRoot | Out-Null
+    $lines | Set-Content -LiteralPath $reportPath -Encoding UTF8
+    $writeOk = $true
+  } catch {
+    $writeOk = $false
+  }
+  $lines.Add("Log escrito: $writeOk ($reportPath)")
+
+  $issues = @()
+  if(-not $supported){ $issues += 'Edicion no compatible (se requiere Pro/Enterprise/Education).' }
+  if(-not $wsbExists){ $issues += 'WindowsSandbox.exe no existe.' }
+  if(-not $featureEnabled){
+    if($featureLine){ $issues += 'Feature Containers-DisposableClientVM no esta habilitado.' }
+    else { $issues += 'No se pudo consultar el feature Containers-DisposableClientVM (DISM). Ejecuta como Administrador.' }
+  }
+  if(-not $writeOk){ $issues += 'No se pudo escribir el reporte de doctor en C:\\WinLab\\logs.' }
+
+  if($issues.Count -gt 0){
+    Write-Warn 'Doctor: se detectaron problemas.'
+    foreach($i in $issues){ Write-Warn ("- " + $i) }
+    exit 2
+  }
+
+  Write-Info 'Doctor: todo OK.'
+  Write-Info ("Reporte: " + $reportPath)
+  exit 0
+}
 function Ensure-SandboxAvailable {
   $wsbExe = Join-Path $env:SystemRoot 'System32\WindowsSandbox.exe'
   if(-not (Test-Path $wsbExe)){
-    throw "Windows Sandbox no está disponible (WindowsSandbox.exe no existe). Requiere Windows 10/11 Pro/Enterprise/Education y el feature habilitado."
+    throw "Windows Sandbox no esta disponible (WindowsSandbox.exe no existe). Requiere Windows 10/11 Pro/Enterprise/Education y el feature habilitado."
   }
 
   $stateLine = (dism /online /English /Get-FeatureInfo /FeatureName:Containers-DisposableClientVM | Select-String -Pattern '^State' -ErrorAction SilentlyContinue | Select-Object -First 1).Line
@@ -59,7 +176,7 @@ function Ensure-SandboxAvailable {
     throw 'No pude consultar el estado del feature (DISM). Ejecuta como Administrador o verifica DISM/Windows Update.'
   }
   if($stateLine -notmatch 'Enabled'){
-    throw "Windows Sandbox no está habilitado ($stateLine). Habilítalo con: Enable-WindowsOptionalFeature -Online -FeatureName Containers-DisposableClientVM -All"
+    throw "Windows Sandbox no esta habilitado ($stateLine). Habilitalo con: Enable-WindowsOptionalFeature -Online -FeatureName Containers-DisposableClientVM -All"
   }
   return $wsbExe
 }
@@ -203,6 +320,7 @@ Uso:
   ./WinLab.ps1 scan-file    (alias de scan)
   ./WinLab.ps1 analyze-url  (alias de url)
   ./WinLab.ps1 version
+  ./WinLab.ps1 doctor
 
 Ejemplos:
   ./WinLab.ps1 scan -Path "$env:USERPROFILE\Downloads\factura.exe" -Preset UltraSecure -OpenOutbox
@@ -213,12 +331,11 @@ Ejemplos:
 
 if($Command -eq 'help'){ Show-Help; exit 0 }
 if($Command -eq 'version'){
-  $v = '0.8.0'
-  try{
-    $p = Join-Path (Split-Path -Parent $MyInvocation.MyCommand.Path) 'version.txt'
-    if(Test-Path $p){ $v = (Get-Content -LiteralPath $p -ErrorAction SilentlyContinue | Select-Object -First 1) }
-  } catch {}
-  Write-Host "WinLab $v"
+  Write-Host ("WinLab " + (Get-WinLabVersion))
+  exit 0
+}
+if($Command -eq 'doctor'){
+  Run-Doctor
   exit 0
 }
 
@@ -231,7 +348,7 @@ if($Command -eq 'analyze-url'){ $commandNorm = 'url' }
 switch($commandNorm){
   'scan' {
     if(-not $Path){
-      Write-Warn 'No especificaste -Path. Se va a usar el archivo más reciente de Descargas (host).'
+      Write-Warn 'No especificaste -Path. Se va a usar el archivo mas reciente de Descargas (host).'
       Start-WinLabSandbox -Preset $Preset -Minutes $Minutes -Url '' -TargetPath ''
       exit 0
     }
