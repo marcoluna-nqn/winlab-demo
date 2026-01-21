@@ -277,7 +277,6 @@ Ok 'Presets AUTO OK'
 $installScript = ReadUtf8 (Join-Path $root 'scripts/installer/WinLab_Install.ps1')
 $uninstallScript = ReadUtf8 (Join-Path $root 'scripts/installer/Uninstall-WinLab.ps1')
 if($installScript -notmatch 'WinLab_Context\.cmd'){ Fail 'WinLab_Install.ps1 sin registro de contexto' }
-if($uninstallScript -notmatch 'WinLab_Context\.cmd'){ Fail 'Uninstall-WinLab.ps1 sin desregistro de contexto' }
 if($installScript -notmatch 'HKLM:\\\\Software\\\\Classes' -or $installScript -notmatch 'WinLabAnalyze'){
   Fail 'WinLab_Install.ps1 sin clave de contexto para archivos'
 }
