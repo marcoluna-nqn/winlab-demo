@@ -90,20 +90,94 @@
   }
 
   const config = window.WINLAB_CONFIG || {};
-  const defaultWhatsApp = 'https://wa.me/5490000000000?text=Hola%20WinLab%20-%20Quiero%20comprar%20hoy';
+  const normalizeBaseUrl = (value) => {
+    if (!value) return '';
+    const trimmed = String(value).trim();
+    if (!trimmed) return '';
+    return trimmed.endsWith('/') ? trimmed : `${trimmed}/`;
+  };
+  const baseUrl = (() => {
+    const explicit = normalizeBaseUrl(config.BASE_URL);
+    if (explicit) return explicit;
+    if (!window.location || !window.location.origin) return '';
+    const path = window.location.pathname || '/';
+    const basePath = path.endsWith('/') ? path : path.slice(0, path.lastIndexOf('/') + 1);
+    return `${window.location.origin}${basePath}`;
+  })();
+  const pageUrl = (() => {
+    if (!baseUrl || !window.location) return '';
+    const path = window.location.pathname || '';
+    const file = path.endsWith('/') ? '' : path.split('/').pop();
+    try {
+      return new URL(file || '', baseUrl).toString();
+    } catch {
+      return baseUrl;
+    }
+  })();
+  const updateMeta = (selector, attr, value) => {
+    const el = document.querySelector(selector);
+    if (el && value) el.setAttribute(attr, value);
+  };
+  updateMeta('link[rel="canonical"]', 'href', pageUrl);
+  updateMeta('meta[property="og:url"]', 'content', pageUrl);
+  updateMeta('meta[name="twitter:url"]', 'content', pageUrl);
+  if (baseUrl) {
+    const ogImage = new URL('assets/og/og.png', baseUrl).toString();
+    updateMeta('meta[property="og:image"]', 'content', ogImage);
+    updateMeta('meta[name="twitter:image"]', 'content', ogImage);
+  }
+  const jsonLd = document.querySelector('script[type="application/ld+json"]');
+  if (jsonLd && baseUrl) {
+    try {
+      const data = JSON.parse(jsonLd.textContent);
+      const pricingUrl = new URL('pricing.html', baseUrl).toString();
+      const imageUrl = new URL('assets/og/og.png', baseUrl).toString();
+      const updateNode = (node) => {
+        if (!node || typeof node !== 'object') return;
+        if (node.image) node.image = imageUrl;
+        if (node.url) {
+          node.url = node['@type'] === 'Offer' ? pricingUrl : baseUrl;
+        }
+        if (node.offers) {
+          if (Array.isArray(node.offers)) {
+            node.offers.forEach(updateNode);
+          } else {
+            updateNode(node.offers);
+          }
+        }
+      };
+      if (Array.isArray(data['@graph'])) {
+        data['@graph'].forEach(updateNode);
+      } else {
+        updateNode(data);
+      }
+      jsonLd.textContent = JSON.stringify(data);
+    } catch {
+      // Ignore JSON-LD errors
+    }
+  }
+
+  const defaultWhatsApp = 'https://wa.me/5492996209136?text=Hola%20WinLab%20Security%20-%20Quiero%20comprar%20hoy';
   const whatsappUrl = (config.WHATSAPP_URL || defaultWhatsApp).trim();
-  const appendContextToWhatsApp = (url, plan, os, intent, message) => {
+  const appVersion = (config.APP_VERSION || config.VERSION || '').trim();
+  const appendContextToWhatsApp = (url, plan, os, intent, message, version) => {
     try {
       const partsUrl = url.split('?');
       const base = partsUrl[0];
       const query = partsUrl[1] || '';
       const params = new URLSearchParams(query);
-      const existing = (message || params.get('text') || 'Hola WinLab').trim();
+      const existing = (message || params.get('text') || 'Hola WinLab Security').trim();
       const lower = existing.toLowerCase();
       const parts = [existing];
       if (plan && !lower.includes(plan.toLowerCase())) parts.push(`Plan ${plan}`);
       if (os && !lower.includes(os.toLowerCase())) parts.push(os);
       if (intent && !lower.includes(intent.toLowerCase())) parts.push(intent);
+      if (version) {
+        const normalized = version.startsWith('v') ? version : `v${version}`;
+        if (!lower.includes(normalized.toLowerCase()) && !lower.includes(version.toLowerCase())) {
+          parts.push(normalized);
+        }
+      }
       params.set('text', parts.join(' - '));
       return `${base}?${params.toString()}`;
     } catch {
@@ -125,7 +199,7 @@
       const os = btn.getAttribute('data-os') || 'Windows 10/11 Pro';
       const intent = btn.getAttribute('data-intent') || 'Quiero comprar hoy';
       const message = btn.getAttribute('data-message');
-      url = appendContextToWhatsApp(url, plan, os, intent, message);
+      url = appendContextToWhatsApp(url, plan, os, intent, message, appVersion);
     }
     if (!url) url = whatsappUrl;
 

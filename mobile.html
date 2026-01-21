@@ -3,22 +3,23 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="WinLab Security Mobile: laboratorio remoto en una PC segura con acceso desde el celular y pedidos por WhatsApp." />
-  <title>WinLab Security - WinLab Mobile desde el celular</title>
+  <meta name="description" content="WinLab Security desde el celular: el análisis corre en Windows y el móvil usa la PWA para pedir y ver reportes." />
+  <title>WinLab Security - Usar desde el celular</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="canonical" href="https://marcoluna-nqn.github.io/winlab-demo/mobile.html" />
+  <link rel="canonical" href="https://winlab-security.github.io/winlab/mobile.html" />
   <link rel="manifest" href="assets/pwa/manifest.webmanifest" />
   <meta name="theme-color" content="#1d7dfb" />
-  <meta property="og:title" content="WinLab Security - WinLab Mobile desde el celular" />
-  <meta property="og:description" content="Laboratorio remoto en una PC segura con acceso desde el celular y pedidos por WhatsApp." />
-  <meta property="og:site_name" content="WinLab Security" />
+  <meta property="og:title" content="WinLab Security - Usar desde el celular" />
+  <meta property="og:description" content="El sandbox corre en Windows. El celular usa la PWA para pedir y ver reportes." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://marcoluna-nqn.github.io/winlab-demo/mobile.html" />
-  <meta property="og:image" content="https://marcoluna-nqn.github.io/winlab-demo/assets/og/og.png" />
+  <meta property="og:url" content="https://winlab-security.github.io/winlab/mobile.html" />
+  <meta property="og:image" content="https://winlab-security.github.io/winlab/assets/og/og.png" />
+  <meta property="og:site_name" content="WinLab Security" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="WinLab Security desde el celular" />
-  <meta name="twitter:description" content="Acceso remoto seguro o análisis asistido por WhatsApp." />
-  <meta name="twitter:image" content="https://marcoluna-nqn.github.io/winlab-demo/assets/og/og.png" />
+  <meta name="twitter:description" content="Acceso remoto seguro y reporte listo. El análisis corre en Windows." />
+  <meta name="twitter:image" content="https://winlab-security.github.io/winlab/assets/og/og.png" />
+  <meta name="twitter:url" content="https://winlab-security.github.io/winlab/mobile.html" />
   <link rel="stylesheet" href="assets/styles.css" />
   <script defer src="assets/config.js"></script>
   <script defer src="assets/app.js"></script>
@@ -34,6 +35,7 @@
         <a href="index.html" class="nav__link">Inicio</a>
         <a href="#remoto" class="nav__link">Laboratorio remoto</a>
         <a href="#asistido" class="nav__link">Análisis asistido</a>
+        <a href="#seguridad" class="nav__link">Checklist</a>
         <a href="#faq" class="nav__link">Preguntas</a>
         <button class="nav__btn nav__btn--ghost" type="button" data-pwa-install>Instalar WinLab</button>
         <a class="nav__btn" data-buy="whatsapp" data-plan="Profesional" data-intent="Quiero usarlo desde celular">Comprar ahora</a>
@@ -54,6 +56,7 @@
       <a href="index.html" class="nav__link">Inicio</a>
       <a href="#remoto" class="nav__link">Laboratorio remoto</a>
       <a href="#asistido" class="nav__link">Análisis asistido</a>
+      <a href="#seguridad" class="nav__link">Checklist</a>
       <a href="#faq" class="nav__link">Preguntas</a>
       <button class="nav__btn nav__btn--ghost" type="button" data-pwa-install>Instalar WinLab</button>
       <a class="nav__btn" data-buy="whatsapp" data-plan="Profesional" data-intent="Quiero usarlo desde celular">Comprar ahora</a>
@@ -72,15 +75,14 @@
     <section class="hero">
       <div class="container hero__grid">
         <div class="stack">
-          <div class="pill">WinLab Mobile · Laboratorio remoto seguro</div>
-          <h1>WinLab Security Mobile: laboratorio remoto en una PC segura + acceso desde el celular.</h1>
+          <div class="pill">WinLab Security Mobile · Acceso remoto seguro</div>
+          <h1>Usá WinLab Security desde el celular sin arriesgar tu teléfono.</h1>
           <p class="lead">
-            El sandbox corre en Windows, pero vos lo operás desde el celu conectándote a un laboratorio remoto.
-            Instalá la PWA, conectate al host y manejá WinLab como si fuera una app nativa. El pedido y la activación
-            se coordinan por WhatsApp.
+            El análisis corre en Windows. El celular solo usa la PWA para pedir y ver reportes.
+            Te conectás a un host remoto seguro o elegís el servicio asistido.
           </p>
           <div class="hero__cta">
-            <a class="btn btn--primary" data-buy="whatsapp" data-plan="Laboratorio remoto" data-intent="Quiero usarlo desde celular">Quiero el Laboratorio Remoto</a>
+            <a class="btn btn--primary" data-buy="whatsapp" data-plan="Laboratorio remoto" data-intent="Quiero usarlo desde celular">Quiero Laboratorio Remoto</a>
             <a class="btn btn--secondary" data-buy="whatsapp" data-plan="Asistido" data-message="Hola, quiero análisis WinLab asistido. Te paso enlace o archivo para revisar." data-intent="Quiero análisis asistido">Te lo analizo yo</a>
             <a class="btn btn--ghost" href="#remoto">Ver pasos</a>
           </div>
@@ -95,7 +97,7 @@
             <ul class="list list--steps">
               <li class="list__item">
                 <span class="list__icon">1</span>
-                <div>Conectás tu celu al Windows remoto con VPN segura.</div>
+                <div>Conectás tu celular al Windows remoto con VPN segura.</div>
               </li>
               <li class="list__item">
                 <span class="list__icon">2</span>
@@ -121,7 +123,7 @@
         <div class="stack">
           <div class="chip">Opción 1</div>
           <h2>Laboratorio Remoto (recomendado)</h2>
-          <p class="muted">Una PC segura con Windows dedicado y WinLab, accesible desde el celular por una red VPN cerrada. Sin exponer puertos.</p>
+          <p class="muted">Un Windows dedicado con WinLab, accesible desde el celular por una red segura tipo VPN. Sin exponer puertos.</p>
         </div>
         <div class="grid grid--2">
           <div class="card">
@@ -172,7 +174,6 @@
             <li>Contraseña fuerte y usuario exclusivo para WinLab.</li>
             <li>Bloqueo de pantalla y actualizaciones al día.</li>
             <li>Usá BitLocker si tu edición lo permite.</li>
-            <li>Clave API obligatoria en el header X-WINLAB-KEY. No la compartas.</li>
           </ul>
         </div>
         <div class="grid grid--2">
@@ -189,7 +190,7 @@
             <p class="muted">Medidas simples para bajar el riesgo sin frenar el uso.</p>
             <div class="download__actions">
               <a class="btn btn--secondary" href="downloads/remote_host/RemoteHost_Hardening.txt">Ver checklist</a>
-              <a class="btn btn--ghost" data-buy="whatsapp" data-plan="Laboratorio remoto" data-intent="Quiero usarlo desde celular">Quiero el Laboratorio Remoto</a>
+              <a class="btn btn--ghost" data-buy="whatsapp" data-plan="Laboratorio remoto" data-intent="Quiero usarlo desde celular">Quiero Laboratorio Remoto</a>
             </div>
           </div>
         </div>
@@ -215,11 +216,30 @@
               <li>Evidencias: hash, MOTW, firmas y Defender.</li>
             </ul>
             <div class="stack">
-              <p class="muted">Respuesta típica: minutos a pocas horas, según complejidad.</p>
+              <p class="muted">Turnaround típico: minutos a pocas horas, según complejidad.</p>
               <a class="btn btn--primary" data-buy="whatsapp" data-plan="Asistido" data-message="Hola, quiero análisis WinLab asistido. Te paso enlace o archivo para revisar." data-intent="Quiero análisis asistido">Pedir análisis por WhatsApp</a>
-              <p class="muted small">No subimos tu archivo a ningún servidor propio. Todo queda en laboratorio controlado.</p>
+              <p class="muted small">No subimos tu archivo a servidores propios. Todo queda en laboratorio controlado.</p>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="seguridad" class="section section--tight">
+      <div class="container stack">
+        <div class="stack">
+          <div class="chip">Checklist</div>
+          <h2>Checklist de seguridad para celular</h2>
+          <p class="muted">Buenas prácticas simples para evitar filtraciones.</p>
+        </div>
+        <div class="card card--soft">
+          <ul class="list">
+            <li>Bloqueo biométrico activo y PIN robusto.</li>
+            <li>No uses Wi-Fi público sin VPN.</li>
+            <li>Actualizá iOS/Android y tus apps clave.</li>
+            <li>No guardes archivos sospechosos en el celular.</li>
+            <li>Compartí reportes desde la PWA, no desde apps personales.</li>
+          </ul>
         </div>
       </div>
     </section>
@@ -229,7 +249,7 @@
         <div class="cta">
           <div>
             <div class="chip">PWA</div>
-            <h3>Instalá WinLab como acceso rápido en el celular</h3>
+            <h3>Instalá WinLab Security como acceso rápido en el celular</h3>
             <p class="cta__text">No es una aplicación nativa. Es un acceso directo seguro a la web.</p>
           </div>
           <button class="btn btn--secondary" type="button" data-pwa-install>Instalar WinLab</button>
@@ -245,25 +265,25 @@
         </div>
         <div class="faq">
           <details>
-            <summary aria-expanded="false">¿Se instala en iPhone o Android?<span class="faq__icon">+</span></summary>
+            <summary aria-expanded="false">¿Se instala en iPhone o Android?<span class="faq__icon" aria-hidden="true">+</span></summary>
             <div class="faq__content">
               <p class="muted">No. El sandbox corre en Windows. En el celular solo usás acceso remoto o el servicio asistido.</p>
             </div>
           </details>
           <details>
-            <summary aria-expanded="false">¿Es seguro conectarme remoto?<span class="faq__icon">+</span></summary>
+            <summary aria-expanded="false">¿Es seguro conectarme remoto?<span class="faq__icon" aria-hidden="true">+</span></summary>
             <div class="faq__content">
-              <p class="muted">Sí. Siempre que uses VPN tipo Tailscale, sin puertos abiertos y con credenciales fuertes.</p>
+              <p class="muted">Sí, siempre que uses VPN tipo Tailscale, sin puertos abiertos y con credenciales fuertes.</p>
             </div>
           </details>
           <details>
-            <summary aria-expanded="false">¿Qué pasa si el enlace es malicioso?<span class="faq__icon">+</span></summary>
+            <summary aria-expanded="false">¿Qué pasa si el enlace es malicioso?<span class="faq__icon" aria-hidden="true">+</span></summary>
             <div class="faq__content">
               <p class="muted">Se abre dentro de Windows Sandbox. El entorno se descarta al cerrar.</p>
             </div>
           </details>
           <details>
-            <summary aria-expanded="false">¿Qué no hace WinLab?<span class="faq__icon">+</span></summary>
+            <summary aria-expanded="false">¿Qué no hace WinLab Security?<span class="faq__icon" aria-hidden="true">+</span></summary>
             <div class="faq__content">
               <p class="muted">No reemplaza un antivirus completo ni garantiza detección total. Es una capa de análisis y reporte.</p>
             </div>
@@ -284,7 +304,7 @@
         <a href="pricing.html">Planes</a>
         <a href="docs/guia.html">Guía rápida</a>
       </div>
-      <p class="muted small">WinLab reduce riesgo, no garantiza detección total.</p>
+      <p class="muted small">WinLab Security reduce riesgo, no garantiza detección total.</p>
     </div>
   </footer>
 
@@ -292,7 +312,7 @@
     <div class="pwa-panel">
       <div class="stack">
         <strong>Instalar WinLab</strong>
-        <p class="muted">Agregá WinLab al inicio para abrirlo como aplicación web.</p>
+        <p class="muted">Agregá WinLab al inicio para abrirlo como aplicacion web.</p>
       </div>
       <div class="pwa-steps">
         <div><strong>iPhone/iPad:</strong> tocá Compartir y luego "Agregar a inicio".</div>
@@ -305,5 +325,10 @@
   </div>
 
   <div class="toast" data-toast aria-live="polite" aria-atomic="true"></div>
+
+  <div class="sticky-cta" aria-hidden="true">
+    <a class="btn btn--primary" data-buy="whatsapp" data-plan="Laboratorio remoto" data-intent="Quiero usarlo desde celular">WhatsApp ahora</a>
+    <a class="btn btn--secondary" href="pricing.html">Ver planes</a>
+  </div>
 </body>
 </html>

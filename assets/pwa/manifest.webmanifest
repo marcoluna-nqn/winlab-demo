@@ -1,11 +1,11 @@
-{
-  "name": "WinLab",
+﻿{
+  "name": "WinLab Security",
   "short_name": "WinLab",
-  "description": "WinLab te deja analizar archivos y URLs sospechosas con Windows Sandbox y reportes claros.",
+  "description": "WinLab Security permite analizar archivos y URLs sospechosas con Windows Sandbox y reportes claros.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#f5f7fb",
+  "background_color": "#f2f5fb",
   "theme_color": "#1d7dfb",
   "icons": [
     {
