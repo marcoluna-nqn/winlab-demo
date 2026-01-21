@@ -33,6 +33,7 @@ Copy-Item -Recurse -Force -Path (Join-Path $root 'downloads/launcher') -Destinat
 Copy-Item -Recurse -Force -Path (Join-Path $root 'downloads/presets') -Destination (Join-Path $downloads 'presets')
 Copy-Item -Recurse -Force -Path (Join-Path $root 'downloads/safe_mode') -Destination (Join-Path $downloads 'safe_mode')
 Copy-Item -Recurse -Force -Path (Join-Path $root 'downloads/samples') -Destination (Join-Path $downloads 'samples')
+Copy-Item -Recurse -Force -Path (Join-Path $root 'downloads/remote_host') -Destination (Join-Path $downloads 'remote_host')
 Copy-Item -Force -Path (Join-Path $root 'docs/guia.html') -Destination (Join-Path $docsDir 'guia.html')
 Copy-Item -Force -Path (Join-Path $root 'docs/guia_cliente.html') -Destination (Join-Path $docsDir 'guia_cliente.html')
 Copy-Item -Force -Path (Join-Path $root 'scripts/installer/Uninstall-WinLab.ps1') -Destination (Join-Path $payload 'Uninstall-WinLab.ps1')

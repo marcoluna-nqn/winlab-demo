@@ -64,12 +64,19 @@ $required = @(
   'downloads/remote_host/README_REMOTE_HOST_ESAR.txt',
   'downloads/remote_host/RemoteHost_Doctor.ps1',
   'downloads/remote_host/RemoteHost_Hardening.txt',
+  'downloads/remote_host/WinLab_RemoteHost.ps1',
+  'downloads/remote_host/Install_RemoteHost.ps1',
+  'downloads/remote_host/Start_RemoteHost.ps1',
+  'downloads/remote_host/Stop_RemoteHost.ps1',
+  'downloads/remote_host/Uninstall_RemoteHost.ps1',
+  'downloads/remote_host/remote_host_config.json',
   'downloads/presets/Balanced_AUTO.wsb',
   'downloads/presets/UltraSecure_AUTO.wsb',
   'downloads/presets/Networked_AUTO.wsb',
   'downloads/safe_mode/README.txt',
   'downloads/safe_mode/SafeMode_Helper.cmd',
   'tools/cli/WinLab.ps1',
+  'tools/cli/WinLab_Context.cmd',
   'tools/cli/winlab_cli.ps1',
   'tools/cli/bin/InsideLab.ps1',
   'tools/cli/version.txt',
@@ -145,6 +152,7 @@ $textChecks = @(
   @{ Label = 'docs/guia.html'; Path = 'docs/guia.html'; Strip = $true },
   @{ Label = 'docs/guia_cliente.html'; Path = 'docs/guia_cliente.html'; Strip = $true },
   @{ Label = 'downloads/launcher/README_LAUNCHER.txt'; Path = 'downloads/launcher/README_LAUNCHER.txt'; Strip = $false },
+  @{ Label = 'downloads/remote_host/README_REMOTE_HOST_ESAR.txt'; Path = 'downloads/remote_host/README_REMOTE_HOST_ESAR.txt'; Strip = $false },
   @{ Label = 'downloads/samples/report_ok.html'; Path = 'downloads/samples/report_ok.html'; Strip = $true },
   @{ Label = 'downloads/samples/report_detectado.html'; Path = 'downloads/samples/report_detectado.html'; Strip = $true },
   @{ Label = 'downloads/samples/report_inconcluso.html'; Path = 'downloads/samples/report_inconcluso.html'; Strip = $true }
@@ -200,12 +208,16 @@ try {
   $manifestLines = Get-Content -Path $installerManifest
   $manifestMust = @(
     'tools/cli/WinLab.ps1',
+    'tools/cli/WinLab_Context.cmd',
     'downloads/launcher/WinLab_Launcher.cmd',
     'downloads/presets/Balanced_AUTO.wsb',
     'downloads/presets/UltraSecure_AUTO.wsb',
     'downloads/presets/Networked_AUTO.wsb',
     'downloads/safe_mode/README.txt',
     'downloads/safe_mode/SafeMode_Helper.cmd',
+    'downloads/remote_host/README_REMOTE_HOST_ESAR.txt',
+    'downloads/remote_host/WinLab_RemoteHost.ps1',
+    'downloads/remote_host/remote_host_config.json',
     'downloads/samples/report_ok.html',
     'downloads/samples/report_detectado.html',
     'downloads/samples/report_inconcluso.html',
@@ -217,7 +229,7 @@ try {
   foreach($p in $manifestMust){
     if(-not ($manifestLines -contains $p)){ Fail "Installer manifest sin archivo requerido: $p" }
   }
-  Ok 'Installer manifest OK'
+Ok 'Installer manifest OK'
 
   # Validar texto dentro del ZIP (sin placeholders ni '...')
   $textExt = @('.cmd','.ps1','.txt','.md','.html','.json')
@@ -260,6 +272,19 @@ foreach($p in $presetPaths){
   }
 }
 Ok 'Presets AUTO OK'
+
+# Context menu integracion debe existir en scripts de instalacion
+$installScript = ReadUtf8 (Join-Path $root 'scripts/installer/WinLab_Install.ps1')
+$uninstallScript = ReadUtf8 (Join-Path $root 'scripts/installer/Uninstall-WinLab.ps1')
+if($installScript -notmatch 'WinLab_Context\.cmd'){ Fail 'WinLab_Install.ps1 sin registro de contexto' }
+if($uninstallScript -notmatch 'WinLab_Context\.cmd'){ Fail 'Uninstall-WinLab.ps1 sin desregistro de contexto' }
+if($installScript -notmatch 'HKLM:\\\\Software\\\\Classes' -or $installScript -notmatch 'WinLabAnalyze'){
+  Fail 'WinLab_Install.ps1 sin clave de contexto para archivos'
+}
+if($uninstallScript -notmatch 'HKLM:\\\\Software\\\\Classes' -or $uninstallScript -notmatch 'WinLabAnalyze'){
+  Fail 'Uninstall-WinLab.ps1 sin clave de contexto para archivos'
+}
+Ok 'Integracion de menu contextual OK'
 
 # Pricing debe cargar config/app y tener botones
 $pricing = ReadUtf8 (Join-Path $root 'pricing.html')
