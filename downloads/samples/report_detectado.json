@@ -151,6 +151,11 @@
                                         ],
                     "riskLevel":  "ALTO",
                     "riskScore":  92,
-                    "riskDecision":  "BLOQUEAR"
+                    "riskDecision":  "BLOQUEAR",
+                    "humanSummary":  {
+                                         "riesgo":  "Riesgo ALTO (95/100)",
+                                         "queHacer":  "Bloquear y eliminar. No ejecutar ni habilitar macros.",
+                                         "porQue":  "Microsoft Defender detecto amenazas."
+                                     }
                 }
 }

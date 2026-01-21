@@ -17,6 +17,7 @@
     .lead{margin:6px 0 10px 0;color:var(--muted);line-height:1.5;}
     .muted{color:var(--muted);}
     .small{font-size:13px;}
+    .bullets{margin:0;padding-left:18px;color:var(--muted);}
     table{border-collapse:collapse;width:100%;margin-top:8px;font-size:13.5px}
     th,td{border:1px solid var(--line);padding:8px;vertical-align:top}
     th{background:#f9fafb;text-align:left}
@@ -30,7 +31,7 @@
     <div class="header">
       <div>
         <h1 style="margin:0;">WinLab - Reporte de análisis (Ejemplo)</h1>
-        <div class="small muted">Run: run_20260119_120001_Balanced · WinLab 0.8.0 · Preset: Balanced · Firewall: InternetOnly</div>
+        <div class="small muted">Ejecucion: run_20260119_120001_Balanced · WinLab 0.8.0 · Preset: Balanced · Firewall: InternetOnly</div>
         <div class="small muted">Inicio: 2026-01-19T12:00:01Z · Fin: 2026-01-19T12:02:44Z</div>
       </div>
       <div>
@@ -38,6 +39,15 @@
         <div class="risk" style="margin-top:6px;">Riesgo: MINIMO (12)</div>
       </div>
     </div>
+
+    <section class="card">
+      <h2>Resumen para humanos</h2>
+      <ul class="bullets">
+        <li><b>Riesgo:</b> Riesgo MINIMO (12/100)</li>
+        <li><b>Que hacer:</b> Si el origen es confiable, podes continuar. Si es dudoso, valida con otra herramienta.</li>
+        <li><b>Por que:</b> No hay detecciones de Microsoft Defender.</li>
+      </ul>
+    </section>
 
     <section class="card">
       <h2>Resumen ejecutivo</h2>
@@ -74,7 +84,7 @@
       </div>
       <div class="grid" style="margin-top:12px;">
         <div>
-          <div class="k">Timeline</div>
+          <div class="k">Linea de tiempo</div>
           <ul class="timeline">
             <li><b>Inicio:</b> 2026-01-19T12:00:01Z</li>
             <li><b>Actualización de firmas:</b> Update-MpSignature · ok=True</li>
@@ -107,7 +117,7 @@
     <section class="card">
       <h2>Evidencias (Defender)</h2>
       <table>
-        <thead><tr><th>ThreatName</th><th>ID</th><th>Severity</th><th>Resources</th></tr></thead>
+        <thead><tr><th>Amenaza</th><th>ID</th><th>Severidad</th><th>Recursos</th></tr></thead>
         <tbody>
           <tr><td colspan="4" class="muted">Sin detecciones de Defender en este run.</td></tr>
         </tbody>

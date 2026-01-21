@@ -141,6 +141,11 @@
                                         ],
                     "riskLevel":  "MINIMO",
                     "riskScore":  12,
-                    "riskDecision":  "OK"
+                    "riskDecision":  "OK",
+                    "humanSummary":  {
+                                         "riesgo":  "Riesgo MINIMO (12/100)",
+                                         "queHacer":  "Si el origen es confiable, podes continuar. Si es dudoso, valida con otra herramienta.",
+                                         "porQue":  "No hay detecciones de Microsoft Defender."
+                                     }
                 }
 }

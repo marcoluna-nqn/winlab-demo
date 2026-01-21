@@ -741,6 +741,11 @@ function Write-ReportFiles([string]$runDir, [object]$report){
     $riskBadge = if($report.autoDecision.level -eq 'ALTO'){'#b00020'} elseif($report.autoDecision.level -eq 'MEDIO'){'#b26a00'} elseif($report.autoDecision.level -eq 'BAJO'){'#2f6f98'} else {'#3a3a3a'}
   }
 
+  $human = $report.summary.humanSummary
+  $humanRisk = if($human){ $human.riesgo } else { 'No disponible' }
+  $humanAction = if($human){ $human.queHacer } else { 'No disponible' }
+  $humanWhy = if($human){ $human.porQue } else { 'No disponible' }
+
   $detRows = ''
   foreach($d in @($report.evidence.detections)){
     $res = ''
@@ -857,6 +862,7 @@ function Write-ReportFiles([string]$runDir, [object]$report){
     .alert{margin:8px 0;padding:10px 12px;border-radius:12px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;}
     .legend{margin:0;padding-left:18px;color:var(--muted);}
     .timeline{margin:0;padding-left:18px;color:var(--muted);}
+    .bullets{margin:0;padding-left:18px;color:var(--muted);}
     @media (max-width: 900px){
       .grid{grid-template-columns:1fr;}
       .header{flex-direction:column;align-items:flex-start;}
@@ -868,7 +874,7 @@ function Write-ReportFiles([string]$runDir, [object]$report){
     <div class="header">
       <div>
         <h1 style="margin:0;">WinLab - Reporte de análisis</h1>
-        <div class="small muted">Run: $(HtmlE ($report.meta.runId+'')) · WinLab $(HtmlE ($report.meta.winlabVersion+'')) · Preset: $(HtmlE ($report.meta.preset+'')) · Firewall: $(HtmlE ($report.meta.firewallMode+''))</div>
+        <div class="small muted">Ejecucion: $(HtmlE ($report.meta.runId+'')) · WinLab $(HtmlE ($report.meta.winlabVersion+'')) · Preset: $(HtmlE ($report.meta.preset+'')) · Firewall: $(HtmlE ($report.meta.firewallMode+''))</div>
         <div class="small muted">Inicio: $(HtmlE ($report.meta.startedAt+'')) · Fin: $(HtmlE ($report.meta.endedAt+''))</div>
       </div>
       <div>
@@ -876,6 +882,15 @@ function Write-ReportFiles([string]$runDir, [object]$report){
         <div class="risk" style="margin-top:6px;">Riesgo: $riskText</div>
       </div>
     </div>
+
+    <section class="card">
+      <h2>Resumen para humanos</h2>
+      <ul class="bullets">
+        <li><b>Riesgo:</b> $(HtmlE ($humanRisk+''))</li>
+        <li><b>Que hacer:</b> $(HtmlE ($humanAction+''))</li>
+        <li><b>Por que:</b> $(HtmlE ($humanWhy+''))</li>
+      </ul>
+    </section>
 
     <section class="card">
       <h2>Resumen ejecutivo</h2>
@@ -913,7 +928,7 @@ function Write-ReportFiles([string]$runDir, [object]$report){
       </div>
       <div class="grid" style="margin-top:12px;">
         <div>
-          <div class="k">Timeline</div>
+          <div class="k">Linea de tiempo</div>
           <ul class="timeline">
             <li><b>Inicio:</b> $(HtmlE ($report.timing.startedAt+''))</li>
             <li><b>Actualización de firmas:</b> $(HtmlE ($report.defender.update.Method+'')) · ok=$(HtmlE ($report.defender.update.Ok+''))</li>
@@ -940,7 +955,7 @@ function Write-ReportFiles([string]$runDir, [object]$report){
     <section class="card">
       <h2>Evidencias (Defender)</h2>
       <table>
-        <thead><tr><th>ThreatName</th><th>ID</th><th>Severity</th><th>Resources</th></tr></thead>
+        <thead><tr><th>Amenaza</th><th>ID</th><th>Severidad</th><th>Recursos</th></tr></thead>
         <tbody>$detRows</tbody>
       </table>
     </section>
@@ -966,6 +981,11 @@ function Write-ReportFiles([string]$runDir, [object]$report){
   $txt += "Estado: $($report.summary.status)"
   if($report.autoDecision -and $report.autoDecision.enabled){
     $txt += "Riesgo: $($report.autoDecision.level) ($($report.autoDecision.score)) / Decisión sugerida: $($report.autoDecision.decision)"
+  }
+  if($report.summary.humanSummary){
+    $txt += "Resumen humano - Riesgo: $($report.summary.humanSummary.riesgo)"
+    $txt += "Resumen humano - Que hacer: $($report.summary.humanSummary.queHacer)"
+    $txt += "Resumen humano - Por que: $($report.summary.humanSummary.porQue)"
   }
   $txt += "Archivo: $($report.target.fileName)"
   $txt += "SHA256: $($report.target.sha256)"
@@ -1226,6 +1246,26 @@ $recommendation = switch($statusText){
   default     { 'Resultado inconcluso. Reintenta en Balanced (con Internet) para actualizar firmas y repetir el análisis. Para URLs, usa Networked/InternetOnly y evita iniciar sesión o ingresar datos.' }
 }
 
+# Resumen para humanos
+$humanRisk = 'Riesgo sin autoevaluacion'
+if($auto -and $auto.enabled){
+  $humanRisk = "Riesgo $($auto.level) ($($auto.score)/100)"
+}
+$humanAction = switch($statusText){
+  'DETECTADO' { 'Bloquear y eliminar. No ejecutar ni habilitar macros.' }
+  'OK'        { 'Si el origen es confiable, podes continuar. Si es dudoso, valida con otra herramienta.' }
+  default     { 'Reintenta con red y valida por otra via antes de decidir.' }
+}
+$humanWhy = $statusMeaning
+if($auto -and $auto.reasons -and $auto.reasons.Count -gt 0){
+  $humanWhy = ($auto.reasons | Select-Object -First 1)
+}
+$humanSummary = [pscustomobject]@{
+  riesgo = $humanRisk
+  queHacer = $humanAction
+  porQue = $humanWhy
+}
+
 # Duración total de escaneo
 $totalScan = 0
 try{ $totalScan = (@($scanRuns) | Measure-Object -Property durationMs -Sum).Sum } catch { $totalScan = 0 }
@@ -1302,6 +1342,7 @@ $report = [pscustomobject]@{
     riskDecision = if($auto -and $auto.enabled){ $auto.decision } else { $null }
     inconclusiveReason = $inconclusiveReason
     recommendation = $recommendation
+    humanSummary = $humanSummary
   }
 }
 

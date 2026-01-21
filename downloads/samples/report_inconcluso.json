@@ -177,6 +177,11 @@
                                         ],
                     "riskLevel":  "MEDIO",
                     "riskScore":  78,
-                    "riskDecision":  "CAUTELA"
+                    "riskDecision":  "CAUTELA",
+                    "humanSummary":  {
+                                         "riesgo":  "Riesgo MEDIO (55/100)",
+                                         "queHacer":  "Reintenta con red y valida por otra via antes de decidir.",
+                                         "porQue":  "Firmas desactualizadas o señales fuertes."
+                                     }
                 }
 }

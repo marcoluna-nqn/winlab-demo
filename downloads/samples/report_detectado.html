@@ -17,6 +17,7 @@
     .lead{margin:6px 0 10px 0;color:var(--muted);line-height:1.5;}
     .muted{color:var(--muted);}
     .small{font-size:13px;}
+    .bullets{margin:0;padding-left:18px;color:var(--muted);}
     table{border-collapse:collapse;width:100%;margin-top:8px;font-size:13.5px}
     th,td{border:1px solid var(--line);padding:8px;vertical-align:top}
     th{background:#f9fafb;text-align:left}
@@ -30,7 +31,7 @@
     <div class="header">
       <div>
         <h1 style="margin:0;">WinLab - Reporte de análisis (Ejemplo)</h1>
-        <div class="small muted">Run: run_20260119_121501_Balanced · WinLab 0.8.0 · Preset: Balanced · Firewall: InternetOnly</div>
+        <div class="small muted">Ejecucion: run_20260119_121501_Balanced · WinLab 0.8.0 · Preset: Balanced · Firewall: InternetOnly</div>
         <div class="small muted">Inicio: 2026-01-19T12:15:01Z · Fin: 2026-01-19T12:16:10Z</div>
       </div>
       <div>
@@ -38,6 +39,15 @@
         <div class="risk" style="margin-top:6px;">Riesgo: ALTO (92)</div>
       </div>
     </div>
+
+    <section class="card">
+      <h2>Resumen para humanos</h2>
+      <ul class="bullets">
+        <li><b>Riesgo:</b> Riesgo ALTO (95/100)</li>
+        <li><b>Que hacer:</b> Bloquear y eliminar. No ejecutar ni habilitar macros.</li>
+        <li><b>Por que:</b> Microsoft Defender detecto amenazas.</li>
+      </ul>
+    </section>
 
     <section class="card">
       <h2>Resumen ejecutivo</h2>
@@ -74,7 +84,7 @@
       </div>
       <div class="grid" style="margin-top:12px;">
         <div>
-          <div class="k">Timeline</div>
+          <div class="k">Linea de tiempo</div>
           <ul class="timeline">
             <li><b>Inicio:</b> 2026-01-19T12:15:01Z</li>
             <li><b>Actualización de firmas:</b> Update-MpSignature · ok=True</li>
@@ -106,7 +116,7 @@
     <section class="card">
       <h2>Evidencias (Defender)</h2>
       <table>
-        <thead><tr><th>ThreatName</th><th>ID</th><th>Severity</th><th>Resources</th></tr></thead>
+        <thead><tr><th>Amenaza</th><th>ID</th><th>Severidad</th><th>Recursos</th></tr></thead>
         <tbody>
           <tr><td><code>Trojan:Win32/Example</code></td><td>999999</td><td>5</td><td><small>C:\WinLabWork\input\20260119_121501__setup.exe</small></td></tr>
         </tbody>
