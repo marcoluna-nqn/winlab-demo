@@ -131,23 +131,23 @@
       <h2>Análisis de URL</h2>
       <div class="grid">
         <div>
-          <div class="small"><b>URL:</b> <code>https://example.bad/login</code></div>
-          <div class="small"><b>Host:</b> example.bad</div>
+        <div class="small"><b>URL:</b> <code>https://muestra-maliciosa.local/login</code></div>
+        <div class="small"><b>Host:</b> muestra-maliciosa.local</div>
           <div class="small"><b>IPs:</b> 203.0.113.5</div>
           <div class="small"><b>Status:</b> 302</div>
         </div>
         <div>
-          <div class="small"><b>TLS:</b> CN=final.bad</div>
-          <div class="small"><b>Issuer:</b> CN=Bad CA</div>
+        <div class="small"><b>TLS:</b> CN=destino-malicioso.local</div>
+        <div class="small"><b>Issuer:</b> CN=CA-Sospechosa</div>
           <div class="small"><b>NotAfter:</b> 2026-01-20T00:00:00Z</div>
         </div>
       </div>
       <table>
         <thead><tr><th>Status</th><th>URL</th><th>Location</th></tr></thead>
         <tbody>
-          <tr><td>302</td><td><small>https://example.bad/login</small></td><td><small>https://redir.bad/step1</small></td></tr>
-          <tr><td>302</td><td><small>https://redir.bad/step1</small></td><td><small>https://redir.bad/step2</small></td></tr>
-          <tr><td>302</td><td><small>https://redir.bad/step2</small></td><td><small>https://final.bad/landing</small></td></tr>
+          <tr><td>302</td><td><small>https://muestra-maliciosa.local/login</small></td><td><small>https://redir-maliciosa.local/paso1</small></td></tr>
+          <tr><td>302</td><td><small>https://redir-maliciosa.local/paso1</small></td><td><small>https://redir-maliciosa.local/paso2</small></td></tr>
+          <tr><td>302</td><td><small>https://redir-maliciosa.local/paso2</small></td><td><small>https://destino-malicioso.local/landing</small></td></tr>
         </tbody>
       </table>
     </section>

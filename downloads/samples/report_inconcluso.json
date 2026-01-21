@@ -36,9 +36,9 @@
                },
     "urlAnalysis":  {
                         "ok":  true,
-                        "url":  "https://example.bad/login",
+                        "url":  "https://muestra-maliciosa.local/login",
                         "scheme":  "https",
-                        "host":  "example.bad",
+                        "host":  "muestra-maliciosa.local",
                         "port":  443,
                         "path":  "/login",
                         "ips":  [
@@ -48,25 +48,25 @@
                         "headError":  null,
                         "redirects":  [
                                           {
-                                              "url":  "https://example.bad/login",
+                                              "url":  "https://muestra-maliciosa.local/login",
                                               "status":  302,
-                                              "location":  "https://redir.bad/step1"
+                                              "location":  "https://redir-maliciosa.local/paso1"
                                           },
                                           {
-                                              "url":  "https://redir.bad/step1",
+                                              "url":  "https://redir-maliciosa.local/paso1",
                                               "status":  302,
-                                              "location":  "https://redir.bad/step2"
+                                              "location":  "https://redir-maliciosa.local/paso2"
                                           },
                                           {
-                                              "url":  "https://redir.bad/step2",
+                                              "url":  "https://redir-maliciosa.local/paso2",
                                               "status":  302,
-                                              "location":  "https://final.bad/landing"
+                                              "location":  "https://destino-malicioso.local/landing"
                                           }
                                       ],
                         "tls":  {
                                     "ok":  true,
-                                    "subject":  "CN=final.bad",
-                                    "issuer":  "CN=Bad CA",
+                                    "subject":  "CN=destino-malicioso.local",
+                                    "issuer":  "CN=CA-Sospechosa",
                                     "notAfter":  "2026-01-20T00:00:00Z"
                                 },
                         "whois":  {

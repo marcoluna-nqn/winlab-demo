@@ -90,7 +90,7 @@
     "evidence":  {
                      "detections":  [
                                         {
-                                            "ThreatName":  "Trojan:Win32/Example",
+                                            "ThreatName":  "Trojan:Win32/Simulado",
                                             "ThreatID":  999999,
                                             "SeverityID":  5,
                                             "CategoryID":  42,
