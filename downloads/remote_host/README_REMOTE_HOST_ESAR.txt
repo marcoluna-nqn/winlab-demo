@@ -31,6 +31,7 @@ Rutas
   Cuerpo JSON: {"url": "https://sitio.com"}
 - POST http://127.0.0.1:17171/api/analizar-archivo
   Cuerpo JSON: {"nombreArchivo": "archivo.exe", "contenidoBase64": "BASE64_DEMO"}
+ - Logs: C:\WinLab\logs\remote_host.log
 
 Seguridad basica
 - NO abras el puerto RDP en el router ni en la nube.
