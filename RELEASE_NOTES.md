@@ -2,17 +2,18 @@
 
 Resumen:
 - WinLab es un pipeline local con Windows Sandbox + Microsoft Defender, enfocado en aislamiento y reportes claros.
-- Este release refuerza launcher/presets, reportes y empaquetado reproducible.
+- Este release agrega licencia, updater y launcher con UI.
 
 Highlights:
-- Launcher con staging en `C:\WinLab_Pack` y soporte de archivos/URL.
-- Presets AUTO con mapeo de logs y outbox.
-- Reportes con resumen ejecutivo y detalle técnico.
+- Instalador Inno Setup 1.0.0 con accesos WinLab/Doctor/Host Remoto.
+- Launcher con interfaz (sin parpadeos), estado de licencia y botón de actualización.
+- Reportes schema 1.1 con pasos recomendados y botón imprimir/PDF.
 
 Artifacts (dist):
 - `dist/winlab_site.zip`
-- `dist/WinLab_ProductPack_0.8.0.zip`
-- `dist/WinLab_Setup_0.8.0.zip`
+- `dist/WinLab_ProductPack_1.0.0.zip`
+- `dist/WinLab_Setup_1.0.0.zip`
+- `dist/WinLab_Installer_1.0.0.exe`
 - `dist/SHA256SUMS.txt`
 
 SHA256:

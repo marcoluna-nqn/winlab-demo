@@ -9,4 +9,4 @@
 7) Validate launcher on a clean Windows 10/11 Pro host with Sandbox enabled.
 8) Confirm GitHub release exists with assets attached.
 9) Confirm GitHub Pages is set to main /(root) and site loads.
-10) Verify downloads link to `downloads/WinLab_Setup_v0.8.0.zip`.
+10) Verify downloads link to `downloads/WinLab_Setup_v1.0.0.zip`.

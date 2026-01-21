@@ -1,5 +1,13 @@
 ﻿# Changelog
 
+## v1.0.0 - 2026-01-20
+- **Installer**: Inno Setup preferido, accesos directos WinLab/Doctor/Host Remoto, deja logs.
+- **Launcher UI**: interfaz sin parpadeos, licencia visible, botón de actualización y doctor.
+- **Licencia/Update**: licencia local firmada (license.json) y updater WinLab_Update.ps1 con SHA.
+- **Reportes**: schema 1.1 con pasos recomendados y botón exportar PDF/print; samples actualizados.
+- **Web**: sección de licencia y planes con acceso mobile; copia ES-AR pulida.
+- **QA/Build**: smoke tests para licencia, UI, updater y schema 1.1; build incluye host remoto y licencia.
+
 ## v0.8.2 - 2026-01-20
 - **UX**: menu contextual "Analizar con WinLab" para archivos y accesos URL, con lanzador integrado.
 - **Host Remoto**: servicio local opcional con clave API, limite de solicitudes y docs para uso desde celular.

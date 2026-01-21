@@ -34,8 +34,8 @@ Name: "{group}\WinLab (Doctor)"; Filename: "{app}\tools\cli\WinLab.cmd"; Paramet
 Name: "{group}\Guia rapida"; Filename: "{app}\docs\guia_cliente.html"
 Name: "{group}\Desinstalar WinLab"; Filename: "{uninstallexe}"
 Name: "{commondesktop}\WinLab"; Filename: "{app}\downloads\launcher\WinLab_Launcher.cmd"
+Name: "{group}\WinLab (Host Remoto)"; Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -File ""{app}\downloads\remote_host\Start_RemoteHost.ps1"""; WorkingDir: "{app}\downloads\remote_host"; Flags: runminimized
 
 [UninstallDelete]
-Type: filesandordirs; Name: "C:\WinLab\logs"
 Type: filesandordirs; Name: "C:\WinLab_Inbox"
 Type: filesandordirs; Name: "C:\WinLab_Outbox"

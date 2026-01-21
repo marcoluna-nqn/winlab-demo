@@ -16,7 +16,7 @@ if(-not $scriptPath){ $scriptPath = $MyInvocation.MyCommand.Path }
 $root = (Resolve-Path (Split-Path -Parent $scriptPath)).Path
 Set-Location $root
 
-$version = '0.8.0'
+$version = '1.0.0'
 $verPath = Join-Path $root 'tools/cli/version.txt'
 if(Test-Path $verPath){
   $v = (Get-Content -Raw -Path $verPath).Trim()

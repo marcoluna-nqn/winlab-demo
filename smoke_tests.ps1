@@ -70,12 +70,15 @@ $required = @(
   'downloads/remote_host/Stop_RemoteHost.ps1',
   'downloads/remote_host/Uninstall_RemoteHost.ps1',
   'downloads/remote_host/remote_host_config.json',
+  'downloads/license.sample.json',
+  'downloads/launcher/WinLab_Launcher_UI.ps1',
   'downloads/presets/Balanced_AUTO.wsb',
   'downloads/presets/UltraSecure_AUTO.wsb',
   'downloads/presets/Networked_AUTO.wsb',
   'downloads/safe_mode/README.txt',
   'downloads/safe_mode/SafeMode_Helper.cmd',
   'tools/cli/WinLab.ps1',
+  'tools/cli/WinLab_Update.ps1',
   'tools/cli/WinLab_Context.cmd',
   'tools/cli/winlab_cli.ps1',
   'tools/cli/bin/InsideLab.ps1',
@@ -92,6 +95,7 @@ Ok 'Estructura base OK'
 $versionPath = Join-Path $root 'tools/cli/version.txt'
 $version = (Get-Content -Raw -Path $versionPath).Trim()
 if([string]::IsNullOrWhiteSpace($version)){ Fail 'Version vacia en tools/cli/version.txt' }
+if($version -ne '1.0.0'){ Fail "Version esperada 1.0.0 y se encontro $version" }
 $setupZip = Join-Path $root ("downloads/WinLab_Setup_v{0}.zip" -f $version)
 if(-not (Test-Path $setupZip)){ Fail "Falta downloads/WinLab_Setup_v$version.zip" }
 Ok "Setup ZIP OK (v$version)"
@@ -120,6 +124,7 @@ if($indexText -notmatch [regex]::Escape('Comprar ahora')){ Fail 'index.html sin 
 if($indexText -notmatch [regex]::Escape('Cómo funciona') -and $indexText -notmatch [regex]::Escape('Como funciona')){
   Fail 'index.html sin copy requerido: Cómo funciona'
 }
+if($indexText -notmatch '(?i)licencia'){ Fail 'index.html sin sección de licencia' }
 if($index -notmatch 'data-theme-toggle' -and $index -notmatch 'theme-toggle'){
   Fail 'index.html sin toggle de tema'
 }
@@ -152,6 +157,7 @@ $textChecks = @(
   @{ Label = 'docs/guia.html'; Path = 'docs/guia.html'; Strip = $true },
   @{ Label = 'docs/guia_cliente.html'; Path = 'docs/guia_cliente.html'; Strip = $true },
   @{ Label = 'downloads/launcher/README_LAUNCHER.txt'; Path = 'downloads/launcher/README_LAUNCHER.txt'; Strip = $false },
+  @{ Label = 'downloads/license.sample.json'; Path = 'downloads/license.sample.json'; Strip = $false },
   @{ Label = 'downloads/remote_host/README_REMOTE_HOST_ESAR.txt'; Path = 'downloads/remote_host/README_REMOTE_HOST_ESAR.txt'; Strip = $false },
   @{ Label = 'downloads/samples/report_ok.html'; Path = 'downloads/samples/report_ok.html'; Strip = $true },
   @{ Label = 'downloads/samples/report_detectado.html'; Path = 'downloads/samples/report_detectado.html'; Strip = $true },
@@ -208,8 +214,10 @@ try {
   $manifestLines = Get-Content -Path $installerManifest
   $manifestMust = @(
     'tools/cli/WinLab.ps1',
+    'tools/cli/WinLab_Update.ps1',
     'tools/cli/WinLab_Context.cmd',
     'downloads/launcher/WinLab_Launcher.cmd',
+    'downloads/launcher/WinLab_Launcher_UI.ps1',
     'downloads/presets/Balanced_AUTO.wsb',
     'downloads/presets/UltraSecure_AUTO.wsb',
     'downloads/presets/Networked_AUTO.wsb',
@@ -218,6 +226,7 @@ try {
     'downloads/remote_host/README_REMOTE_HOST_ESAR.txt',
     'downloads/remote_host/WinLab_RemoteHost.ps1',
     'downloads/remote_host/remote_host_config.json',
+    'downloads/license.sample.json',
     'downloads/samples/report_ok.html',
     'downloads/samples/report_detectado.html',
     'downloads/samples/report_inconcluso.html',
@@ -323,7 +332,7 @@ $sampleJson = @(
 foreach($p in $sampleJson){
   $full = Join-Path $root $p
   $json = Get-Content -Raw -Path $full | ConvertFrom-Json
-  if($json.schemaVersion -ne '1.0'){ Fail "Sample JSON con schemaVersion invalida: $p" }
+  if($json.schemaVersion -ne '1.1'){ Fail "Sample JSON con schemaVersion invalida: $p" }
 }
 Ok 'Samples JSON OK'
 
