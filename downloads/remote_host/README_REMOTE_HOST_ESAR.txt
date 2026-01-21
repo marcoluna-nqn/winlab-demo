@@ -3,6 +3,7 @@ WINLAB - LABORATORIO REMOTO (GUIA RAPIDA)
 Objetivo
 - Usar WinLab desde el celular sin exponer RDP a Internet.
 - El sandbox corre en Windows; el celular solo controla el host remoto.
+- Servicio local opcional para recibir URL o archivos con API key.
 
 Requisitos
 - Windows 10/11 Pro, Enterprise o Education.
@@ -10,26 +11,38 @@ Requisitos
 - Conexion estable a Internet.
 - Cuenta dedicada para el laboratorio.
 
-Paso a paso (host Windows)
+Opcion A (recomendada): acceso remoto
 1) Instala WinLab y confirma que abre el launcher.
-2) Instala Tailscale en el host (VPN privada).
-3) Inicia sesion con tu cuenta y verifica la IP Tailscale (100.x).
-4) Ejecuta RemoteHost_Doctor.ps1 para validar el host.
+2) Instala Tailscale en el host y en el celular.
+3) Conectalos a la misma red segura (VPN).
+4) Usa Escritorio remoto y entra por la IP de Tailscale.
+5) Ejecuta WinLab y genera el reporte.
 
-Paso a paso (celular)
-1) Instala Tailscale en iPhone/Android.
-2) Inicia sesion en la misma cuenta de Tailscale.
-3) Instala "Escritorio remoto" de Microsoft.
-4) Conectate al host usando la IP Tailscale.
-5) Abri WinLab y corre el analisis.
+Opcion B (servicio local WinLab Remote Host)
+1) Ejecuta Install_RemoteHost.ps1 (admin).
+2) Edita C:\ProgramData\WinLab\remote_host\config.json y cambia apiKey.
+3) Inicia el servicio con Start_RemoteHost.ps1.
+4) Envia requests al host por localhost o LAN (si lo habilitas).
+
+Rutas
+- GET http://127.0.0.1:17171/status
+- POST http://127.0.0.1:17171/api/scan-url
+  Cuerpo JSON: {"url": "https://sitio.com"}
+- POST http://127.0.0.1:17171/api/scan-file
+  Cuerpo JSON: {"fileName": "archivo.exe", "contentBase64": "BASE64_DEMO"}
 
 Seguridad basica
 - NO abras el puerto RDP en el router ni en la nube.
-- Usa contrasena fuerte y usuario dedicado.
+- Por defecto el servicio escucha solo en 127.0.0.1.
+- Si lo expones en LAN, usa VPN y clave fuerte.
+- Contrasena fuerte y usuario dedicado.
 - Bloqueo de pantalla y actualizaciones al dia.
 - Si podes, activa BitLocker.
 
 Archivos en esta carpeta
+- WinLab_RemoteHost.ps1 (servicio local)
+- Install_RemoteHost.ps1 / Start_RemoteHost.ps1 / Stop_RemoteHost.ps1 / Uninstall_RemoteHost.ps1
+- remote_host_config.json (config base)
 - RemoteHost_Doctor.ps1 (diagnostico del host)
 - RemoteHost_Hardening.txt (checklist de hardening)
 

@@ -1,0 +1,19 @@
+{
+  "apiKey": "winlab-demo-2026",
+  "bindAddress": "127.0.0.1",
+  "port": 17171,
+  "maxUploadMb": 20,
+  "timeoutMinutes": 20,
+  "allowedExtensions": [
+    ".exe",
+    ".dll",
+    ".msi",
+    ".ps1",
+    ".js",
+    ".vbs",
+    ".zip",
+    ".docm",
+    ".xlsm",
+    ".pdf"
+  ]
+}

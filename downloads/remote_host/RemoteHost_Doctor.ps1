@@ -25,6 +25,28 @@ function Get-FeatureState {
   }
 }
 
+function Read-RemoteConfig {
+  $configDir = Join-Path $env:ProgramData 'WinLab\remote_host'
+  $configFile = Join-Path $configDir 'config.json'
+  if(Test-Path $configFile){
+    return Get-Content -Raw -Path $configFile | ConvertFrom-Json
+  }
+  $localFile = Join-Path (Split-Path -Parent $MyInvocation.MyCommand.Path) 'remote_host_config.json'
+  if(Test-Path $localFile){
+    return Get-Content -Raw -Path $localFile | ConvertFrom-Json
+  }
+  return $null
+}
+
+function Find-Launcher {
+  $candidates = @(
+    'C:\Program Files\WinLab\downloads\launcher\WinLab_Launcher.cmd',
+    'C:\WinLab_Pack\downloads\launcher\WinLab_Launcher.cmd'
+  )
+  foreach($c in $candidates){ if(Test-Path $c){ return $c } }
+  return $null
+}
+
 $logRoot = 'C:\WinLab\logs'
 $reportPath = Join-Path $logRoot 'remote_host_doctor.txt'
 $lines = New-Object System.Collections.Generic.List[string]
@@ -74,10 +96,45 @@ $tsCandidates = @(
 foreach($c in $tsCandidates){ if($c -and (Test-Path $c)){ $tailscale = $true } }
 $lines.Add("Tailscale detectado: $tailscale")
 
+$launcher = Find-Launcher
+$lines.Add("Launcher WinLab: $launcher")
+if(-not $launcher){ $issues.Add('Launcher WinLab no encontrado.') }
+
+$cfg = Read-RemoteConfig
+if($cfg){
+  $lines.Add("Config remota: OK")
+  $lines.Add("Bind: $($cfg.bindAddress) / Puerto: $($cfg.port)")
+  if([string]::IsNullOrWhiteSpace($cfg.apiKey)){ $issues.Add('apiKey vacia en config.json.') }
+} else {
+  $lines.Add("Config remota: no encontrada")
+  $issues.Add('Config remota no encontrada.')
+}
+
+$svc = Get-Service -Name 'WinLabRemoteHost' -ErrorAction SilentlyContinue
+if($svc){
+  $lines.Add("Servicio WinLabRemoteHost: $($svc.Status)")
+} else {
+  $lines.Add("Servicio WinLabRemoteHost: no instalado")
+}
+
 $dirs = @('C:\WinLab\logs','C:\WinLab_Inbox','C:\WinLab_Outbox')
 foreach($d in $dirs){
   $ok = Test-Path $d
   $lines.Add("Carpeta $d: $ok")
+}
+
+if($svc -and $svc.Status -eq 'Running' -and $cfg){
+  try{
+    $headers = @{ 'X-WINLAB-KEY' = $cfg.apiKey }
+    $bind = if($cfg.bindAddress){ $cfg.bindAddress } else { '127.0.0.1' }
+    $port = if($cfg.port){ [int]$cfg.port } else { 17171 }
+    $uri = \"http://$bind:$port/status\"
+    $resp = Invoke-WebRequest -UseBasicParsing -Headers $headers -Uri $uri -TimeoutSec 3
+    $lines.Add(\"Status HTTP: $($resp.StatusCode)\")
+  } catch {
+    $lines.Add('Status HTTP: fallo al conectar')
+    $issues.Add('No se pudo consultar /status del servicio remoto.')
+  }
 }
 
 try{
