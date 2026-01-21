@@ -1,5 +1,7 @@
 ﻿# Changelog
 
+## v0.8.2 - 2026-01-20
+- **UX**: menu contextual "Analizar con WinLab" para archivos y accesos URL, con launcher integrado.
 ## v0.8.1 - 2026-01-20
 - **Launcher**: selector de preset, soporte archivo/URL, staging en `C:\WinLab_Pack` y apertura de reporte al finalizar.
 - **Logs**: centralizados en `C:\WinLab\logs` y mapeo `C:\WinLabLogs` dentro del Sandbox.
@@ -31,3 +33,4 @@
 - **Pipeline Defender más robusto**: actualización de firmas con fallback (`Update-MpSignature` → `MpCmdRun -SignatureUpdate`).
 - **Reporte v1.0**: JSON con `schemaVersion` y HTML con semáforo + recomendación accionable.
 - **Sitio**: se actualizó el enlace de descarga y se refrescaron ejemplos.
+

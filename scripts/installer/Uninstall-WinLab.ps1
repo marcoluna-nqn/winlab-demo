@@ -74,6 +74,22 @@ try{
   Write-Log "No pude eliminar la clave de desinstalacion: $($_.Exception.Message)"
 }
 
+# Eliminar menu contextual
+try{
+  $classesRoot = 'HKLM:\\Software\\Classes'
+  $keys = @(
+    (Join-Path $classesRoot '*\\shell\\WinLabAnalyze'),
+    (Join-Path $classesRoot 'InternetShortcut\\shell\\WinLabAnalyze'),
+    (Join-Path $classesRoot 'http\\shell\\WinLabAnalyze'),
+    (Join-Path $classesRoot 'https\\shell\\WinLabAnalyze')
+  )
+  foreach($k in $keys){
+    if(Test-Path $k){ Remove-Item -Recurse -Force -Path $k }
+  }
+} catch {
+  Write-Log "No pude eliminar el menu contextual: $($_.Exception.Message)"
+}
+
 # Eliminar carpetas de datos
 try{ if(Test-Path $logRoot){ Remove-Item -Recurse -Force -Path $logRoot } } catch {}
 try{ if(Test-Path $inbox){ Remove-Item -Recurse -Force -Path $inbox } } catch {}

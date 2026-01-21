@@ -83,6 +83,7 @@ try{
   $doctor = Join-Path $installDir 'tools\cli\WinLab.cmd'
   $guide = Join-Path $installDir 'docs\guia_cliente.html'
   $uninstall = Join-Path $installDir 'Uninstall-WinLab.ps1'
+  $contextCmd = Join-Path $installDir 'tools\\cli\\WinLab_Context.cmd'
 
   $lnk1 = $wsh.CreateShortcut((Join-Path $startMenu 'WinLab (Lanzador).lnk'))
   $lnk1.TargetPath = $launcher
@@ -112,6 +113,40 @@ try{
   $desk.Save()
 } catch {
   Write-Log "No pude crear accesos directos: $($_.Exception.Message)"
+}
+
+# Registrar menu contextual
+try{
+  $classesRoot = 'HKLM:\\Software\\Classes'
+  $menuKey = Join-Path $classesRoot '*\\shell\\WinLabAnalyze'
+  New-Item -Path $menuKey -Force | Out-Null
+  Set-ItemProperty -Path $menuKey -Name 'MUIVerb' -Value 'Analizar con WinLab'
+  $menuCmd = Join-Path $menuKey 'command'
+  New-Item -Path $menuCmd -Force | Out-Null
+  Set-Item -Path $menuCmd -Value "`"$contextCmd`" `"%1`""
+
+  $urlKey = Join-Path $classesRoot 'InternetShortcut\\shell\\WinLabAnalyze'
+  New-Item -Path $urlKey -Force | Out-Null
+  Set-ItemProperty -Path $urlKey -Name 'MUIVerb' -Value 'Analizar con WinLab'
+  $urlCmd = Join-Path $urlKey 'command'
+  New-Item -Path $urlCmd -Force | Out-Null
+  Set-Item -Path $urlCmd -Value "`"$contextCmd`" `"%1`""
+
+  $httpKey = Join-Path $classesRoot 'http\\shell\\WinLabAnalyze'
+  New-Item -Path $httpKey -Force | Out-Null
+  Set-ItemProperty -Path $httpKey -Name 'MUIVerb' -Value 'Analizar con WinLab'
+  $httpCmd = Join-Path $httpKey 'command'
+  New-Item -Path $httpCmd -Force | Out-Null
+  Set-Item -Path $httpCmd -Value "`"$contextCmd`" `"%1`""
+
+  $httpsKey = Join-Path $classesRoot 'https\\shell\\WinLabAnalyze'
+  New-Item -Path $httpsKey -Force | Out-Null
+  Set-ItemProperty -Path $httpsKey -Name 'MUIVerb' -Value 'Analizar con WinLab'
+  $httpsCmd = Join-Path $httpsKey 'command'
+  New-Item -Path $httpsCmd -Force | Out-Null
+  Set-Item -Path $httpsCmd -Value "`"$contextCmd`" `"%1`""
+} catch {
+  Write-Log "No pude registrar el menu contextual: $($_.Exception.Message)"
 }
 
 # Registrar desinstalacion en Windows
