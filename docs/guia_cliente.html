@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="es">
 <head>
   <meta charset="utf-8"/>
@@ -19,7 +19,7 @@
 <body>
   <div class="wrap">
     <h1>Guia breve para clientes</h1>
-    <p>WinLab analiza archivos o URLs sospechosas dentro de Windows Sandbox y te entrega un reporte claro. Sirve para reducir riesgo sin ensuciar tu PC.</p>
+    <p>WinLab analiza archivos o URLs sospechosas dentro de Windows Sandbox y te entrega un reporte claro. Reduce riesgo sin ensuciar tu PC.</p>
 
     <section class="card" id="requisitos">
       <h2>Requisitos</h2>
@@ -43,13 +43,31 @@
     <section class="card" id="uso">
       <h2>Como usarlo</h2>
       <ol>
-        <li>Abrí el lanzador de WinLab.</li>
+        <li>Abri el lanzador de WinLab.</li>
         <li>Elegi un perfil (Equilibrado, Ultra seguro o Con red).</li>
         <li>Arrastra un archivo o pega una URL.</li>
         <li>Al finalizar, se abre el reporte automaticamente.</li>
       </ol>
       <p class="note">Tip rapido: en Windows podes hacer clic derecho sobre un archivo o un acceso directo URL y elegir "Analizar con WinLab".</p>
       <p>Reportes en <code>C:\WinLab_Outbox</code>. Logs en <code>C:\WinLab\logs</code>.</p>
+    </section>
+
+    <section class="card" id="licencia">
+      <h2>Licencia</h2>
+      <ul>
+        <li>Coloca <code>license.json</code> en <code>C:\ProgramData\WinLab</code> (ejemplo en <code>downloads/license.sample.json</code>).</li>
+        <li>El lanzador muestra si la licencia esta activa o vencida.</li>
+        <li>Si falta la firma, pedila por WhatsApp desde el sitio.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="actualizaciones">
+      <h2>Actualizaciones</h2>
+      <ul>
+        <li>Boton "Buscar actualizacion" en el lanzador (descarga el EXE nuevo).</li>
+        <li>O ejecuta <code>tools/cli/WinLab_Update.ps1</code> para bajar la ultima version y ver el hash en <code>C:\WinLab\logs\update.log</code>.</li>
+        <li>Ejecuta el instalador descargado para completar la actualizacion.</li>
+      </ul>
     </section>
 
     <section class="card" id="diagnostico">

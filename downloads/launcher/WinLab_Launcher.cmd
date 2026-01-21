@@ -14,6 +14,11 @@ if exist "%LAUNCHER_DIR%version.txt" (
   for %%I in ("%LAUNCHER_DIR%..\\..") do set "PACK_ROOT=%%~fI"
 )
 
+if "%~1"=="" (
+  powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File "%LAUNCHER_DIR%WinLab_Launcher_UI.ps1"
+  exit /b 0
+)
+
 set "STAGING_ROOT=C:\WinLab_Pack"
 set "INBOX=C:\WinLab_Inbox"
 set "OUTBOX=C:\WinLab_Outbox"
