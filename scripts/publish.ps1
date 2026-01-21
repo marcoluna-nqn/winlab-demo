@@ -40,7 +40,7 @@ if($status){
   Exit-OnFail $LASTEXITCODE 'git commit'
 }
 
-$targetOrigin = 'https://github.com/marcoluna-nqn/winlab-demo.git'
+$targetOrigin = 'https://github.com/winlab-security/winlab.git'
 $originUrl = & git remote get-url origin 2>$null
 if($LASTEXITCODE -ne 0){
   & git remote add origin $targetOrigin
@@ -85,9 +85,9 @@ if(Get-Command gh -ErrorAction SilentlyContinue){
   }
 
   $pagesOk = $true
-  & gh api -X POST "repos/marcoluna-nqn/winlab-demo/pages" -F "source[branch]=main" -F "source[path]=/"
+  & gh api -X POST "repos/winlab-security/winlab/pages" -F "source[branch]=main" -F "source[path]=/"
   if($LASTEXITCODE -ne 0){
-    & gh api -X PUT "repos/marcoluna-nqn/winlab-demo/pages" -F "source[branch]=main" -F "source[path]=/"
+    & gh api -X PUT "repos/winlab-security/winlab/pages" -F "source[branch]=main" -F "source[path]=/"
     if($LASTEXITCODE -ne 0){ $pagesOk = $false }
   }
   if(-not $pagesOk){
@@ -102,7 +102,7 @@ if(Get-Command gh -ErrorAction SilentlyContinue){
 }
 
 Write-Host ""
-Write-Host "Expected URL: https://marcoluna-nqn.github.io/winlab-demo/"
+Write-Host "Expected URL: https://winlab-security.github.io/winlab/"
 Write-Host "Next steps:"
 Write-Host "- Set real payment links in assets/config.js"
 Write-Host "- Validate launcher on a clean Windows 10/11 Pro host"

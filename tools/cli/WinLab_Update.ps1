@@ -1,4 +1,4 @@
-[CmdletBinding()]
+﻿[CmdletBinding()]
 param()
 
 Set-StrictMode -Version 2.0
@@ -18,18 +18,18 @@ function Log([string]$m){
   Write-Host $line
 }
 
-Log "Versión actual: $current"
-$url = 'https://api.github.com/repos/marcoluna-nqn/winlab-demo/releases/latest'
+Log "Version actual: $current"
+$url = 'https://api.github.com/repos/winlab-security/winlab/releases/latest'
 $headers = @{ 'User-Agent' = 'WinLab-Updater' }
 $resp = Invoke-RestMethod -Uri $url -Headers $headers -ErrorAction Stop
 $tag = $resp.tag_name
 if($tag -match '^v'){ $tag = $tag.Substring(1) }
 $remote = if($tag){ $tag } else { $resp.name }
-if(-not $remote){ throw "No pude obtener versión remota" }
+if(-not $remote){ throw "No pude obtener version remota" }
 
-Log "Versión remota: $remote"
+Log "Version remota: $remote"
 if([version]$remote -le [version]$current){
-  Log 'Ya estás en la última versión.'
+  Log 'Ya estas en la ultima version.'
   exit 0
 }
 
@@ -37,7 +37,7 @@ $asset = $resp.assets | Where-Object { $_.name -like "WinLab_Installer_${remote}
 if(-not $asset){
   $asset = $resp.assets | Where-Object { $_.name -like "WinLab_ProductPack_${remote}.zip" } | Select-Object -First 1
 }
-if(-not $asset){ throw "No encontré un artefacto compatible en GitHub." }
+if(-not $asset){ throw "No encontre un artefacto compatible en GitHub." }
 
 $destDir = Join-Path $env:USERPROFILE 'Downloads'
 try{ New-Item -ItemType Directory -Force -Path $destDir | Out-Null } catch {}
@@ -47,5 +47,7 @@ Log "Descargando $($asset.name) a $dest"
 Invoke-WebRequest -Uri $asset.browser_download_url -Headers $headers -OutFile $dest -UseBasicParsing
 $hash = (Get-FileHash -Algorithm SHA256 -LiteralPath $dest).Hash.ToLowerInvariant()
 Log "SHA256: $hash"
-Log 'Descarga lista. Abrí el archivo para actualizar.'
+Log 'Descarga lista. Abri el archivo para actualizar.'
 Start-Process $dest
+
+
