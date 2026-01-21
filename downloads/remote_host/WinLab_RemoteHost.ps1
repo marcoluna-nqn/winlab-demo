@@ -83,23 +83,23 @@ if(-not $cfg){
   Write-Log 'Config no encontrada. Crear config.json en ProgramData o usar remote_host_config.json.'
   exit 2
 }
-if([string]::IsNullOrWhiteSpace($cfg.apiKey)){
-  Write-Log 'API key vacia. Configura apiKey en config.json.'
+if([string]::IsNullOrWhiteSpace($cfg.claveApi)){
+  Write-Log 'Clave API vacia. Configura claveApi en config.json.'
   exit 3
 }
 
-$bind = if($cfg.bindAddress){ $cfg.bindAddress } else { '127.0.0.1' }
-$port = if($cfg.port){ [int]$cfg.port } else { 17171 }
-$maxUploadBytes = [int]($cfg.maxUploadMb * 1MB)
-$timeoutMinutes = if($cfg.timeoutMinutes){ [int]$cfg.timeoutMinutes } else { 20 }
+$bind = if($cfg.direccionBind){ $cfg.direccionBind } else { '127.0.0.1' }
+$port = if($cfg.puerto){ [int]$cfg.puerto } else { 17171 }
+$maxUploadBytes = [int]($cfg.maximoMb * 1MB)
+$timeoutMinutes = if($cfg.tiempoEsperaMinutos){ [int]$cfg.tiempoEsperaMinutos } else { 20 }
 $allowed = @()
-if($cfg.allowedExtensions){ $allowed = @($cfg.allowedExtensions) }
+if($cfg.extensionesPermitidas){ $allowed = @($cfg.extensionesPermitidas) }
 
 $listener = New-Object System.Net.HttpListener
 $prefix = "http://$bind:$port/"
 $listener.Prefixes.Add($prefix)
 $listener.Start()
-Write-Log "WinLab Remote Host activo en $prefix"
+Write-Log "WinLab Host Remoto activo en $prefix"
 
 $rateWindow = 60
 $rateLimit = 6
@@ -114,59 +114,59 @@ while($listener.IsListening){
     if(-not $rateMap.ContainsKey($ip)){ $rateMap[$ip] = @() }
     $rateMap[$ip] = $rateMap[$ip] | Where-Object { $_ -ge $now.AddSeconds(-$rateWindow) }
     if($rateMap[$ip].Count -ge $rateLimit){
-      Write-JsonResponse $context 429 @{ ok = $false; message = 'Limite de requests por minuto.' }
+      Write-JsonResponse $context 429 @{ ok = $false; mensaje = 'Limite de solicitudes por minuto.' }
       continue
     }
     $rateMap[$ip] += $now
 
     $apiKey = $context.Request.Headers['X-WINLAB-KEY']
-    if([string]::IsNullOrWhiteSpace($apiKey) -or $apiKey -ne $cfg.apiKey){
-      Write-JsonResponse $context 401 @{ ok = $false; message = 'API key invalida.' }
+    if([string]::IsNullOrWhiteSpace($apiKey) -or $apiKey -ne $cfg.claveApi){
+      Write-JsonResponse $context 401 @{ ok = $false; mensaje = 'Clave API invalida.' }
       continue
     }
 
     $path = $context.Request.Url.AbsolutePath.ToLowerInvariant()
     $method = $context.Request.HttpMethod.ToUpperInvariant()
 
-    if($path -eq '/status' -and $method -eq 'GET'){
-      Write-JsonResponse $context 200 @{ ok = $true; busy = $busy; time = (Get-Date).ToString('o') }
+    if($path -eq '/estado' -and $method -eq 'GET'){
+      Write-JsonResponse $context 200 @{ ok = $true; ocupado = $busy; hora = (Get-Date).ToString('o') }
       continue
     }
 
     if($busy){
-      Write-JsonResponse $context 409 @{ ok = $false; message = 'Host ocupado. Reintenta en unos minutos.' }
+      Write-JsonResponse $context 409 @{ ok = $false; mensaje = 'Host ocupado. Reintenta en unos minutos.' }
       continue
     }
 
-    if($path -eq '/api/scan-url' -and $method -eq 'POST'){
+    if($path -eq '/api/analizar-url' -and $method -eq 'POST'){
       $raw = Read-RequestBody $context
       $body = $null
       try{ $body = $raw | ConvertFrom-Json } catch {}
       if(-not $body -or -not $body.url){
-        Write-JsonResponse $context 400 @{ ok = $false; message = 'Falta url en el body.' }
+        Write-JsonResponse $context 400 @{ ok = $false; mensaje = 'Falta url en el cuerpo.' }
         continue
       }
       $url = $body.url.ToString().Trim()
       if(-not ($url -match '^https?://')){
-        Write-JsonResponse $context 400 @{ ok = $false; message = 'La URL debe ser http o https.' }
+        Write-JsonResponse $context 400 @{ ok = $false; mensaje = 'La URL debe ser http o https.' }
         continue
       }
 
       $launcher = Find-Launcher
       if(-not $launcher){
-        Write-JsonResponse $context 500 @{ ok = $false; message = 'Launcher WinLab no encontrado.' }
+        Write-JsonResponse $context 500 @{ ok = $false; mensaje = 'Lanzador WinLab no encontrado.' }
         continue
       }
 
       $busy = $true
       $start = Get-Date
-      Write-Log "Scan URL solicitado: $url"
+      Write-Log "Analisis URL solicitado: $url"
       Start-Process -FilePath $launcher -ArgumentList @('Networked', $url) -WindowStyle Hidden | Out-Null
 
       $reportPath = Wait-ForReport -since $start -timeoutMinutes $timeoutMinutes
       if(-not $reportPath){
         $busy = $false
-        Write-JsonResponse $context 504 @{ ok = $false; message = 'Timeout esperando reporte.' }
+        Write-JsonResponse $context 504 @{ ok = $false; mensaje = 'Tiempo agotado esperando reporte.' }
         continue
       }
 
@@ -175,41 +175,41 @@ while($listener.IsListening){
       $busy = $false
       Write-JsonResponse $context 200 @{
         ok = $true
-        jobId = (Get-Date -Format 'yyyyMMdd_HHmmss')
-        status = $report.summary.status
+        idTrabajo = (Get-Date -Format 'yyyyMMdd_HHmmss')
+        estado = $report.summary.status
         decision = $report.summary.finalDecision
-        risk = $report.summary.riskLevel
-        recommendation = $report.summary.recommendation
-        reportJson = $reportPath
-        reportHtml = (Join-Path $runDir 'report.html')
+        riesgo = $report.summary.riskLevel
+        recomendacion = $report.summary.recommendation
+        reporteJson = $reportPath
+        reporteHtml = (Join-Path $runDir 'report.html')
       }
       continue
     }
 
-    if($path -eq '/api/scan-file' -and $method -eq 'POST'){
+    if($path -eq '/api/analizar-archivo' -and $method -eq 'POST'){
       $raw = Read-RequestBody $context
       $body = $null
       try{ $body = $raw | ConvertFrom-Json } catch {}
-      if(-not $body -or -not $body.fileName -or -not $body.contentBase64){
-        Write-JsonResponse $context 400 @{ ok = $false; message = 'Falta fileName o contentBase64.' }
+      if(-not $body -or -not $body.nombreArchivo -or -not $body.contenidoBase64){
+        Write-JsonResponse $context 400 @{ ok = $false; mensaje = 'Falta nombreArchivo o contenidoBase64.' }
         continue
       }
 
-      $safeName = Safe-FileName $body.fileName
+      $safeName = Safe-FileName $body.nombreArchivo
       $ext = [System.IO.Path]::GetExtension($safeName).ToLowerInvariant()
       if($allowed.Count -gt 0 -and ($allowed -notcontains $ext)){
-        Write-JsonResponse $context 415 @{ ok = $false; message = 'Extension no permitida.' }
+        Write-JsonResponse $context 415 @{ ok = $false; mensaje = 'Extension no permitida.' }
         continue
       }
 
       $bytes = $null
-      try{ $bytes = [System.Convert]::FromBase64String($body.contentBase64) } catch {}
+      try{ $bytes = [System.Convert]::FromBase64String($body.contenidoBase64) } catch {}
       if(-not $bytes){
-        Write-JsonResponse $context 400 @{ ok = $false; message = 'Base64 invalido.' }
+        Write-JsonResponse $context 400 @{ ok = $false; mensaje = 'Base64 invalido.' }
         continue
       }
       if($bytes.Length -gt $maxUploadBytes){
-        Write-JsonResponse $context 413 @{ ok = $false; message = 'Archivo demasiado grande.' }
+        Write-JsonResponse $context 413 @{ ok = $false; mensaje = 'Archivo demasiado grande.' }
         continue
       }
 
@@ -220,19 +220,19 @@ while($listener.IsListening){
 
       $launcher = Find-Launcher
       if(-not $launcher){
-        Write-JsonResponse $context 500 @{ ok = $false; message = 'Launcher WinLab no encontrado.' }
+        Write-JsonResponse $context 500 @{ ok = $false; mensaje = 'Lanzador WinLab no encontrado.' }
         continue
       }
 
       $busy = $true
       $start = Get-Date
-      Write-Log "Scan archivo solicitado: $dest"
+      Write-Log "Analisis archivo solicitado: $dest"
       Start-Process -FilePath $launcher -ArgumentList @('Balanced', $dest) -WindowStyle Hidden | Out-Null
 
       $reportPath = Wait-ForReport -since $start -timeoutMinutes $timeoutMinutes
       if(-not $reportPath){
         $busy = $false
-        Write-JsonResponse $context 504 @{ ok = $false; message = 'Timeout esperando reporte.' }
+        Write-JsonResponse $context 504 @{ ok = $false; mensaje = 'Tiempo agotado esperando reporte.' }
         continue
       }
 
@@ -241,20 +241,20 @@ while($listener.IsListening){
       $busy = $false
       Write-JsonResponse $context 200 @{
         ok = $true
-        jobId = (Get-Date -Format 'yyyyMMdd_HHmmss')
-        status = $report.summary.status
+        idTrabajo = (Get-Date -Format 'yyyyMMdd_HHmmss')
+        estado = $report.summary.status
         decision = $report.summary.finalDecision
-        risk = $report.summary.riskLevel
-        recommendation = $report.summary.recommendation
-        reportJson = $reportPath
-        reportHtml = (Join-Path $runDir 'report.html')
+        riesgo = $report.summary.riskLevel
+        recomendacion = $report.summary.recommendation
+        reporteJson = $reportPath
+        reporteHtml = (Join-Path $runDir 'report.html')
       }
       continue
     }
 
-    Write-JsonResponse $context 404 @{ ok = $false; message = 'Ruta no encontrada.' }
+    Write-JsonResponse $context 404 @{ ok = $false; mensaje = 'Ruta no encontrada.' }
   } catch {
     Write-Log ("Error: " + $_.Exception.Message)
-    try{ Write-JsonResponse $context 500 @{ ok = $false; message = 'Error interno.' } } catch {}
+    try{ Write-JsonResponse $context 500 @{ ok = $false; mensaje = 'Error interno.' } } catch {}
   }
 }

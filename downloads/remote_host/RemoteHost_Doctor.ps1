@@ -11,7 +11,7 @@ function Get-EditionInfo {
     $edition = (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion' -Name EditionID -ErrorAction SilentlyContinue).EditionID
     $product = (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion' -Name ProductName -ErrorAction SilentlyContinue).ProductName
   } catch {}
-  if(-not $edition){ $edition = 'UNKNOWN' }
+  if(-not $edition){ $edition = 'DESCONOCIDO' }
   if(-not $product){ $product = 'Windows' }
   return [pscustomobject]@{ Edition=$edition; Product=$product }
 }
@@ -50,7 +50,7 @@ function Find-Launcher {
 $logRoot = 'C:\WinLab\logs'
 $reportPath = Join-Path $logRoot 'remote_host_doctor.txt'
 $lines = New-Object System.Collections.Generic.List[string]
-$lines.Add('WinLab Remote Host Doctor')
+$lines.Add('WinLab Host Remoto - Doctor')
 $lines.Add("Fecha: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')")
 
 $issues = New-Object System.Collections.Generic.List[string]
@@ -70,8 +70,8 @@ if(-not $wsbExists){ $issues.Add('WindowsSandbox.exe no existe.') }
 $featureLine = Get-FeatureState
 $featureEnabled = $false
 if($featureLine -and $featureLine -match 'Enabled'){ $featureEnabled = $true }
-$lines.Add("Feature Containers-DisposableClientVM: $featureLine")
-if(-not $featureEnabled){ $issues.Add('Feature Containers-DisposableClientVM no esta habilitado.') }
+$lines.Add("Funcion Containers-DisposableClientVM: " + ($(if($featureEnabled){ 'Habilitada' } else { 'No habilitada' })))
+if(-not $featureEnabled){ $issues.Add('Funcion Containers-DisposableClientVM no esta habilitada.') }
 
 $virtEnabled = $null
 try{
@@ -97,14 +97,14 @@ foreach($c in $tsCandidates){ if($c -and (Test-Path $c)){ $tailscale = $true } }
 $lines.Add("Tailscale detectado: $tailscale")
 
 $launcher = Find-Launcher
-$lines.Add("Launcher WinLab: $launcher")
-if(-not $launcher){ $issues.Add('Launcher WinLab no encontrado.') }
+$lines.Add("Lanzador WinLab: $launcher")
+if(-not $launcher){ $issues.Add('Lanzador WinLab no encontrado.') }
 
 $cfg = Read-RemoteConfig
 if($cfg){
   $lines.Add("Config remota: OK")
-  $lines.Add("Bind: $($cfg.bindAddress) / Puerto: $($cfg.port)")
-  if([string]::IsNullOrWhiteSpace($cfg.apiKey)){ $issues.Add('apiKey vacia en config.json.') }
+  $lines.Add("Bind: $($cfg.direccionBind) / Puerto: $($cfg.puerto)")
+  if([string]::IsNullOrWhiteSpace($cfg.claveApi)){ $issues.Add('claveApi vacia en config.json.') }
 } else {
   $lines.Add("Config remota: no encontrada")
   $issues.Add('Config remota no encontrada.')
@@ -125,15 +125,15 @@ foreach($d in $dirs){
 
 if($svc -and $svc.Status -eq 'Running' -and $cfg){
   try{
-    $headers = @{ 'X-WINLAB-KEY' = $cfg.apiKey }
-    $bind = if($cfg.bindAddress){ $cfg.bindAddress } else { '127.0.0.1' }
-    $port = if($cfg.port){ [int]$cfg.port } else { 17171 }
-    $uri = \"http://$bind:$port/status\"
+    $headers = @{ 'X-WINLAB-KEY' = $cfg.claveApi }
+    $bind = if($cfg.direccionBind){ $cfg.direccionBind } else { '127.0.0.1' }
+    $port = if($cfg.puerto){ [int]$cfg.puerto } else { 17171 }
+    $uri = "http://$bind:$port/estado"
     $resp = Invoke-WebRequest -UseBasicParsing -Headers $headers -Uri $uri -TimeoutSec 3
-    $lines.Add(\"Status HTTP: $($resp.StatusCode)\")
+    $lines.Add("Estado HTTP: $($resp.StatusCode)")
   } catch {
-    $lines.Add('Status HTTP: fallo al conectar')
-    $issues.Add('No se pudo consultar /status del servicio remoto.')
+    $lines.Add('Estado HTTP: fallo al conectar')
+    $issues.Add('No se pudo consultar /estado del servicio remoto.')
   }
 }
 
@@ -155,5 +155,5 @@ if($issues.Count -gt 0){
   exit 2
 }
 
-Write-Host "\nDoctor OK. Host listo para uso remoto." -ForegroundColor Green
+Write-Host "\nDiagnostico OK. Host listo para uso remoto." -ForegroundColor Green
 exit 0

@@ -11,7 +11,7 @@ Red y VPN
 [ ] Sin puertos RDP expuestos a Internet
 [ ] Firewall activo
 [ ] Servicio remoto solo en localhost o LAN privada
-[ ] API key fuerte y unica en config.json
+[ ] Clave API fuerte y unica en config.json
 
 Windows
 [ ] Windows Update al dia

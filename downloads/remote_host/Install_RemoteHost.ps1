@@ -38,7 +38,7 @@ $binPath = "`"$psExe`" -NoProfile -ExecutionPolicy Bypass -File `"$target\WinLab
 
 $exists = Get-Service -Name $serviceName -ErrorAction SilentlyContinue
 if(-not $exists){
-  sc.exe create $serviceName binPath= $binPath start= demand DisplayName= "WinLab Remote Host" | Out-Null
+  sc.exe create $serviceName binPath= $binPath start= demand DisplayName= "WinLab Host Remoto" | Out-Null
   sc.exe description $serviceName "Servicio local de WinLab para analizar desde celular (solo local por defecto)." | Out-Null
 }
 

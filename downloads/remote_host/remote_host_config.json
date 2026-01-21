@@ -1,10 +1,10 @@
 {
-  "apiKey": "winlab-demo-2026",
-  "bindAddress": "127.0.0.1",
-  "port": 17171,
-  "maxUploadMb": 20,
-  "timeoutMinutes": 20,
-  "allowedExtensions": [
+  "claveApi": "winlab-demo-2026",
+  "direccionBind": "127.0.0.1",
+  "puerto": 17171,
+  "maximoMb": 20,
+  "tiempoEsperaMinutos": 20,
+  "extensionesPermitidas": [
     ".exe",
     ".dll",
     ".msi",

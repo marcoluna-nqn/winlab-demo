@@ -11,4 +11,4 @@ if(-not $svc){
 if($svc.Status -ne 'Running'){
   Start-Service -Name $serviceName
 }
-Write-Host 'WinLab Remote Host iniciado.'
+Write-Host 'WinLab Host Remoto iniciado.'

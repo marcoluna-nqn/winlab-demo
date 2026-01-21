@@ -11,4 +11,4 @@ if(-not $svc){
 if($svc.Status -ne 'Stopped'){
   Stop-Service -Name $serviceName -Force
 }
-Write-Host 'WinLab Remote Host detenido.'
+Write-Host 'WinLab Host Remoto detenido.'

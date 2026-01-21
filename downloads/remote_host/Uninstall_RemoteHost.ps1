@@ -29,4 +29,4 @@ if($svc){
 $target = 'C:\Program Files\WinLab\remote_host'
 if(Test-Path $target){ Remove-Item -Recurse -Force -Path $target }
 
-Write-Host 'Servicio WinLab Remote Host eliminado.'
+Write-Host 'Servicio WinLab Host Remoto eliminado.'

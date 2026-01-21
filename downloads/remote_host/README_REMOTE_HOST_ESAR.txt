@@ -3,7 +3,7 @@ WINLAB - LABORATORIO REMOTO (GUIA RAPIDA)
 Objetivo
 - Usar WinLab desde el celular sin exponer RDP a Internet.
 - El sandbox corre en Windows; el celular solo controla el host remoto.
-- Servicio local opcional para recibir URL o archivos con API key.
+- Servicio local opcional para recibir URL o archivos con clave API.
 
 Requisitos
 - Windows 10/11 Pro, Enterprise o Education.
@@ -18,18 +18,19 @@ Opcion A (recomendada): acceso remoto
 4) Usa Escritorio remoto y entra por la IP de Tailscale.
 5) Ejecuta WinLab y genera el reporte.
 
-Opcion B (servicio local WinLab Remote Host)
-1) Ejecuta Install_RemoteHost.ps1 (admin).
-2) Edita C:\ProgramData\WinLab\remote_host\config.json y cambia apiKey.
+Opcion B (servicio local WinLab Host Remoto)
+1) Ejecuta Install_RemoteHost.ps1 (administrador).
+2) Edita C:\ProgramData\WinLab\remote_host\config.json y cambia claveApi.
 3) Inicia el servicio con Start_RemoteHost.ps1.
-4) Envia requests al host por localhost o LAN (si lo habilitas).
+4) Envia solicitudes al host por localhost o LAN (si lo habilitas).
+5) Agrega el encabezado obligatorio: X-WINLAB-KEY con tu claveApi.
 
 Rutas
-- GET http://127.0.0.1:17171/status
-- POST http://127.0.0.1:17171/api/scan-url
+- GET http://127.0.0.1:17171/estado
+- POST http://127.0.0.1:17171/api/analizar-url
   Cuerpo JSON: {"url": "https://sitio.com"}
-- POST http://127.0.0.1:17171/api/scan-file
-  Cuerpo JSON: {"fileName": "archivo.exe", "contentBase64": "BASE64_DEMO"}
+- POST http://127.0.0.1:17171/api/analizar-archivo
+  Cuerpo JSON: {"nombreArchivo": "archivo.exe", "contenidoBase64": "BASE64_DEMO"}
 
 Seguridad basica
 - NO abras el puerto RDP en el router ni en la nube.
