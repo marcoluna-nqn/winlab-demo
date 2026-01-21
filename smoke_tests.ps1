@@ -134,6 +134,10 @@ if($indexText -notmatch '(?i)licencia'){ Fail 'index.html sin sección de licenc
 if($index -notmatch 'data-theme-toggle' -and $index -notmatch 'theme-toggle'){
   Fail 'index.html sin toggle de tema'
 }
+if($index -notmatch 'data-video-modal'){ Fail 'index.html sin modal de demo' }
+if($index -notmatch 'data-video-open'){ Fail 'index.html sin CTA de demo' }
+if($index -notmatch 'assets/media/winlab-demo\.mp4'){ Fail 'index.html sin referencia a winlab-demo.mp4' }
+if($index -notmatch 'og:image'){ Fail 'index.html sin og:image' }
 Assert-TextClean 'index.html' $indexText $banTokensCase $banTokensInsensitive
 $m = [regex]::Match($index, 'downloads/(WinLab_Setup_v[0-9]+\.[0-9]+\.[0-9]+\.zip)')
 if(-not $m.Success){ Fail 'index.html no referencia downloads/WinLab_Setup_vX.Y.Z.zip' }
@@ -155,6 +159,7 @@ if($mobileText -notmatch '(?i)Laboratorio Remoto'){ Fail 'mobile.html sin Labora
 if($mobileText -notmatch '(?i)Tailscale|VPN'){ Fail 'mobile.html sin referencia a Tailscale o VPN' }
 if($mobileText -notmatch '(?i)no corre en iPhone|no corre en Android|no corre en iOS'){ Fail 'mobile.html sin aviso de no correr en iPhone/Android' }
 if($mobile -notmatch 'downloads/remote_host/README_REMOTE_HOST_ESAR\.txt'){ Fail 'mobile.html sin link a remote_host' }
+Assert-TextClean 'mobile.html' $mobileText $banTokensCase $banTokensInsensitive
 Ok 'mobile.html OK'
 
 # Validar textos clave en docs y samples (sin placeholders ni ingles)

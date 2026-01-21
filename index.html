@@ -3,20 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="WinLab es un laboratorio descartable con Windows Sandbox + Microsoft Defender. Analizá archivos y links sin arriesgar tu PC y obtené reportes claros." />
+  <meta name="description" content="WinLab Security es un laboratorio descartable en Windows Sandbox con reportes HTML/JSON listos para decidir rápido, sin subir archivos." />
   <link rel="canonical" href="https://marcoluna-nqn.github.io/winlab-demo/" />
-  <title>WinLab - Laboratorio descartable para archivos y links</title>
+  <title>WinLab Security - Laboratorio descartable en Windows Sandbox</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="manifest" href="assets/pwa/manifest.webmanifest" />
   <meta name="theme-color" content="#1d7dfb" />
-  <meta property="og:title" content="WinLab - Laboratorio descartable para archivos y links" />
-  <meta property="og:description" content="Windows Sandbox + Microsoft Defender + reportes claros. Comprar ahora por WhatsApp." />
+  <meta property="og:title" content="WinLab Security - Laboratorio descartable en Windows Sandbox" />
+  <meta property="og:description" content="Laboratorio descartable con reportes listos en HTML/JSON. Compra por WhatsApp en minutos." />
+  <meta property="og:site_name" content="WinLab Security" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://marcoluna-nqn.github.io/winlab-demo/" />
   <meta property="og:image" content="https://marcoluna-nqn.github.io/winlab-demo/assets/og/og.png" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="WinLab - Laboratorio descartable" />
-  <meta name="twitter:description" content="Probá archivos o links sin ensuciar tu PC. Reportes listos, compra por WhatsApp." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="WinLab Security - Laboratorio descartable" />
+  <meta name="twitter:description" content="Analizá archivos y links con Windows Sandbox, reportes listos y compra por WhatsApp." />
   <meta name="twitter:image" content="https://marcoluna-nqn.github.io/winlab-demo/assets/og/og.png" />
   <link rel="stylesheet" href="assets/styles.css" />
   <script defer src="assets/config.js"></script>
@@ -26,24 +27,26 @@
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "Product",
-        "name": "WinLab",
-        "brand": "WinLab",
-        "image": "https://marcoluna-nqn.github.io/winlab-demo/assets/og/og.png",
-        "description": "Laboratorio descartable para analizar archivos y links con Windows Sandbox + Microsoft Defender.",
+        "@type": "Organization",
+        "name": "WinLab Security",
         "url": "https://marcoluna-nqn.github.io/winlab-demo/",
-        "offers": [
-          {"@type":"Offer","name":"Inicial","priceCurrency":"USD","price":"0.00","availability":"https://schema.org/PreOrder","url":"https://marcoluna-nqn.github.io/winlab-demo/pricing.html"},
-          {"@type":"Offer","name":"Profesional","priceCurrency":"USD","price":"0.00","availability":"https://schema.org/PreOrder","url":"https://marcoluna-nqn.github.io/winlab-demo/pricing.html"},
-          {"@type":"Offer","name":"Equipos","priceCurrency":"USD","price":"0.00","availability":"https://schema.org/PreOrder","url":"https://marcoluna-nqn.github.io/winlab-demo/pricing.html"}
+        "logo": "https://marcoluna-nqn.github.io/winlab-demo/assets/og/og.png",
+        "sameAs": [
+          "https://marcoluna-nqn.github.io/winlab-demo/"
         ]
       },
       {
-        "@type": "SoftwareApplication",
+        "@type": "Product",
         "name": "WinLab",
-        "applicationCategory": "SecurityApplication",
-        "operatingSystem": "Windows 10/11 Pro",
-        "offers": {"@type":"Offer","price":"0.00","priceCurrency":"USD","url":"https://marcoluna-nqn.github.io/winlab-demo/"}
+        "brand": {"@type":"Brand","name":"WinLab Security"},
+        "image": "https://marcoluna-nqn.github.io/winlab-demo/assets/og/og.png",
+        "description": "Laboratorio descartable en Windows Sandbox con reportes HTML/JSON listos para decidir rápido.",
+        "url": "https://marcoluna-nqn.github.io/winlab-demo/",
+        "offers": [
+          {"@type":"Offer","name":"Inicial","priceCurrency":"ARS","price":"0.00","availability":"https://schema.org/PreOrder","url":"https://marcoluna-nqn.github.io/winlab-demo/pricing.html"},
+          {"@type":"Offer","name":"Profesional","priceCurrency":"ARS","price":"0.00","availability":"https://schema.org/PreOrder","url":"https://marcoluna-nqn.github.io/winlab-demo/pricing.html"},
+          {"@type":"Offer","name":"Equipos","priceCurrency":"ARS","price":"0.00","availability":"https://schema.org/PreOrder","url":"https://marcoluna-nqn.github.io/winlab-demo/pricing.html"}
+        ]
       }
     ]
   }
@@ -54,7 +57,7 @@
     <div class="container header__inner">
       <a class="brand" href="./">
         <span class="brand__mark" aria-hidden="true">WL</span>
-        <span class="brand__name">WinLab</span>
+        <span class="brand__name">WinLab Security</span>
       </a>
       <nav class="nav">
         <a href="#how" class="nav__link">Cómo funciona</a>
@@ -106,19 +109,18 @@
     <section class="hero">
       <div class="container hero__grid">
         <div class="stack">
-          <div class="pill">Windows Sandbox + Microsoft Defender - reporte en minutos</div>
-          <h1>Si te llega un archivo raro, WinLab lo analiza sin arriesgar tu PC.</h1>
+          <div class="pill">Windows Sandbox + Defender · reporte listo</div>
+          <h1>WinLab Security: laboratorio descartable en Windows Sandbox + reporte listo.</h1>
           <p class="lead">
-            WinLab abre un Windows Sandbox descartable, actualiza Defender y analiza tu archivo más reciente.
-            Te deja un reporte HTML/JSON con semáforo y señales verificables, listo para decidir rápido.
+            Ejecutá un análisis seguro sin tocar tu PC: WinLab Security abre un sandbox descartable, actualiza Defender
+            y genera reportes HTML/JSON con semáforo y evidencias claras.
           </p>
           <div class="hero__cta">
             <a class="btn btn--primary" data-buy="whatsapp" data-plan="Profesional">Comprar ahora</a>
-            <a class="btn btn--secondary" href="mobile.html">Usarlo desde el celular</a>
-            <a class="btn btn--ghost" href="#how">Ver cómo funciona</a>
-            <a class="btn btn--secondary" data-video-open data-video-src="assets/media/demo-embed.html">Ver demo</a>
+            <a class="btn btn--secondary" data-video-open>Ver demo</a>
           </div>
           <p class="muted small">Sin servidor: descargás el paquete y lo ejecutás local.</p>
+          <p class="muted small">¿Querés operarlo desde el celular? <a class="underline-link" href="mobile.html">Ver WinLab Mobile</a>.</p>
         </div>
 
         <div class="hero__card">
@@ -160,20 +162,24 @@
       </div>
       <div class="container trust-bar">
         <div class="trust-item">
-          <strong>Privacidad local</strong>
-          <span class="muted small">No subimos tu archivo. Todo corre en tu Windows.</span>
+          <strong>Windows 10/11 Pro</strong>
+          <span class="muted small">Sandbox disponible en Pro, Enterprise o Education.</span>
         </div>
         <div class="trust-item">
-          <strong>Sandbox descartable</strong>
-          <span class="muted small">Aislado y sin persistencia al cerrar.</span>
+          <strong>Windows Sandbox</strong>
+          <span class="muted small">Entorno aislado y descartable.</span>
         </div>
         <div class="trust-item">
-          <strong>Defender actualizado</strong>
-          <span class="muted small">Firmas al día para un resultado realista.</span>
+          <strong>Microsoft Defender</strong>
+          <span class="muted small">Firmas al día antes del análisis.</span>
         </div>
         <div class="trust-item">
-          <strong>Reporte claro</strong>
-          <span class="muted small">Semáforo, evidencias y recomendación.</span>
+          <strong>Reporte HTML/JSON</strong>
+          <span class="muted small">Semáforo, evidencias y trazas.</span>
+        </div>
+        <div class="trust-item">
+          <strong>Soporte por WhatsApp</strong>
+          <span class="muted small">Respuesta en español según tu plan.</span>
         </div>
       </div>
     </section>
@@ -183,18 +189,18 @@
         <div class="stack">
           <div class="chip">Cómo funciona</div>
           <h2>Tres pasos, sin vueltas</h2>
-          <p class="muted">Todo local, sin promesas mágicas.</p>
+          <p class="muted">Todo local, sin subir archivos.</p>
         </div>
         <div class="grid grid--3">
           <div class="bento">
             <div class="bento__icon" aria-hidden="true">1</div>
             <h3>Descargás el paquete</h3>
-            <p class="muted">Lo extraés completo y abrís el perfil recomendado.</p>
+            <p class="muted">Lo extraés completo y abrís el preset recomendado.</p>
           </div>
           <div class="bento">
             <div class="bento__icon" aria-hidden="true">2</div>
             <h3>Sandbox analiza</h3>
-            <p class="muted">Defender se actualiza y analiza tu archivo en un entorno aislado.</p>
+            <p class="muted">Defender se actualiza y analiza en un entorno aislado.</p>
           </div>
           <div class="bento">
             <div class="bento__icon" aria-hidden="true">3</div>
@@ -209,7 +215,7 @@
       <div class="container stack">
         <div class="stack">
           <div class="chip">Beneficios</div>
-          <h2>Lo que hace que WinLab venda solo</h2>
+          <h2>Beneficios claros para decidir hoy</h2>
           <p class="muted">Pensado para cerrar rápido con evidencia.</p>
         </div>
         <div class="bento-grid">
@@ -220,8 +226,8 @@
           </div>
           <div class="bento">
             <div class="bento__icon">🧪</div>
-            <h3>Descartable</h3>
-            <p class="muted">Cerrás el sandbox y desaparece todo lo que pasó adentro.</p>
+            <h3>Aislado</h3>
+            <p class="muted">El sandbox es descartable y no toca el host.</p>
           </div>
           <div class="bento">
             <div class="bento__icon">🧾</div>
@@ -229,19 +235,29 @@
             <p class="muted">Semáforo, hashes, MOTW, firma digital y señales de red.</p>
           </div>
           <div class="bento">
-            <div class="bento__icon">🧼</div>
-            <h3>Sin ensuciar tu PC</h3>
-            <p class="muted">Todo corre aislado. El host queda limpio.</p>
+            <div class="bento__icon">🧩</div>
+            <h3>Presets listos</h3>
+            <p class="muted">Equilibrado, ultra seguro y con red según tu caso.</p>
           </div>
           <div class="bento">
-            <div class="bento__icon">🔒</div>
-            <h3>Privacidad real</h3>
-            <p class="muted">No subimos muestras ni pedimos acceso a tu nube.</p>
+            <div class="bento__icon">🚀</div>
+            <h3>Lanzador en 1 clic</h3>
+            <p class="muted">Abrís WinLab y ejecutás el flujo en segundos.</p>
           </div>
           <div class="bento">
-            <div class="bento__icon">🛟</div>
-            <h3>Asistente de modo seguro</h3>
-            <p class="muted">Descargable, reversible y con aviso de permisos admin.</p>
+            <div class="bento__icon">🖱️</div>
+            <h3>Menú contextual</h3>
+            <p class="muted">Clic derecho en un archivo y análisis inmediato.</p>
+          </div>
+          <div class="bento">
+            <div class="bento__icon">📱</div>
+            <h3>Mobile remoto</h3>
+            <p class="muted">Accedés desde el celular con host seguro.</p>
+          </div>
+          <div class="bento">
+            <div class="bento__icon">🧭</div>
+            <h3>Logs claros</h3>
+            <p class="muted">Trazas y diagnósticos listos para soporte.</p>
           </div>
         </div>
       </div>
@@ -258,7 +274,7 @@
           <div class="stack">
             <p>Te mostramos el flujo completo: sandbox descartable, Microsoft Defender actualizado y reporte con semáforo. No requiere instalar nada extra.</p>
             <div class="video-actions">
-              <a class="btn btn--primary" data-video-open data-video-src="assets/media/demo-embed.html">Ver demo</a>
+              <a class="btn btn--primary" data-video-open>Ver demo</a>
               <a class="btn btn--secondary" href="assets/media/winlab-demo.mp4" download>Descargar video</a>
               <a class="btn btn--ghost" href="#reports">Ver ejemplo de reporte</a>
             </div>
@@ -277,7 +293,7 @@
       <div class="container stack">
         <div class="stack">
           <div class="chip">Reportes</div>
-          <h2>Te deja una decisión clara</h2>
+          <h2>Vista previa de reportes</h2>
           <p class="muted">OK no es garantía absoluta. Inconcluso pide repetir o validar.</p>
         </div>
         <div class="report-preview">
@@ -429,8 +445,8 @@
             <p class="muted">Si la actualización falla, el reporte puede quedar inconcluso.</p>
           </li>
           <li>
-            <strong>Asistente de modo seguro opcional.</strong>
-            <p class="muted">Descargable y reversible: <a class="underline-link" href="downloads/safe_mode/README.txt">ver pasos</a>.</p>
+            <strong>Modo seguro opcional con helper.</strong>
+            <p class="muted">Descargable y reversible: <a class="underline-link" href="downloads/safe_mode/SafeMode_Helper.cmd">usar helper</a> o <a class="underline-link" href="downloads/safe_mode/README.txt">ver pasos</a>.</p>
           </li>
         </ul>
         <div class="download">
@@ -461,7 +477,7 @@
       <div class="container stack">
         <div class="stack">
           <div class="chip">Empresa y soporte</div>
-          <h2>WinLab con soporte humano y SLA claro</h2>
+          <h2>WinLab Security con soporte humano y SLA claro</h2>
           <p class="muted">Contacto directo y tiempos de respuesta definidos según tu plan.</p>
         </div>
         <div class="pricing-grid">
@@ -470,7 +486,7 @@
             <div class="plan-subtitle">Horarios: Lun-Vie 9 a 18 (UTC-3).</div>
             <ul class="plan-list">
               <li>WhatsApp: +54 9 299 620 9136</li>
-              <li>Correo: soporte@winlab.security (o el que definas)</li>
+              <li>Correo: soporte@winlab.security</li>
               <li>Respuestas en español, sin bots.</li>
             </ul>
             <div class="plan-actions">
@@ -555,7 +571,7 @@
       <div>
         <div class="brand brand--small">
           <span class="brand__mark" aria-hidden="true">WL</span>
-          <span class="brand__name">WinLab</span>
+          <span class="brand__name">WinLab Security</span>
         </div>
         <p class="muted">Laboratorio descartable para análisis seguro con Windows Sandbox + Defender.</p>
       </div>
@@ -586,7 +602,7 @@
     <div class="pwa-panel">
       <div class="stack">
         <strong>Instalar WinLab</strong>
-        <p class="muted">Agregá WinLab al inicio para abrirlo como aplicacion web.</p>
+        <p class="muted">Agregá WinLab al inicio para abrirlo como aplicación web.</p>
       </div>
       <div class="pwa-steps">
         <div><strong>iPhone/iPad:</strong> tocá Compartir y luego "Agregar a inicio".</div>
