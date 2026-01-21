@@ -1,9 +1,10 @@
 ﻿# Changelog
 
 ## v0.8.2 - 2026-01-20
-- **UX**: menu contextual "Analizar con WinLab" para archivos y accesos URL, con launcher integrado.
+- **UX**: menu contextual "Analizar con WinLab" para archivos y accesos URL, con lanzador integrado.
 - **Host Remoto**: servicio local opcional con clave API, limite de solicitudes y docs para uso desde celular.
 - **Reportes**: resumen para humanos en HTML/JSON + samples actualizados.
+- **Docs**: terminologia lanzador/perfil en guias y README.
 
 ## v0.8.1 - 2026-01-20
 - **Launcher**: selector de preset, soporte archivo/URL, staging en `C:\WinLab_Pack` y apertura de reporte al finalizar.

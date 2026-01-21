@@ -10,7 +10,7 @@ for %%I in ("%ROOT%") do set "ROOT=%%~fI"
 set "LAUNCHER=%ROOT%\downloads\launcher\WinLab_Launcher.cmd"
 
 if not exist "%LAUNCHER%" (
-  echo WinLab Launcher no encontrado: %LAUNCHER%
+  echo Lanzador WinLab no encontrado: %LAUNCHER%
   exit /b 3
 )
 
