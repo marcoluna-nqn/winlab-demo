@@ -3,35 +3,49 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="WinLab analiza archivos sospechosos en Windows Sandbox y te deja un reporte claro sin arriesgar tu PC. Compra simple por WhatsApp." />
-  <title>WinLab - Analizá archivos sospechosos sin arriesgar tu PC</title>
+  <meta name="description" content="WinLab es un laboratorio descartable con Windows Sandbox + Microsoft Defender. Analizá archivos y links sin arriesgar tu PC y obtené reportes claros." />
+  <link rel="canonical" href="https://marcoluna-nqn.github.io/winlab-demo/" />
+  <title>WinLab - Laboratorio descartable para archivos y links</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="manifest" href="assets/pwa/manifest.webmanifest" />
   <meta name="theme-color" content="#1d7dfb" />
-  <meta property="og:title" content="WinLab - Sandbox descartable con reportes claros" />
-  <meta property="og:description" content="WinLab abre Windows Sandbox, actualiza Defender y te deja un reporte OK/Detectado/Inconcluso listo para decidir rápido." />
+  <meta property="og:title" content="WinLab - Laboratorio descartable para archivos y links" />
+  <meta property="og:description" content="Windows Sandbox + Microsoft Defender + reportes claros. Comprar ahora por WhatsApp." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://marcoluna-nqn.github.io/winlab-demo/" />
-  <meta property="og:image" content="https://marcoluna-nqn.github.io/winlab-demo/assets/favicon.svg" />
+  <meta property="og:image" content="https://marcoluna-nqn.github.io/winlab-demo/assets/og/og.png" />
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="WinLab - Sandbox descartable con reportes claros" />
-  <meta name="twitter:description" content="Probá archivos dudosos en Windows Sandbox y recibí un reporte listo en minutos." />
+  <meta name="twitter:title" content="WinLab - Laboratorio descartable" />
+  <meta name="twitter:description" content="Probá archivos o links sin ensuciar tu PC. Reportes listos, compra por WhatsApp." />
+  <meta name="twitter:image" content="https://marcoluna-nqn.github.io/winlab-demo/assets/og/og.png" />
   <link rel="stylesheet" href="assets/styles.css" />
   <script defer src="assets/config.js"></script>
   <script defer src="assets/app.js"></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Service",
-    "name": "WinLab",
-    "serviceType": "Laboratorio descartable en Windows Sandbox con reportes",
-    "description": "Laboratorio descartable que usa Windows Sandbox y Microsoft Defender para analizar archivos sospechosos y generar reportes claros.",
-    "provider": {
-      "@type": "Organization",
-      "name": "WinLab"
-    },
-    "areaServed": "AR",
-    "url": "https://marcoluna-nqn.github.io/winlab-demo/"
+    "@graph": [
+      {
+        "@type": "Product",
+        "name": "WinLab",
+        "brand": "WinLab",
+        "image": "https://marcoluna-nqn.github.io/winlab-demo/assets/og/og.png",
+        "description": "Laboratorio descartable para analizar archivos y links con Windows Sandbox + Microsoft Defender.",
+        "url": "https://marcoluna-nqn.github.io/winlab-demo/",
+        "offers": [
+          {"@type":"Offer","name":"Inicial","priceCurrency":"USD","price":"0.00","availability":"https://schema.org/PreOrder","url":"https://marcoluna-nqn.github.io/winlab-demo/pricing.html"},
+          {"@type":"Offer","name":"Profesional","priceCurrency":"USD","price":"0.00","availability":"https://schema.org/PreOrder","url":"https://marcoluna-nqn.github.io/winlab-demo/pricing.html"},
+          {"@type":"Offer","name":"Equipos","priceCurrency":"USD","price":"0.00","availability":"https://schema.org/PreOrder","url":"https://marcoluna-nqn.github.io/winlab-demo/pricing.html"}
+        ]
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "WinLab",
+        "applicationCategory": "SecurityApplication",
+        "operatingSystem": "Windows 10/11 Pro",
+        "offers": {"@type":"Offer","price":"0.00","priceCurrency":"USD","url":"https://marcoluna-nqn.github.io/winlab-demo/"}
+      }
+    ]
   }
   </script>
 </head>
@@ -45,9 +59,11 @@
       <nav class="nav">
         <a href="#how" class="nav__link">Cómo funciona</a>
         <a href="#features" class="nav__link">Beneficios</a>
+        <a href="#demo" class="nav__link">Demo</a>
         <a href="#reports" class="nav__link">Reportes</a>
         <a href="#pricing" class="nav__link">Planes</a>
         <a href="mobile.html" class="nav__link">Desde el celular</a>
+        <a href="#company" class="nav__link">Empresa</a>
         <a href="#faq" class="nav__link">Preguntas</a>
         <button class="nav__btn nav__btn--ghost" type="button" data-pwa-install>Instalar WinLab</button>
         <a class="nav__btn" data-buy="whatsapp" data-plan="Profesional">Comprar ahora</a>
@@ -67,10 +83,12 @@
     <div class="nav__mobile" data-nav-mobile>
       <a href="#how" class="nav__link">Cómo funciona</a>
       <a href="#features" class="nav__link">Beneficios</a>
-      <a href="#reports" class="nav__link">Reportes</a>
-      <a href="#pricing" class="nav__link">Planes</a>
-      <a href="mobile.html" class="nav__link">Desde el celular</a>
-      <a href="#faq" class="nav__link">Preguntas</a>
+        <a href="#reports" class="nav__link">Reportes</a>
+        <a href="#pricing" class="nav__link">Planes</a>
+        <a href="mobile.html" class="nav__link">Desde el celular</a>
+        <a href="#demo" class="nav__link">Demo</a>
+        <a href="#company" class="nav__link">Empresa</a>
+        <a href="#faq" class="nav__link">Preguntas</a>
       <button class="nav__btn nav__btn--ghost" type="button" data-pwa-install>Instalar WinLab</button>
       <a class="nav__btn" data-buy="whatsapp" data-plan="Profesional">Comprar ahora</a>
       <div class="theme-toggle">
@@ -98,6 +116,7 @@
             <a class="btn btn--primary" data-buy="whatsapp" data-plan="Profesional">Comprar ahora</a>
             <a class="btn btn--secondary" href="mobile.html">Usarlo desde el celular</a>
             <a class="btn btn--ghost" href="#how">Ver cómo funciona</a>
+            <a class="btn btn--secondary" data-video-open data-video-src="assets/media/demo-embed.html">Ver demo</a>
           </div>
           <p class="muted small">Sin servidor: descargás el paquete y lo ejecutás local.</p>
         </div>
@@ -223,6 +242,32 @@
             <div class="bento__icon">🛟</div>
             <h3>Asistente de modo seguro</h3>
             <p class="muted">Descargable, reversible y con aviso de permisos admin.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="demo" class="section section--tight">
+      <div class="container stack">
+        <div class="stack">
+          <div class="chip">Demo en vivo</div>
+          <h2>Mirá cómo se ve WinLab antes de comprar</h2>
+          <p class="muted">Video corto: abrir sandbox, analizar y ver el reporte listo.</p>
+        </div>
+        <div class="demo-grid">
+          <div class="stack">
+            <p>Te mostramos el flujo completo: sandbox descartable, Microsoft Defender actualizado y reporte con semáforo. No requiere instalar nada extra.</p>
+            <div class="video-actions">
+              <a class="btn btn--primary" data-video-open data-video-src="assets/media/demo-embed.html">Ver demo</a>
+              <a class="btn btn--secondary" href="assets/media/winlab-demo.mp4" download>Descargar video</a>
+              <a class="btn btn--ghost" href="#reports">Ver ejemplo de reporte</a>
+            </div>
+          </div>
+          <div class="video-card">
+            <video controls playsinline preload="none" poster="assets/media/winlab-demo-poster.png">
+              <source src="assets/media/winlab-demo.mp4" type="video/mp4" />
+              Tu navegador no puede reproducir el video.
+            </video>
           </div>
         </div>
       </div>
@@ -412,6 +457,44 @@
       </div>
     </section>
 
+    <section id="company" class="section section--tight">
+      <div class="container stack">
+        <div class="stack">
+          <div class="chip">Empresa y soporte</div>
+          <h2>WinLab con soporte humano y SLA claro</h2>
+          <p class="muted">Contacto directo y tiempos de respuesta definidos según tu plan.</p>
+        </div>
+        <div class="pricing-grid">
+          <div class="plan-card">
+            <span class="plan-chip">Contacto</span>
+            <div class="plan-subtitle">Horarios: Lun-Vie 9 a 18 (UTC-3).</div>
+            <ul class="plan-list">
+              <li>WhatsApp: +54 9 299 620 9136</li>
+              <li>Correo: soporte@winlab.security (o el que definas)</li>
+              <li>Respuestas en español, sin bots.</li>
+            </ul>
+            <div class="plan-actions">
+              <a class="btn btn--primary" data-buy="whatsapp" data-plan="Soporte">Hablar ahora</a>
+              <a class="btn btn--ghost" href="docs/guia_cliente.html#soporte">Ver guía cliente</a>
+            </div>
+          </div>
+          <div class="plan-card plan-card--featured">
+            <span class="plan-chip">SLA por plan</span>
+            <div class="plan-subtitle">Tiempo máximo de respuesta.</div>
+            <ul class="plan-list">
+              <li>Inicial: respuesta en 1 día hábil.</li>
+              <li>Profesional: respuesta en 8 horas hábiles.</li>
+              <li>Equipos: respuesta en 4 horas hábiles y ventana acordada.</li>
+            </ul>
+            <div class="plan-actions">
+              <a class="btn btn--primary" data-buy="whatsapp" data-plan="Profesional">Comprar ahora</a>
+              <a class="btn btn--ghost" href="pricing.html#tabla">Ver tabla de planes</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="faq" class="section">
       <div class="container stack">
         <div class="stack">
@@ -485,6 +568,19 @@
       </div>
     </div>
   </footer>
+
+  <div class="video-modal" data-video-modal hidden>
+    <div class="video-modal__dialog" role="dialog" aria-modal="true" aria-label="Demo de WinLab">
+      <button class="video-modal__close" type="button" data-video-close aria-label="Cerrar demo">Cerrar</button>
+      <div class="video-modal__content">
+        <iframe data-video-frame title="Demo WinLab" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy" hidden></iframe>
+        <video data-video-fallback controls playsinline preload="none" poster="assets/media/winlab-demo-poster.png" hidden>
+          <source data-src="assets/media/winlab-demo.mp4" type="video/mp4" />
+          Tu navegador no puede reproducir el video.
+        </video>
+      </div>
+    </div>
+  </div>
 
   <div class="pwa-sheet" data-pwa-sheet hidden>
     <div class="pwa-panel">

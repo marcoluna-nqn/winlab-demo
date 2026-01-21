@@ -5,7 +5,7 @@
 3) Confirm `dist/SHA256SUMS.txt` matches the generated zips.
 4) Verify `assets/config.js` has real payment links or WhatsApp fallback.
 5) Check `pricing.html` shows plans and delivery/requisitos sections.
-6) Check `index.html` CTA: "Descargar y ejecutar" and "Ver planes".
+6) Check `index.html` CTA: "Comprar ahora", "Ver demo" y links a precios.
 7) Validate launcher on a clean Windows 10/11 Pro host with Sandbox enabled.
 8) Confirm GitHub release exists with assets attached.
 9) Confirm GitHub Pages is set to main /(root) and site loads.

@@ -8,6 +8,7 @@ Highlights:
 - Instalador Inno Setup 1.0.0 con accesos WinLab/Doctor/Host Remoto.
 - Launcher con interfaz (sin parpadeos), estado de licencia y botón de actualización.
 - Reportes schema 1.1 con pasos recomendados y botón imprimir/PDF.
+- Landing con sección de demo (video), OG para LinkedIn/Twitter y sección Empresa/Soporte.
 
 Artifacts (dist):
 - `dist/winlab_site.zip`

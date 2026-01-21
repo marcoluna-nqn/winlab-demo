@@ -200,4 +200,66 @@
       if (event.target === pwaSheet) closePwaSheet();
     });
   }
+
+  // Video modal (demo)
+  const videoModal = document.querySelector('[data-video-modal]');
+  const videoFrame = videoModal ? videoModal.querySelector('[data-video-frame]') : null;
+  const videoFallback = videoModal ? videoModal.querySelector('[data-video-fallback]') : null;
+  const videoSources = videoFallback ? Array.from(videoFallback.querySelectorAll('source')) : [];
+
+  const stopVideos = () => {
+    if (videoFrame) videoFrame.src = '';
+    if (videoFallback) {
+      videoFallback.pause();
+      videoSources.forEach((s) => {
+        if (s.dataset.src) s.removeAttribute('src');
+      });
+      videoFallback.load();
+    }
+  };
+
+  const closeVideoModal = () => {
+    if (!videoModal) return;
+    videoModal.hidden = true;
+    document.body.classList.remove('modal-open');
+    stopVideos();
+  };
+
+  const openVideoModal = (src) => {
+    if (!videoModal) return;
+    if (videoFrame && src) {
+      videoFrame.hidden = false;
+      videoFrame.src = src.includes('autoplay') ? src : `${src}${src.includes('?') ? '&' : '?'}autoplay=1&mute=1`;
+      if (videoFallback) videoFallback.hidden = true;
+    } else if (videoFallback) {
+      videoSources.forEach((s) => {
+        if (!s.src && s.dataset.src) s.src = s.dataset.src;
+      });
+      videoFallback.hidden = false;
+      videoFallback.load();
+      videoFallback.play().catch(() => {});
+      if (videoFrame) videoFrame.hidden = true;
+    }
+    videoModal.hidden = false;
+    document.body.classList.add('modal-open');
+  };
+
+  document.querySelectorAll('[data-video-open]').forEach((btn) => {
+    btn.addEventListener('click', (event) => {
+      event.preventDefault();
+      const src = btn.getAttribute('data-video-src');
+      openVideoModal(src);
+    });
+  });
+
+  if (videoModal) {
+    const closeBtn = videoModal.querySelector('[data-video-close]');
+    if (closeBtn) closeBtn.addEventListener('click', closeVideoModal);
+    videoModal.addEventListener('click', (event) => {
+      if (event.target === videoModal) closeVideoModal();
+    });
+    window.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !videoModal.hidden) closeVideoModal();
+    });
+  }
 })();

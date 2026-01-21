@@ -6,7 +6,8 @@
 - **Licencia/Update**: licencia local firmada (license.json) y updater WinLab_Update.ps1 con SHA.
 - **Reportes**: schema 1.1 con pasos recomendados y botón exportar PDF/print; samples actualizados.
 - **Web**: sección de licencia y planes con acceso mobile; copia ES-AR pulida.
-- **QA/Build**: smoke tests para licencia, UI, updater y schema 1.1; build incluye host remoto y licencia.
+- **Demo/SEO**: sección de video con modal y OG image para LinkedIn/Twitter; sección Empresa/Soporte.
+- **QA/Build**: smoke tests para licencia, UI, updater y schema 1.1; build incluye host remoto y licencia; CI en GitHub Actions.
 
 ## v0.8.2 - 2026-01-20
 - **UX**: menu contextual "Analizar con WinLab" para archivos y accesos URL, con lanzador integrado.

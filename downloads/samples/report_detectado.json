@@ -158,7 +158,7 @@
                                          "porQue":  "Microsoft Defender detecto amenazas."
                                      },
                     "recommendedSteps":  [
-                                             "Aislá el archivo y no lo abras más (ni siquiera en “Vista previa”).",
+                                             "Aislá el archivo y no lo abras más (ni siquiera en \"Vista previa\").",
                                              "Avisá a IT/Seguridad y compartí este reporte completo.",
                                              "Si ya lo ejecutaste, desconectá el equipo de la red y restaurá desde backup limpio."
                                          ]
