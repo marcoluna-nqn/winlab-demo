@@ -11,6 +11,15 @@ downloads/presets/WinLab_Networked.wsb
 downloads/presets/WinLab_Networked_AUTO.wsb
 downloads/presets/WinLab_UltraSecure.wsb
 downloads/presets/WinLab_UltraSecure_AUTO.wsb
+downloads/remote_host/Install_RemoteHost.ps1
+downloads/remote_host/README_REMOTE_HOST_ESAR.txt
+downloads/remote_host/remote_host_config.json
+downloads/remote_host/RemoteHost_Doctor.ps1
+downloads/remote_host/RemoteHost_Hardening.txt
+downloads/remote_host/Start_RemoteHost.ps1
+downloads/remote_host/Stop_RemoteHost.ps1
+downloads/remote_host/Uninstall_RemoteHost.ps1
+downloads/remote_host/WinLab_RemoteHost.ps1
 downloads/safe_mode/README.txt
 downloads/safe_mode/SafeMode_Helper.cmd
 downloads/samples/report_detectado.html
@@ -23,5 +32,6 @@ tools/cli/bin/InsideLab.ps1
 tools/cli/WinLab.cmd
 tools/cli/WinLab.ps1
 tools/cli/winlab_cli.ps1
+tools/cli/WinLab_Context.cmd
 Uninstall-WinLab.ps1
 VERSION.txt
