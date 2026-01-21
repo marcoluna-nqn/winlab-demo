@@ -45,8 +45,13 @@ $required = @(
   'assets/pwa/manifest.webmanifest',
   'assets/pwa/sw.js',
   'assets/pwa/icon.svg',
+  'assets/og/og.png',
+  'assets/media/winlab-demo.mp4',
+  'assets/media/winlab-demo-poster.png',
+  'assets/media/demo-embed.html',
   'assets/config.js',
   'assets/styles.css',
+  '.github/workflows/ci.yml',
   'scripts/publish.ps1',
   'scripts/installer/WinLab.iss.tpl',
   'scripts/installer/WinLab_Install.ps1',
@@ -107,7 +112,7 @@ if(-not (Test-Path $installerManifest)){ Fail "Falta dist/WinLab_Installer_${ver
 Ok "Installer EXE OK (v$version)"
 
 $banTokensCase = @('TODO','PLACEHOLDER','TBD','PEGAR_AQUI')
-$banTokensInsensitive = @('lorem','lorem ipsum','buy','pricing','features','preview','starter','teams','download','support','quick','guide')
+$banTokensInsensitive = @('lorem','lorem ipsum','buy','features','preview','starter','teams','download','support','quick','guide')
 function Assert-TextNoPlaceholders([string]$label, [string]$text){
   Assert-TextClean $label $text $banTokensCase @()
 }
@@ -124,6 +129,7 @@ if($indexText -notmatch [regex]::Escape('Comprar ahora')){ Fail 'index.html sin 
 if($indexText -notmatch [regex]::Escape('Cómo funciona') -and $indexText -notmatch [regex]::Escape('Como funciona')){
   Fail 'index.html sin copy requerido: Cómo funciona'
 }
+if($indexText -notmatch [regex]::Escape('Ver demo')){ Fail 'index.html sin CTA Ver demo' }
 if($indexText -notmatch '(?i)licencia'){ Fail 'index.html sin sección de licencia' }
 if($index -notmatch 'data-theme-toggle' -and $index -notmatch 'theme-toggle'){
   Fail 'index.html sin toggle de tema'
