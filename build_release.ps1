@@ -76,6 +76,8 @@ if($innoPath){
   & $innoPath $issOut | Out-Null
 } else {
   Write-Host "[WARN] Inno Setup no encontrado. Usando IExpress." -ForegroundColor Yellow
+  Write-Host "[WARN] Instala Inno Setup (ISCC.exe) para generar el instalador firmado." -ForegroundColor Yellow
+  Write-Host "[WARN] Descarga: https://jrsoftware.org/isdl.php" -ForegroundColor Yellow
   $sed = Join-Path $dist 'WinLab_Installer.sed'
   $payloadRel = Get-ChildItem -Path $payload -Recurse -File | ForEach-Object {
     $_.FullName.Substring($installerStage.Length + 1)

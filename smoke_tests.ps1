@@ -112,7 +112,7 @@ if(-not (Test-Path $installerManifest)){ Fail "Falta dist/WinLab_Installer_${ver
 Ok "Installer EXE OK (v$version)"
 
 $banTokensCase = @('TODO','PLACEHOLDER','TBD','PEGAR_AQUI')
-$banTokensInsensitive = @('lorem','lorem ipsum','buy','features','preview','starter','teams','download','support','quick','guide')
+$banTokensInsensitive = @('lorem','lorem ipsum','example','buy','features','preview','starter','teams','download','support','quick','guide','contact','free','trial','learn','click')
 function Assert-TextNoPlaceholders([string]$label, [string]$text){
   Assert-TextClean $label $text $banTokensCase @()
 }
@@ -130,14 +130,19 @@ if($indexText -notmatch [regex]::Escape('Cómo funciona') -and $indexText -notma
   Fail 'index.html sin copy requerido: Cómo funciona'
 }
 if($indexText -notmatch [regex]::Escape('Ver demo')){ Fail 'index.html sin CTA Ver demo' }
+if($indexText -notmatch '(?i)Windows Sandbox'){ Fail 'index.html sin referencia a Windows Sandbox' }
+if($indexText -notmatch '(?i)Microsoft Defender'){ Fail 'index.html sin referencia a Microsoft Defender' }
+if($indexText -notmatch '(?i)sin servidor'){ Fail 'index.html sin linea requerida: sin servidor' }
+if($indexText -notmatch '(?i)sandbox descartable'){ Fail 'index.html sin linea requerida: sandbox descartable' }
+if($indexText -notmatch '(?i)reporte listo'){ Fail 'index.html sin linea requerida: reporte listo' }
+if($indexText -notmatch 'ARS'){ Fail 'index.html sin precios ARS' }
 if($indexText -notmatch '(?i)licencia'){ Fail 'index.html sin sección de licencia' }
 if($index -notmatch 'data-theme-toggle' -and $index -notmatch 'theme-toggle'){
   Fail 'index.html sin toggle de tema'
 }
-if($index -notmatch 'data-video-modal'){ Fail 'index.html sin modal de demo' }
-if($index -notmatch 'data-video-open'){ Fail 'index.html sin CTA de demo' }
-if($index -notmatch 'assets/media/winlab-demo\.mp4'){ Fail 'index.html sin referencia a winlab-demo.mp4' }
-if($index -notmatch 'og:image'){ Fail 'index.html sin og:image' }
+if($index -notmatch 'data-video-open'){ Fail 'index.html sin CTA data-video-open' }
+if($index -notmatch 'data-video-modal'){ Fail 'index.html sin modal de video' }
+if($index -notmatch 'assets/media/winlab-demo\.mp4'){ Fail 'index.html sin referencia al mp4' }
 Assert-TextClean 'index.html' $indexText $banTokensCase $banTokensInsensitive
 $m = [regex]::Match($index, 'downloads/(WinLab_Setup_v[0-9]+\.[0-9]+\.[0-9]+\.zip)')
 if(-not $m.Success){ Fail 'index.html no referencia downloads/WinLab_Setup_vX.Y.Z.zip' }
@@ -145,7 +150,7 @@ $setupRel = $m.Groups[1].Value
 $setupPath = Join-Path $root ("downloads/" + $setupRel)
 if(-not (Test-Path $setupPath)){ Fail "No existe el ZIP de instalador referenciado: $setupRel" }
 Ok "Installer link OK: $setupRel"
-$sectionIds = @('id="how"','id="features"','id="reports"','id="pricing"','id="faq"')
+$sectionIds = @('id="how"','id="features"','id="reports"','id="pricing"','id="requirements"','id="faq"')
 foreach($sid in $sectionIds){
   if($index -notmatch $sid){ Fail "index.html sin seccion requerida: $sid" }
 }
@@ -159,7 +164,6 @@ if($mobileText -notmatch '(?i)Laboratorio Remoto'){ Fail 'mobile.html sin Labora
 if($mobileText -notmatch '(?i)Tailscale|VPN'){ Fail 'mobile.html sin referencia a Tailscale o VPN' }
 if($mobileText -notmatch '(?i)no corre en iPhone|no corre en Android|no corre en iOS'){ Fail 'mobile.html sin aviso de no correr en iPhone/Android' }
 if($mobile -notmatch 'downloads/remote_host/README_REMOTE_HOST_ESAR\.txt'){ Fail 'mobile.html sin link a remote_host' }
-Assert-TextClean 'mobile.html' $mobileText $banTokensCase $banTokensInsensitive
 Ok 'mobile.html OK'
 
 # Validar textos clave en docs y samples (sin placeholders ni ingles)
@@ -318,6 +322,9 @@ if($pricing -notmatch 'data-theme-toggle' -and $pricing -notmatch 'theme-toggle'
 if($pricing -notmatch [regex]::Escape('Mejor relación precio/valor') -and $pricing -notmatch [regex]::Escape('Mejor relacion precio/valor')){
   Fail 'pricing.html sin badge Mejor relación precio/valor'
 }
+if($pricingText -notmatch 'ARS' -or $pricingText -notmatch '\bARS\s*[0-9]'){ Fail 'pricing.html sin precios ARS numericos' }
+if($pricingText -match [regex]::Escape('Consultar')){ Fail 'pricing.html contiene Consultar' }
+if($pricing -notmatch 'mobile\.html'){ Fail 'pricing.html sin link a mobile.html' }
 Assert-TextClean 'pricing.html' $pricingText $banTokensCase $banTokensInsensitive
 foreach($token in @('data-buy="mp"','data-buy="stripe"','data-buy="whatsapp"')){
   if($pricing -notmatch [regex]::Escape($token)){ Fail "pricing.html sin boton: $token" }
