@@ -1,5 +1,5 @@
 ﻿{
-    "schemaVersion":  "1.0",
+    "schemaVersion":  "1.1",
     "sample":  true,
     "sampleNotice":  "Ejemplo simulado para mostrar formato. No proviene de un escaneo real.",
     "meta":  {
@@ -12,7 +12,7 @@
                  "openedUrl":  false,
                  "startedAt":  "2026-01-19T12:00:01Z",
                  "endedAt":  "2026-01-19T12:02:44Z",
-                 "winlabVersion":  "0.8.0"
+                 "winlabVersion":  "1.0.0"
              },
     "target":  {
                    "fileName":  "invoice_2026-01-19.pdf",
@@ -146,6 +146,13 @@
                                          "riesgo":  "Riesgo MINIMO (12/100)",
                                          "queHacer":  "Si el origen es confiable, podes continuar. Si es dudoso, valida con otra herramienta.",
                                          "porQue":  "No hay detecciones de Microsoft Defender."
-                                     }
+                                     },
+                    "recommendedSteps":  [
+                                             "Conservá el archivo aislado si el origen es dudoso.",
+                                             "Si alguien te lo pidió por WhatsApp/Correo, verificá la identidad antes de abrirlo.",
+                                             "Guardá este reporte y repetí en Ultra seguro si cambia el comportamiento."
+                                         ]
                 }
 }
+
+

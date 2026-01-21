@@ -1,5 +1,5 @@
 ﻿{
-    "schemaVersion":  "1.0",
+    "schemaVersion":  "1.1",
     "sample":  true,
     "sampleNotice":  "Ejemplo simulado para mostrar formato. No proviene de un escaneo real.",
     "meta":  {
@@ -12,7 +12,7 @@
                  "openedUrl":  true,
                  "startedAt":  "2026-01-19T12:42:01Z",
                  "endedAt":  "2026-01-19T12:45:01Z",
-                 "winlabVersion":  "0.8.0"
+                 "winlabVersion":  "1.0.0"
              },
     "target":  {
                    "fileName":  "invoice.exe",
@@ -182,6 +182,13 @@
                                          "riesgo":  "Riesgo MEDIO (55/100)",
                                          "queHacer":  "Reintenta con red y valida por otra via antes de decidir.",
                                          "porQue":  "Firmas desactualizadas o señales fuertes."
-                                     }
+                                     },
+                    "recommendedSteps":  [
+                                             "Repetí con perfil \"Con red\" y asegurate de que Defender se actualice antes de correr.",
+                                             "Probá con una copia nueva del archivo (descarga limpia) y compara hashes.",
+                                             "Compartí este reporte con soporte WinLab para revisar los indicios."
+                                         ]
                 }
 }
+
+

@@ -74,7 +74,7 @@ function Init-Log([string]$folder){
   } catch {}
 }
 function Get-WinLabVersion {
-  $v = '0.8.0'
+  $v = '1.0.0'
   try{
     $binDir = Split-Path -Parent $MyInvocation.MyCommand.Path
     $root = Split-Path -Parent $binDir
@@ -835,6 +835,12 @@ function Write-ReportFiles([string]$runDir, [object]$report){
     $urlSection = "<section class=\"card\"><h2>Análisis de URL</h2><p class=\"muted\">No disponible: $(HtmlE ($report.urlAnalysis.error+''))</p></section>"
   }
 
+  $stepsHtml = ""
+  if($report.summary.recommendedSteps -and $report.summary.recommendedSteps.Count -gt 0){
+    $items = $report.summary.recommendedSteps | ForEach-Object { "<li>" + (HtmlE ($_+'')) + "</li>" }
+    $stepsHtml = "<section class=\"card\"><h2>Pasos recomendados</h2><ul class=\"bullets\">" + ($items -join '') + "</ul></section>"
+  }
+
   $html = @"
 <!doctype html>
 <html lang="es">
@@ -849,6 +855,8 @@ function Write-ReportFiles([string]$runDir, [object]$report){
     .header{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;margin-bottom:12px;}
     .badge{display:inline-block;padding:8px 12px;border-radius:999px;color:#fff;background:$badge;font-weight:700;letter-spacing:.2px}
     .risk{display:inline-block;padding:6px 10px;border-radius:999px;color:#fff;background:$riskBadge;font-weight:700;letter-spacing:.2px}
+    .btn-print{border:1px solid var(--line);background:#0ea5e9;color:#fff;padding:8px 12px;border-radius:10px;cursor:pointer;font-weight:700;}
+    .btn-print:hover{opacity:.9}
     .card{border:1px solid var(--line);border-radius:16px;padding:16px;background:var(--card);margin-bottom:12px;}
     .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
     .k{font-weight:700;margin-bottom:6px;}
@@ -880,6 +888,7 @@ function Write-ReportFiles([string]$runDir, [object]$report){
       <div>
         <div class="badge">$statusText</div>
         <div class="risk" style="margin-top:6px;">Riesgo: $riskText</div>
+        <div style="margin-top:8px;"><button class="btn-print" onclick="window.print()">Exportar PDF</button></div>
       </div>
     </div>
 
@@ -891,6 +900,8 @@ function Write-ReportFiles([string]$runDir, [object]$report){
         <li><b>Por que:</b> $(HtmlE ($humanWhy+''))</li>
       </ul>
     </section>
+
+    $stepsHtml
 
     <section class="card">
       <h2>Resumen ejecutivo</h2>
@@ -987,6 +998,11 @@ function Write-ReportFiles([string]$runDir, [object]$report){
     $txt += "Resumen humano - Que hacer: $($report.summary.humanSummary.queHacer)"
     $txt += "Resumen humano - Por que: $($report.summary.humanSummary.porQue)"
   }
+  if($report.summary.recommendedSteps){
+    foreach($step in $report.summary.recommendedSteps){
+      $txt += "Paso recomendado: $step"
+    }
+  }
   $txt += "Archivo: $($report.target.fileName)"
   $txt += "SHA256: $($report.target.sha256)"
   $txt += "MOTW: $motwSummary"
@@ -1002,7 +1018,7 @@ function Write-ReportFiles([string]$runDir, [object]$report){
 # =====================
 # Main
 # =====================
-$schemaVersion = '1.0'
+$schemaVersion = '1.1'
 $startTime = Get-Date
 $deadline = $startTime.AddMinutes([math]::Max(1,$Minutes))
 
@@ -1266,6 +1282,24 @@ $humanSummary = [pscustomobject]@{
   porQue = $humanWhy
 }
 
+$recommendedSteps = switch($statusText){
+  'DETECTADO' { @(
+    'Aislá el archivo y no lo abras más (ni siquiera en “Vista previa”).',
+    'Avisá a IT/Seguridad y compartí este reporte completo.',
+    'Si ya lo ejecutaste, desconectá el equipo de la red y restaurá desde backup limpio.'
+  ) }
+  'OK' { @(
+    'Conservá el archivo aislado si el origen es dudoso.',
+    'Si alguien te lo pidió por WhatsApp/Correo, verificá la identidad antes de abrirlo.',
+    'Guardá este reporte y repetí en Ultra seguro si cambia el comportamiento.'
+  ) }
+  default { @(
+    'Repetí con perfil "Con red" y asegurate de que Defender se actualice antes de correr.',
+    'Probá con una copia nueva del archivo (descarga limpia) y compara hashes.',
+    'Compartí este reporte con soporte WinLab para revisar los indicios.'
+  ) }
+}
+
 # Duración total de escaneo
 $totalScan = 0
 try{ $totalScan = (@($scanRuns) | Measure-Object -Property durationMs -Sum).Sum } catch { $totalScan = 0 }
@@ -1343,6 +1377,7 @@ $report = [pscustomobject]@{
     inconclusiveReason = $inconclusiveReason
     recommendation = $recommendation
     humanSummary = $humanSummary
+    recommendedSteps = $recommendedSteps
   }
 }
 

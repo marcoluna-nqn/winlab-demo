@@ -1,5 +1,5 @@
 ﻿{
-    "schemaVersion":  "1.0",
+    "schemaVersion":  "1.1",
     "sample":  true,
     "sampleNotice":  "Ejemplo simulado para mostrar formato. No proviene de un escaneo real.",
     "meta":  {
@@ -12,7 +12,7 @@
                  "openedUrl":  false,
                  "startedAt":  "2026-01-19T12:15:01Z",
                  "endedAt":  "2026-01-19T12:16:10Z",
-                 "winlabVersion":  "0.8.0"
+                 "winlabVersion":  "1.0.0"
              },
     "target":  {
                    "fileName":  "setup.exe",
@@ -156,6 +156,13 @@
                                          "riesgo":  "Riesgo ALTO (95/100)",
                                          "queHacer":  "Bloquear y eliminar. No ejecutar ni habilitar macros.",
                                          "porQue":  "Microsoft Defender detecto amenazas."
-                                     }
+                                     },
+                    "recommendedSteps":  [
+                                             "Aislá el archivo y no lo abras más (ni siquiera en “Vista previa”).",
+                                             "Avisá a IT/Seguridad y compartí este reporte completo.",
+                                             "Si ya lo ejecutaste, desconectá el equipo de la red y restaurá desde backup limpio."
+                                         ]
                 }
 }
+
+
